@@ -34,6 +34,42 @@ class ProfileController extends Controller
         ];
     }
 
+    public function actionExport()
+    {
+        $model = User::find()->all();
+
+//        print_r($model);
+
+        $users = [];
+
+        foreach ($model as $user)
+        {
+            $users[$user->id]['id'] = $user->id;
+            $users[$user->id]['lastname'] = $user->profile->lastname;
+            $users[$user->id]['firstname'] = $user->profile->firstname;
+            $users[$user->id]['patronim'] = $user->profile->patronim;
+            $users[$user->id]['birthdate'] = $user->profile->birthdate;
+            $users[$user->id]['snils'] = $user->profile->snils;
+            $users[$user->id]['gender'] = $user->profile->gender;
+            $users[$user->id]['education_level'] = $user->profile->education_level;
+            $users[$user->id]['institution'] = $user->profile->institution;
+            $users[$user->id]['graduate_year'] = $user->profile->graduate_year;
+            $users[$user->id]['passport_series'] = $user->profile->passport_series;
+            $users[$user->id]['passport_number'] = $user->profile->passport_number;
+            $users[$user->id]['passport_issued'] = $user->profile->passport_issued;
+            $users[$user->id]['passport_code'] = $user->profile->passport_code;
+            $users[$user->id]['passport_date'] = $user->profile->passport_date;
+            $users[$user->id]['region'] = $user->profile->region;
+            $users[$user->id]['address_passport'] = $user->profile->address_passport;
+            $users[$user->id]['address_current'] = $user->profile->address_current;
+            $users[$user->id]['zip'] = $user->profile->zip;
+            $users[$user->id]['phone'] = $user->profile->phone;
+            $users[$user->id]['created'] = $user->profile->created;
+        }
+
+        return json_encode($users, JSON_UNESCAPED_UNICODE);
+    }
+
     public function actionUploadFile()
     {
 //        $this->layout = false;
