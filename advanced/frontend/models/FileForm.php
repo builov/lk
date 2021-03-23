@@ -13,6 +13,7 @@ class FileForm extends Model
      * @var UploadedFile
      */
     public $imageFile;
+    public $webPath;
 
     public function rules()
     {
@@ -25,7 +26,8 @@ class FileForm extends Model
     {
         if ($this->validate())
         {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->webPath = 'uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs($this->webPath);
             return true;
         }
         else {

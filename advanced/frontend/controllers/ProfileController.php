@@ -4,6 +4,7 @@
 namespace frontend\controllers;
 
 
+use common\models\Files;
 use common\models\User;
 use common\models\Profile;
 use frontend\models\ApplicationForm;
@@ -41,30 +42,29 @@ class ProfileController extends Controller
 //        print_r($model);
 
         $users = [];
-
         foreach ($model as $user)
         {
-            $users[$user->id]['id'] = $user->id;
+//            $users[$user->id]['id'] = $user->id;
             $users[$user->id]['lastname'] = $user->profile->lastname;
             $users[$user->id]['firstname'] = $user->profile->firstname;
             $users[$user->id]['patronim'] = $user->profile->patronim;
-            $users[$user->id]['birthdate'] = $user->profile->birthdate;
-            $users[$user->id]['snils'] = $user->profile->snils;
-            $users[$user->id]['gender'] = $user->profile->gender;
-            $users[$user->id]['education_level'] = $user->profile->education_level;
-            $users[$user->id]['institution'] = $user->profile->institution;
-            $users[$user->id]['graduate_year'] = $user->profile->graduate_year;
-            $users[$user->id]['passport_series'] = $user->profile->passport_series;
-            $users[$user->id]['passport_number'] = $user->profile->passport_number;
-            $users[$user->id]['passport_issued'] = $user->profile->passport_issued;
-            $users[$user->id]['passport_code'] = $user->profile->passport_code;
-            $users[$user->id]['passport_date'] = $user->profile->passport_date;
-            $users[$user->id]['region'] = $user->profile->region;
-            $users[$user->id]['address_passport'] = $user->profile->address_passport;
-            $users[$user->id]['address_current'] = $user->profile->address_current;
-            $users[$user->id]['zip'] = $user->profile->zip;
-            $users[$user->id]['phone'] = $user->profile->phone;
-            $users[$user->id]['created'] = $user->profile->created;
+//            $users[$user->id]['birthdate'] = $user->profile->birthdate;
+//            $users[$user->id]['snils'] = $user->profile->snils;
+//            $users[$user->id]['gender'] = $user->profile->gender;
+//            $users[$user->id]['education_level'] = $user->profile->education_level;
+//            $users[$user->id]['institution'] = $user->profile->institution;
+//            $users[$user->id]['graduate_year'] = $user->profile->graduate_year;
+//            $users[$user->id]['passport_series'] = $user->profile->passport_series;
+//            $users[$user->id]['passport_number'] = $user->profile->passport_number;
+//            $users[$user->id]['passport_issued'] = $user->profile->passport_issued;
+//            $users[$user->id]['passport_code'] = $user->profile->passport_code;
+//            $users[$user->id]['passport_date'] = $user->profile->passport_date;
+//            $users[$user->id]['region'] = $user->profile->region;
+//            $users[$user->id]['address_passport'] = $user->profile->address_passport;
+//            $users[$user->id]['address_current'] = $user->profile->address_current;
+//            $users[$user->id]['zip'] = $user->profile->zip;
+//            $users[$user->id]['phone'] = $user->profile->phone;
+//            $users[$user->id]['created'] = $user->profile->created;
         }
 
         return json_encode($users, JSON_UNESCAPED_UNICODE);
@@ -82,13 +82,22 @@ class ProfileController extends Controller
 
             if ($model->upload())
             {
-//                Yii::$app->session->setFlash('success', 'Изображение загружено');
+                $file = new Files();
+                $file->uid = Yii::$app->user->id;
+                $file->path = $model->webPath;
+                $file->name = '';
+                $file->sizex = '';
+                $file->sizey = '';
+                $file->mime = '';
+                $file->weight = '';
+                $file->created = time();
+                $file->save();
 
-//                return $this->render('fileForm', [
-//                    'model' => $model
-//                ]);
-
-                return '<img src="/uploads/' . $model->imageFile->name . '" />';
+                return '<div class="uploaded-image">
+                            <div class="delete-image">Удалить</div>
+                            <img src="/' . $model->webPath . '" />
+                        </div>';
+//                return '<img src="/uploads/' . $model->imageFile->name . '" />';
             }
             else {
                 return false;
