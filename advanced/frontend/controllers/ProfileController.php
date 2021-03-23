@@ -44,27 +44,29 @@ class ProfileController extends Controller
         $users = [];
         foreach ($model as $user)
         {
+            $key = 'user' . $user->id;
+
 //            $users[$user->id]['id'] = $user->id;
-            $users[$user->id]['lastname'] = $user->profile->lastname;
-            $users[$user->id]['firstname'] = $user->profile->firstname;
-            $users[$user->id]['patronim'] = $user->profile->patronim;
-//            $users[$user->id]['birthdate'] = $user->profile->birthdate;
-//            $users[$user->id]['snils'] = $user->profile->snils;
-//            $users[$user->id]['gender'] = $user->profile->gender;
-//            $users[$user->id]['education_level'] = $user->profile->education_level;
-//            $users[$user->id]['institution'] = $user->profile->institution;
-//            $users[$user->id]['graduate_year'] = $user->profile->graduate_year;
-//            $users[$user->id]['passport_series'] = $user->profile->passport_series;
-//            $users[$user->id]['passport_number'] = $user->profile->passport_number;
-//            $users[$user->id]['passport_issued'] = $user->profile->passport_issued;
-//            $users[$user->id]['passport_code'] = $user->profile->passport_code;
-//            $users[$user->id]['passport_date'] = $user->profile->passport_date;
-//            $users[$user->id]['region'] = $user->profile->region;
-//            $users[$user->id]['address_passport'] = $user->profile->address_passport;
-//            $users[$user->id]['address_current'] = $user->profile->address_current;
-//            $users[$user->id]['zip'] = $user->profile->zip;
-//            $users[$user->id]['phone'] = $user->profile->phone;
-//            $users[$user->id]['created'] = $user->profile->created;
+            $users[$key]['lastname'] = $user->profile->lastname;
+            $users[$key]['firstname'] = $user->profile->firstname;
+            $users[$key]['patronim'] = $user->profile->patronim;
+            $users[$key]['birthdate'] = $user->profile->birthdate;
+            $users[$key]['snils'] = $user->profile->snils;
+            $users[$key]['gender'] = $user->profile->gender;
+            $users[$key]['education_level'] = $user->profile->education_level;
+            $users[$key]['institution'] = $user->profile->institution;
+            $users[$key]['graduate_year'] = $user->profile->graduate_year;
+            $users[$key]['passport_series'] = $user->profile->passport_series;
+            $users[$key]['passport_number'] = $user->profile->passport_number;
+            $users[$key]['passport_issued'] = $user->profile->passport_issued;
+            $users[$key]['passport_code'] = $user->profile->passport_code;
+            $users[$key]['passport_date'] = $user->profile->passport_date;
+            $users[$key]['region'] = $user->profile->region;
+            $users[$key]['address_passport'] = $user->profile->address_passport;
+            $users[$key]['address_current'] = $user->profile->address_current;
+            $users[$key]['zip'] = $user->profile->zip;
+            $users[$key]['phone'] = $user->profile->phone;
+            $users[$key]['created'] = $user->profile->created;
         }
 
         return json_encode($users, JSON_UNESCAPED_UNICODE);
