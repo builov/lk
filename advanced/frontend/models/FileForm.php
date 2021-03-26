@@ -11,7 +11,7 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
-require_once("../../merge-pdf-files/MergePdf.class.php");
+//require_once("../../merge-pdf-files/MergePdf.class.php");
 
 class FileForm extends Model
 {
