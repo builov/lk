@@ -231,6 +231,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function getAvailablePrograms()
     {
         $fields = Program::find()->select('id, name, base, region')->asArray()->all();
+        $options = [];
         foreach ($fields as $value)
         {
             if ($value['base']==$this->profile->education_level && in_array($this->profile->region, explode(",", $value['region'])))
