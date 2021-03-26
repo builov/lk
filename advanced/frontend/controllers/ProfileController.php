@@ -37,53 +37,7 @@ class ProfileController extends Controller
         ];
     }
 
-    public function actionExport()
-    {
-        $model = Application::find()->all();
 
-//        print_r($model);
-
-        $apps = [];
-        foreach ($model as $application)
-        {
-            $key = 'appl' . $application->id;
-
-//            print_r($application->user->files);
-//            exit();
-
-            $apps[$key]['program_name'] = $application->program->name;
-            $apps[$key]['program_base'] = Profile::_EDUCATION[$application->program->base];
-            $apps[$key]['program_type'] = Program::_TYPES[$application->program->type];
-            $apps[$key]['program_financing'] = Program::_FINANCING[$application->program->financing];
-            $apps[$key]['user_lastname'] = $application->user->profile->lastname;
-            $apps[$key]['user_firstname'] = $application->user->profile->firstname;
-            $apps[$key]['user_patronim'] = $application->user->profile->patronim;
-            $apps[$key]['user_birthdate'] = $application->user->profile->birthdate;
-            $apps[$key]['user_snils'] = $application->user->profile->snils;
-            $apps[$key]['user_gender'] = Profile::_GENDER[$application->user->profile->gender];
-            $apps[$key]['user_education_level'] = Profile::_EDUCATION[$application->user->profile->education_level];
-            $apps[$key]['user_institution'] = $application->user->profile->institution;
-            $apps[$key]['user_graduate_year'] = $application->user->profile->graduate_year;
-            $apps[$key]['user_passport_series'] = $application->user->profile->passport_series;
-            $apps[$key]['user_passport_number'] = $application->user->profile->passport_number;
-            $apps[$key]['user_passport_issued'] = $application->user->profile->passport_issued;
-            $apps[$key]['user_passport_code'] = $application->user->profile->passport_code;
-            $apps[$key]['user_passport_date'] = $application->user->profile->passport_date;
-            $apps[$key]['user_region'] = Profile::_REGION[$application->user->profile->region];
-            $apps[$key]['user_address_passport'] = $application->user->profile->address_passport;
-            $apps[$key]['user_address_current'] = $application->user->profile->address_current;
-            $apps[$key]['user_zip'] = $application->user->profile->zip;
-            $apps[$key]['user_phone'] = $application->user->profile->phone;
-            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
-//            foreach ($application->user->files as $file) if ($file->mime == 'pdf') $files[] = 'https://lks.medcollege7.ru/uploads/' . $file->name;
-            $apps[$key]['user_files'] = [
-                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_passport.pdf',
-                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_education.pdf'
-            ];
-        }
-
-        return json_encode($apps, JSON_UNESCAPED_UNICODE);
-    }
 
     public function actionUploadFile()
     {
