@@ -122,23 +122,23 @@ AppAsset::register($this);
 
     $(function() {
         // Загрузка изображения
-        var btnSaveImage = $('#upload-form button'),
-            btnDeleteImage = $('#delete-image'),
-            inputImage = $('#form-image'),
-            image = $("#upload-image"),
-            process = $('#process');
+        // var btnSaveImage = $('#upload-form button'),
+        //     btnDeleteImage = $('#delete-image'),
+        //     inputImage = $('#form-image'),
+        //     image = $("#upload-image"),
+        //     process = $('#process');
 
         // inputImage.on('change', function () {
         //     btnSaveImage.prop('disabled', false);
         // });
 
-        btnSaveImage.on('click', function (e)
+        $('.upload-form button').on('click', function (e)
         {
             e.preventDefault();
 
-            var form = $('#upload-form');
-
+            var form = $(this).parents('form.upload-form');
             var formData = new FormData(form[0]);
+            var imageContainer = form.find('.image-container');
 
             $.ajax({
                 url: form.attr("action"),
@@ -156,7 +156,7 @@ AppAsset::register($this);
 
                     console.log(data);
 
-                    $('#image-container').append(data);
+                    imageContainer.append(data);
 
                     // data = JSON.parse(data);
                     // btnSaveImage.prop('disabled', true);
@@ -169,7 +169,6 @@ AppAsset::register($this);
                     alert('Error!');
                 }
             });
-
             return false;
         });
 

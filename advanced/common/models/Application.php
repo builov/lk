@@ -18,6 +18,11 @@ use Yii;
  */
 class Application extends \yii\db\ActiveRecord
 {
+    const STATUS_NEW = 1;
+    const STATUS_IN_PROCESS = 2;
+    const STATUS_ACCEPTED = 3;
+    const STATUS_DECLINED = 4;
+
     /**
      * {@inheritdoc}
      */
@@ -57,8 +62,13 @@ class Application extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getU()
+    public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);
+    }
+
+    public function getProgram()
+    {
+        return $this->hasOne(Program::className(), ['id' => 'program_id']);
     }
 }

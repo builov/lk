@@ -16,6 +16,7 @@ use Yii;
  * @property string|null $mime
  * @property int|null $weight
  * @property int|null $created
+ * @property int|null $doctype
  *
  * @property User $u
  */
@@ -35,7 +36,7 @@ class Files extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'sizex', 'sizey', 'weight', 'created'], 'integer'],
+            [['uid', 'sizex', 'sizey', 'weight', 'created', 'doctype'], 'integer'],
             [['path', 'name', 'mime'], 'string', 'max' => 255],
             [['uid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['uid' => 'id']],
         ];
@@ -56,6 +57,7 @@ class Files extends \yii\db\ActiveRecord
             'mime' => 'Mime',
             'weight' => 'Weight',
             'created' => 'Created',
+            'doctype' => 'Doctype',
         ];
     }
 

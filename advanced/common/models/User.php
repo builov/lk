@@ -30,6 +30,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public $fio;
     public $password_raw;
+    public $passport_files;
+    public $education_files;
 
 
     /**
@@ -216,6 +218,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['uid' => 'id']);
+    }
+
+    public function getFiles()
+    {
+        return $this->hasMany(Files::className(), ['uid' => 'id']);
     }
 
 //    /**

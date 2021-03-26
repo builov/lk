@@ -17,6 +17,9 @@ use Yii;
  */
 class Program extends \yii\db\ActiveRecord
 {
+    const _TYPES = [1 => 'очно', 2 => 'очно-заочно'];
+    const _FINANCING = [1 => 'договор', 2 => 'бюджет'];
+
     /**
      * {@inheritdoc}
      */
