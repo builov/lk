@@ -29,6 +29,11 @@ class ApplicationController extends Controller
         ];
     }
 
+    public function actionSaved()
+    {
+        return 'OK';
+    }
+
 
     public function actionExport()
     {
