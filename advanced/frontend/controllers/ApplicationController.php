@@ -53,6 +53,7 @@ class ApplicationController extends Controller
             $apps[$key]['program_base'] = Profile::_EDUCATION[$application->program->base];
             $apps[$key]['program_type'] = Program::_TYPES[$application->program->type];
             $apps[$key]['program_financing'] = Program::_FINANCING[$application->program->financing];
+            $apps[$key]['user_email'] = $application->user->email;
             $apps[$key]['user_lastname'] = $application->user->profile->lastname;
             $apps[$key]['user_firstname'] = $application->user->profile->firstname;
             $apps[$key]['user_patronim'] = $application->user->profile->patronim;
