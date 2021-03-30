@@ -23,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <h2><?= Html::encode($this->title) ?></h2>
 
+
+
+<!--            <input name="address" type="text" value="" placeholder="Адрес">-->
+
+
+
             <?php $form = ActiveForm::begin([
                 'id' => 'register-form',
                 'enableAjaxValidation'   => false,
@@ -79,11 +85,32 @@ $this->params['breadcrumbs'][] = $this->title;
             <fieldset>
                 <legend>Контактные данные</legend>
 
-                <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION) ?>
+                <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION)->hint('Для граждан РФ - по паспорту или фактический?') ?>
 
-                <?= $form->field($model['reg_form'], 'address_passport')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Адрес 1']) ?>
+<!--                --><?//= $form->field($model['reg_form'], 'address_passport')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Адрес 1']) ?>
+<!---->
+<!--                --><?//= $form->field($model['reg_form'], 'address_current')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Адрес 2']) ?>
 
-                <?= $form->field($model['reg_form'], 'address_current')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Адрес 2']) ?>
+                <fieldset>
+                    <legend>Адрес (как в паспорте)</legend>
+<!--                    --><?//= $form->field($model['reg_form'], 'address_passport_region')->textInput() ?>
+<!--                    --><?//= $form->field($model['reg_form'], 'address_passport_city')->textInput() ?>
+                    <?= $form->field($model['reg_form'], 'address_passport_street')->textInput()
+                        ->hint('Если автозаполнение не работает, используйте формат: Регион, (обл. Область,) г. Город, ул. Улица')
+                    //                        ->hint('Сначала укажите улицу, для уточнения укажите город, при необходимости район, регион.<br>
+//                               Если автозаполнение не работает, используйте формат: Регион, (обл. Область,) г. Город, ул. Улица')
+                    ?>
+                    <?= $form->field($model['reg_form'], 'address_passport_building')->textInput()->hint('Без слова "дом"') ?>
+                    <?= $form->field($model['reg_form'], 'address_passport_apartment')->textInput()->hint('Без слова "квартира"') ?>
+
+                    <legend>Фактический адрес проживания</legend>
+<!--                    --><?//= $form->field($model['reg_form'], 'address_current_region')->textInput() ?>
+<!--                    --><?//= $form->field($model['reg_form'], 'address_current_city')->textInput() ?>
+                    <?= $form->field($model['reg_form'], 'address_current_street')->textInput() ?>
+                    <?= $form->field($model['reg_form'], 'address_current_building')->textInput() ?>
+                    <?= $form->field($model['reg_form'], 'address_current_apartment')->textInput() ?>
+                </fieldset>
+
 
                 <?= $form->field($model['reg_form'], 'zip')->textInput(['value' => '123456']) ?>
 

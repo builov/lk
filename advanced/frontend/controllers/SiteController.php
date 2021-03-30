@@ -77,6 +77,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if(!Yii::$app->user->isGuest)
+        {
+            return $this->redirect('/profile');
+        }
+
         $reg_form = new RegisterForm();
         $login_form = new LoginForm();
 
@@ -256,7 +261,7 @@ class SiteController extends Controller
         }
         if ($user = $model->verifyEmail()) {
             if (Yii::$app->user->login($user)) {
-                Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+                Yii::$app->session->setFlash('success', 'Спасибо, Ваша учетная запись активирована!');
                 return $this->goHome();
             }
         }

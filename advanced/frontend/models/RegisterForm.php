@@ -29,8 +29,16 @@ class RegisterForm extends Model
     public $passport_code;
     public $passport_date;
     public $region;
-    public $address_passport;
-    public $address_current;
+//    public $address_passport_region;
+//    public $address_passport_city;
+    public $address_passport_street;
+    public $address_passport_building;
+    public $address_passport_apartment;
+//    public $address_current_region;
+//    public $address_current_city;
+    public $address_current_street;
+    public $address_current_building;
+    public $address_current_apartment;
     public $zip;
     public $phone;
     public $email;
@@ -45,13 +53,17 @@ class RegisterForm extends Model
         return [
             // 'message'=>'Please enter a value for {attribute}.'
             [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code',
-                'phone', 'email', 'passport_issued', 'address_passport', 'address_current',
+                'phone', 'email', 'passport_issued',
+                'address_passport_street', 'address_passport_building', 'address_passport_apartment',
+                'address_current_street', 'address_current_building', 'address_current_apartment',
                 'gender', 'education_level', 'graduate_year', 'passport_number', 'zip',
                 'agree', 'birthdate', 'passport_date', 'region'],
                 'required', 'message' => 'Обязательное поле'],
             [['birthdate', 'passport_date'], 'safe'],
             [['gender', 'education_level', 'graduate_year', 'passport_number', 'zip', 'agree', 'region'], 'integer'],
-            [['passport_issued', 'address_passport', 'address_current'], 'string'],
+            [['passport_issued',
+                'address_passport_street', 'address_passport_building', 'address_passport_apartment',
+                'address_current_street','address_current_building','address_current_apartment'], 'string'],
             [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code', 'phone', 'email'], 'string', 'max' => 255],
         ];
     }
@@ -76,9 +88,19 @@ class RegisterForm extends Model
             'passport_issued' => 'Кем выдан',
             'passport_code' => 'Код подразделения',
             'passport_date' => 'Дата выдачи',
-            'region' => 'Регион',
-            'address_passport' => 'Адрес (как в паспорте)',
-            'address_current' => 'Фактический адрес проживания',
+            'region' => 'Страна или регион РФ',
+//            'address_passport' => 'Адрес (как в паспорте)',
+//            'address_current' => 'Фактический адрес проживания',
+//            'address_passport_region' => 'Регион (Субъект РФ для граждан РФ)',
+//            'address_passport_city' => 'Город',
+            'address_passport_street' => 'Регион/Район/Город/Улица',
+            'address_passport_building' => 'Дом',
+            'address_passport_apartment' => 'Квартира (если есть)',
+//            'address_current_region' => 'Субъект РФ',
+//            'address_current_city' => 'Город',
+            'address_current_street' => 'Регион/Район/Город/Улица',
+            'address_current_building' => 'Дом',
+            'address_current_apartment' => 'Квартира (если есть)',
             'zip' => 'Почтовый индекс',
             'phone' => 'Телефон',
             'email' => 'Электронная почта',
@@ -149,8 +171,8 @@ class RegisterForm extends Model
         $profile->passport_code = $this->passport_code;
         $profile->passport_date = $this->passport_date;
         $profile->region = $this->region;
-        $profile->address_passport = $this->address_passport;
-        $profile->address_current = $this->address_current;
+        $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building . ', квартира ' . $this->address_passport_apartment;
+        $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building . ', квартира ' . $this->address_current_apartment;
         $profile->zip = (int) $this->zip;
         $profile->phone = $this->phone;
         $profile->agree = (int) $this->agree;
