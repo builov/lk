@@ -132,7 +132,7 @@ AppAsset::register($this);
         //     btnSaveImage.prop('disabled', false);
         // });
 
-        $('.upload-form button').on('click', function (e)
+        $('.upload-form button77777777777777777777777').on('click', function (e)
         {
             e.preventDefault();
 
