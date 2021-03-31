@@ -5,6 +5,7 @@
 namespace frontend\models;
 
 use common\models\Application;
+use common\models\Files;
 use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
@@ -37,9 +38,35 @@ class ApplicationForm extends Model
         ];
     }
 
-    public function filesCheck()
+    public function duplicationCheck()
     {
-        exit();
+        $uid = Yii::$app->user->id;
+        if (Application::find()->where(['uid' => $uid, 'program_id' => $this->program_id])->count())
+        {
+            Yii::$app->session->setFlash('error', 'Заявка на обучение по этой программе уже отправлена.');
+            return false;
+        }
+        return true;
+    }
+
+    public function docsCheck()
+    {
+        $uid = Yii::$app->user->id;
+        $files = Files::find()->where(['uid' => $uid])->asArray()->all();
+        $passport = 0;
+        $education = 0;
+        foreach ($files as $file)
+        {
+            if ($file['doctype'] == 1) $passport++;
+            elseif ($file['doctype'] == 2) $education++;
+        }
+
+        if ($passport < 2 || $education < 2)
+        {
+            Yii::$app->session->setFlash('error', 'Загрузите необходимые сканы документов.');
+            return false;
+        }
+        return true;
     }
 
     public function createApplication()
@@ -57,7 +84,7 @@ class ApplicationForm extends Model
 
     public function upload()
     {
-        if ($this->validate()) //Заявка на обучение по этой программе уже отправлена
+        if ($this->validate())
         {
             //сохранение на диск
             foreach ($this->imageFiles as $file)

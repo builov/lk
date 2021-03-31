@@ -119,14 +119,15 @@ class ProfileController extends Controller
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
         {
-            $form->dataCheck();
-
-            if ($form->createApplication())
+            if ($form->duplicationCheck() && $form->docsCheck())
             {
-                Yii::$app->session->setFlash('success', 'Заявка успешно отправлена.');
-            }
-            else {
-                Yii::$app->session->setFlash('error', 'Ошибка. Попробуйте еще раз.');
+                if ($form->createApplication())
+                {
+                    Yii::$app->session->setFlash('success', 'Заявка успешно отправлена.');
+                }
+                else {
+                    Yii::$app->session->setFlash('error', 'Ошибка. Попробуйте еще раз.');
+                }
             }
 
 //            print_r($form);
