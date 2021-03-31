@@ -37,6 +37,11 @@ class ApplicationForm extends Model
         ];
     }
 
+    public function filesCheck()
+    {
+        exit();
+    }
+
     public function createApplication()
     {
         $model = new Application();
@@ -52,7 +57,7 @@ class ApplicationForm extends Model
 
     public function upload()
     {
-        if ($this->validate())
+        if ($this->validate()) //Заявка на обучение по этой программе уже отправлена
         {
             //сохранение на диск
             foreach ($this->imageFiles as $file)

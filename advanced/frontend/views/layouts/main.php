@@ -41,6 +41,15 @@ AppAsset::register($this);
         .wrap > .container {
             padding-top: 20px;
         }
+
+        .img-uploaded {
+            width:100px;
+            height:80px;
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            display:inline-block;
+        }
     </style>
 </head>
 <body>
@@ -110,9 +119,15 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
+        <p class="pull-left">
+            МЕДИЦИНСКИЙ КОЛЛЕДЖ № 7
+            <!--            --><?//= Html::encode(Yii::$app->name) ?><!-- -->
+            &copy; <?= date('Y') ?>
+        </p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right">
+<!--            --><?//= Yii::powered() ?>
+        </p>
     </div>
 </footer>
 
@@ -132,7 +147,13 @@ AppAsset::register($this);
         //     btnSaveImage.prop('disabled', false);
         // });
 
-        $('.upload-form button').on('click', function (e)
+        $('button[name="signup-button"]').on('click', function ()
+        {
+            $("#application-form").submit();
+        });
+
+
+        $('input[type="file"]').on('change', function (e)
         {
             e.preventDefault();
 

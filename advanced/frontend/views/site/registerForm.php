@@ -42,15 +42,15 @@ $this->params['breadcrumbs'][] = $this->title;
             <fieldset>
                 <legend>Личные данные</legend>
 
-                <?= $form->field($model['reg_form'], 'lastname')->textInput(['autofocus' => true, 'value' => 'Фамилия']) ?>
+                <?= $form->field($model['reg_form'], 'lastname')->textInput(['autofocus' => true, 'value' => '']) ?>
 
-                <?= $form->field($model['reg_form'], 'firstname')->textInput(['value' => 'Имя']) ?>
+                <?= $form->field($model['reg_form'], 'firstname')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'patronim')->textInput(['value' => 'Отчество']) ?>
+                <?= $form->field($model['reg_form'], 'patronim')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date', 'value' => '1111-11-11']) ?>
+                <?= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date']) ?>
 
-                <?= $form->field($model['reg_form'], 'snils')->textInput(['value' => '1111111']) ?>
+                <?= $form->field($model['reg_form'], 'snils')->textInput() ?>
 
                 <?php $model['reg_form']->gender = 1 ?>
                 <?= $form->field($model['reg_form'], 'gender')->radioList(Profile::_GENDER); ?>
@@ -61,9 +61,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'education_level')->dropDownList(Profile::_EDUCATION) ?>
 
-                <?= $form->field($model['reg_form'], 'institution')->textInput(['value' => 'Школа №1']) ?>
+                <?= $form->field($model['reg_form'], 'institution')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'graduate_year')->textInput(['value' => 2020]) ?>
+                <?= $form->field($model['reg_form'], 'graduate_year')->textInput() ?>
             </fieldset>
 
             <fieldset>
@@ -71,15 +71,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <label class="control-label" for="registerform-passport_series">Серия и номер паспорта</label>
 
-                <?= $form->field($model['reg_form'], 'passport_series')->textInput(['maxlength' => 5, 'value' => '123456', 'class' => 'form-control class1'])->label(false) ?>
+                <?= $form->field($model['reg_form'], 'passport_series')->textInput(['maxlength' => 5, 'class' => 'form-control class1'])->label(false) ?>
 
-                <?= $form->field($model['reg_form'], 'passport_number')->textInput(['maxlength' => 6, 'value' => '123456', 'class' => 'form-control class2'])->label(false) ?>
+                <?= $form->field($model['reg_form'], 'passport_number')->textInput(['maxlength' => 6, 'class' => 'form-control class2'])->label(false) ?>
 
-                <?= $form->field($model['reg_form'], 'passport_issued')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Отдел УВД №1']) ?>
+                <?= $form->field($model['reg_form'], 'passport_issued')->textarea(['rows' => 2, 'cols' => 5, 'value' => '']) ?>
 
-                <?= $form->field($model['reg_form'], 'passport_code')->textInput(['value' => '123456']) ?>
+                <?= $form->field($model['reg_form'], 'passport_code')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'passport_date')->textInput(['type' => 'date', 'value' => '1111-11-11']) ?>
+                <?= $form->field($model['reg_form'], 'passport_date')->textInput(['type' => 'date']) ?>
             </fieldset>
 
             <fieldset>
@@ -112,11 +112,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 </fieldset>
 
 
-                <?= $form->field($model['reg_form'], 'zip')->textInput(['value' => '123456']) ?>
+                <?= $form->field($model['reg_form'], 'zip')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'phone')->textInput(['value' => '123456']) ?>
+                <?= $form->field($model['reg_form'], 'phone')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'email')->textInput(['value' => 'mail@mail.ru'])->hint('Будьте внимательны, на этот адрес Вам будет отправлен пароль от Личного кабинета абитуриента') ?>
+                <?= $form->field($model['reg_form'], 'email')->textInput()
+                    ->hint('Будьте внимательны, на этот адрес Вам будет отправлен пароль от Личного кабинета абитуриента') ?>
             </fieldset>
 
             <?= $form->field($model['reg_form'], 'agree')->checkbox([
@@ -143,7 +144,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'action' => 'site/login'
             ]); ?>
 
-            <?= $form->field($model['login_form'], 'username')->textInput(['autofocus' => true]) ?>
+            <?= $form->field($model['login_form'], 'username')->textInput() ?>
 
             <?= $form->field($model['login_form'], 'password')->passwordInput() ?>
 

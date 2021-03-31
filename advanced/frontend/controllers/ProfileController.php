@@ -81,10 +81,11 @@ class ProfileController extends Controller
                 $file->doctype = $model->doctype;
                 $file->save();
 
-                return '<div class="uploaded-image">                            
-                            <img src="/uploads/' . $model->uploadedFile['name'] . '" />
-                        </div>';
-            }
+//                return '<div class="uploaded-image">
+//                            <img src="/uploads/' . $model->uploadedFile['name'] . '" />
+//                        </div>';
+
+                return "<div class=\"img-uploaded\" style=\"background-image: url('/uploads/" . $model->uploadedFile['name'] . "')\" >&nbsp;</div>";            }
             else {
                 return false;
             }
@@ -118,6 +119,8 @@ class ProfileController extends Controller
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
         {
+            $form->dataCheck();
+
             if ($form->createApplication())
             {
                 Yii::$app->session->setFlash('success', 'Заявка успешно отправлена.');

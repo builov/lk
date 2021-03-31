@@ -6,7 +6,7 @@ $(function () {
 
 	$address_passport.fias({
 		oneString: true,
-		verify: true
+		verify: false
 		// change: function (obj) {
 		// 	console.log(obj.id);
 		// }
@@ -14,20 +14,20 @@ $(function () {
 
 	$address_current.fias({
 		oneString: true,
-		verify: true
+		verify: false
 	});
 
 
 	$building_passport.fias({
 		type: $.fias.type.building,
 		parentInput: $address_passport,
-		verify: true
+		verify: false
 	});
 
 	$building_current.fias({
 		type: $.fias.type.building,
 		parentInput: $address_current,
-		verify: true
+		verify: false
 	});
 
 

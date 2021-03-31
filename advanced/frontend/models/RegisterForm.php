@@ -54,15 +54,14 @@ class RegisterForm extends Model
             // 'message'=>'Please enter a value for {attribute}.'
             [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code',
                 'phone', 'email', 'passport_issued',
-                'address_passport_street', 'address_passport_building', 'address_passport_apartment',
-                'address_current_street', 'address_current_building', 'address_current_apartment',
+                'address_passport_street', 'address_passport_building',
+                'address_current_street', 'address_current_building',
                 'gender', 'education_level', 'graduate_year', 'passport_number', 'zip',
                 'agree', 'birthdate', 'passport_date', 'region'],
                 'required', 'message' => 'Обязательное поле'],
             [['birthdate', 'passport_date'], 'safe'],
             [['gender', 'education_level', 'graduate_year', 'passport_number', 'zip', 'agree', 'region'], 'integer'],
-            [['passport_issued',
-                'address_passport_street', 'address_passport_building', 'address_passport_apartment',
+            [['passport_issued', 'address_passport_street', 'address_passport_building', 'address_passport_apartment',
                 'address_current_street','address_current_building','address_current_apartment'], 'string'],
             [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code', 'phone', 'email'], 'string', 'max' => 255],
         ];
@@ -107,6 +106,8 @@ class RegisterForm extends Model
 //            'agree' => 'Я подтверждаю согласие на обработку персональных данных',
         ];
     }
+
+
 
     public function registerUser()
     {

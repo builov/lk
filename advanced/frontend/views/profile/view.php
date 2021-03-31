@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-8">
 
-            <h2>Заявки на обучение</h2>
+            <h2>Заявка на обучение</h2>
 
             <?php //$fields = Program::find()->select('id, name')->asArray()->all(); ?>
 
@@ -37,9 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li>временная регистрация (при наличии)</li>
                 <li>документы об образовании (включая приложение с оценками с двух сторон)</li>
             </ul>
-
-            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-
             <p>Перед отправкой убедитесь, что все необходимые документы загружены.</p>
 
             <?php ActiveForm::end() ?>
@@ -57,20 +54,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <fieldset>
 
-                    <legend>Паспорт и Свидетельство о регистрации по месту пребывания <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a></legend>
+                    <legend>
+                        Паспорт и Свидетельство о регистрации по месту пребывания
+                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>
+                    </legend>
 
                     <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
 
                     <div class="image-container">
                         <?php if (is_array($model->passport_files)): ?>
                         <?php foreach ($model->passport_files as $file): ?>
-                            <img src="/uploads/<?= $file['name'] ?>" />
+                            <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
                         <?php endforeach; endif; ?>
                     </div>
 
                     <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false) ?>
 
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+<!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
 
                 </fieldset>
 
@@ -94,17 +94,19 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="image-container">
                         <?php if (is_array($model->education_files)): ?>
                             <?php foreach ($model->education_files as $file): ?>
-                                <img src="/uploads/<?= $file['name'] ?>" />
+                                <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
                             <?php endforeach; endif; ?>
                     </div>
 
                     <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false) ?>
 
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+<!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
 
                 </fieldset>
 
                 <?php ActiveForm::end() ?>
+
+                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
 
             <hr>
@@ -149,6 +151,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <p><strong><?= $model->profile->lastname ?> <?= $model->profile->firstname ?> <?= $model->profile->patronim ?></strong></p>
 
             <p>В настоящее время Вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7»</p>
+
+            <h3>Отправленные заявки</h3>
+
+
             <p>&nbsp;</p>
             <h2>О поступлении</h2>
             <p><a href="">Список документов для поступления</a></p>

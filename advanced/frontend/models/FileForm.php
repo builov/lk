@@ -26,7 +26,7 @@ class FileForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'jpg'],
             [['doctype'], 'integer'],
         ];
     }

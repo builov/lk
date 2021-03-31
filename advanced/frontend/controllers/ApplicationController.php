@@ -46,13 +46,16 @@ class ApplicationController extends Controller
         {
             $key = 'appl' . $application->id;
 
+            $key = $application->id;
+
 //            print_r($application->user->files);
 //            exit();
 
-            $apps[$key]['program_name'] = $application->program->name;
+            $apps[$key]['programs'] = [$application->program->id => $application->program->name];
             $apps[$key]['program_base'] = Profile::_EDUCATION[$application->program->base];
             $apps[$key]['program_type'] = Program::_TYPES[$application->program->type];
             $apps[$key]['program_financing'] = Program::_FINANCING[$application->program->financing];
+            $apps[$key]['user_id'] = $application->user->id;
             $apps[$key]['user_email'] = $application->user->email;
             $apps[$key]['user_lastname'] = $application->user->profile->lastname;
             $apps[$key]['user_firstname'] = $application->user->profile->firstname;
@@ -73,7 +76,7 @@ class ApplicationController extends Controller
             $apps[$key]['user_address_current'] = $application->user->profile->address_current;
             $apps[$key]['user_zip'] = $application->user->profile->zip;
             $apps[$key]['user_phone'] = $application->user->profile->phone;
-            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
+//            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
 //            foreach ($application->user->files as $file) if ($file->mime == 'pdf') $files[] = 'https://lks.medcollege7.ru/uploads/' . $file->name;
             $apps[$key]['user_files'] = [
                 'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_passport.pdf',
@@ -81,6 +84,25 @@ class ApplicationController extends Controller
             ];
         }
 
-        return json_encode($apps, JSON_UNESCAPED_UNICODE);
+//        print_r($apps);
+
+        $data = [];
+        foreach ($apps as $appl_id => $app)
+        {
+            if (!array_key_exists($app['user_id'], $data))
+            {
+                $data[$app['user_id']] = $app;
+
+            }
+            else {
+                foreach ($app['programs'] as $id => $name)
+                    $data[$app['user_id']]['programs'][$id] = $name;
+            }
+        }
+
+//        print_r($data);
+
+
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
     }
 }
