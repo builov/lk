@@ -92,17 +92,20 @@ class ApplicationController extends Controller
             if (!array_key_exists($app['user_id'], $data))
             {
                 $data[$app['user_id']] = $app;
-
+                $data[$app['user_id']]['programs'] = [];
+                $data[$app['user_id']]['programs'][] = $app['programs'];
             }
             else {
                 foreach ($app['programs'] as $id => $name)
-                    $data[$app['user_id']]['programs'][$id] = $name;
+                    $data[$app['user_id']]['programs'][] = [$id => $name];
             }
         }
 
-//        print_r($data);
+        $res = array_values($data);
+
+//        print_r($res);
 
 
-        return json_encode($data, JSON_UNESCAPED_UNICODE);
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
     }
 }
