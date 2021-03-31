@@ -93,11 +93,20 @@ class ApplicationController extends Controller
             {
                 $data[$app['user_id']] = $app;
                 $data[$app['user_id']]['programs'] = [];
-                $data[$app['user_id']]['programs'][] = $app['programs'];
+//                $data[$app['user_id']]['programs'][] = $app['programs'];
+                foreach ($app['programs'] as $id => $name)
+                {
+                    $id = 'program' . $id;
+                    $data[$app['user_id']]['programs'][] = [$id => $name];
+                }
             }
             else {
                 foreach ($app['programs'] as $id => $name)
+                {
+                    $id = 'program' . $id;
                     $data[$app['user_id']]['programs'][] = [$id => $name];
+                }
+
             }
         }
 
