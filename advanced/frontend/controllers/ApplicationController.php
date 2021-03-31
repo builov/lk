@@ -112,7 +112,7 @@ class ApplicationController extends Controller
 
         $res = array_values($data);
 
-        print_r($res);
+//        print_r($res);
 
 
         return json_encode($res, JSON_UNESCAPED_UNICODE);
