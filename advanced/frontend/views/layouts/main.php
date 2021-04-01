@@ -152,6 +152,27 @@ AppAsset::register($this);
             $("#application-form").submit();
         });
 
+        $('#the-same').on('click', function ()
+        {
+            if ($(this).prop('checked'))
+            {
+                var street = $('input#registerform-address_passport_street').val(),
+                    building = $('input#registerform-address_passport_building').val(),
+                    apartment = $('input#registerform-address_passport_apartment').val();
+
+                console.log($(this).prop('checked'));
+
+                $('input#registerform-address_current_street').val(street);
+                $('input#registerform-address_current_building').val(building);
+                $('input#registerform-address_current_apartment').val(apartment);
+            }
+            else {
+                $('input#registerform-address_current_street').val('');
+                $('input#registerform-address_current_building').val('');
+                $('input#registerform-address_current_apartment').val('');
+            }
+
+        });
 
         $('input[type="file"]').on('change', function (e)
         {

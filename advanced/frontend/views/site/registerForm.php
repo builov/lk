@@ -104,6 +104,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model['reg_form'], 'address_passport_apartment')->textInput()->hint('Без слова "квартира"') ?>
 
                     <legend>Фактический адрес проживания</legend>
+
+                    <div class="checkbox">
+                        <label for="the-same">
+                            <input type="checkbox" id="the-same" name="the-same">
+                            Совпадает с адресом по паспорту.
+                        </label>
+                    </div>
+
 <!--                    --><?//= $form->field($model['reg_form'], 'address_current_region')->textInput() ?>
 <!--                    --><?//= $form->field($model['reg_form'], 'address_current_city')->textInput() ?>
                     <?= $form->field($model['reg_form'], 'address_current_street')->textInput() ?>
