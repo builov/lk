@@ -110,8 +110,6 @@ class ProfileController extends Controller
             }
         }
 
-//        print_r($model->getAvailablePrograms());
-
         $form = new ApplicationForm();
 
         $file_form = new FileForm();

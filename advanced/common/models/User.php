@@ -245,4 +245,18 @@ class User extends ActiveRecord implements IdentityInterface
 //        $this->profile->education_level;
         return $options;
     }
+
+    public function getSentApplications()
+    {
+        $programs = [];
+        if ($appl = Application::find()->where(['uid' => $this->id])->all())
+        {
+            foreach ($appl as $a)
+            {
+                $programs[$a->program->id] = $a->program->name;
+            }
+        }
+
+        return $programs;
+    }
 }

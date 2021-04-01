@@ -29,9 +29,13 @@ class ApplicationController extends Controller
         ];
     }
 
-    public function actionSaved()
+    public function actionSaved($id)
     {
-        return 'OK';
+        //todo проверять ip-адрес
+        $model = Application::findOne($id);
+        if ($model['status']==1) $model['status'] = 2;
+        $model['updated'] = time();
+        $model->save();
     }
 
 

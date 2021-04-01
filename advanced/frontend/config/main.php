@@ -42,6 +42,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
+                'application/saved/<id:\d+>' => 'application/saved',
             ],
         ],
 
