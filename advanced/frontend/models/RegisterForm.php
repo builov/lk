@@ -52,11 +52,11 @@ class RegisterForm extends Model
     {
         return [
             // 'message'=>'Please enter a value for {attribute}.'
-            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code',
+            [['lastname', 'firstname', 'snils', 'institution', 'passport_series', 'passport_code',
                 'phone', 'email', 'passport_issued',
                 'address_passport_street', 'address_passport_building',
                 'address_current_street', 'address_current_building',
-                'gender', 'education_level', 'graduate_year', 'passport_number', 'zip',
+                'gender', 'education_level', 'graduate_year', 'passport_number',
                 'agree', 'birthdate', 'passport_date', 'region'],
                 'required', 'message' => 'Обязательное поле'],
             [['birthdate', 'passport_date'], 'safe'],
@@ -198,9 +198,9 @@ class RegisterForm extends Model
                 ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
                 ['user' => $user]
             )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+            ->setFrom([Yii::$app->params['supportEmail'] => 'Приемная комиссия ГБПОУ ДЗМ «МК №7»'])
             ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
+            ->setSubject('Личный кабинет абитуриента. Подтверждение регистрации.')
             ->send();
     }
 }
