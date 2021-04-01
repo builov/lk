@@ -16,7 +16,7 @@ class AppAsset extends AssetBundle
         'fias/jquery.fias.min.css',
     ];
     public $js = [
-//        'js/jquery.maskedinput.min.js',
+        'js/jquery.maskedinput.min.js',
         'js/script.js',
         'fias/jquery.fias.min.js',
         'fias/script.js',

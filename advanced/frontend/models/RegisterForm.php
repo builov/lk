@@ -52,15 +52,15 @@ class RegisterForm extends Model
     {
         return [
             // 'message'=>'Please enter a value for {attribute}.'
-            [['lastname', 'firstname', 'snils', 'institution', 'passport_series', 'passport_code',
+            [['lastname', 'firstname', 'institution', 'passport_series', 'passport_code',
                 'phone', 'email', 'passport_issued',
                 'address_passport_street', 'address_passport_building',
-                'address_current_street', 'address_current_building',
                 'gender', 'education_level', 'graduate_year', 'passport_number',
                 'agree', 'birthdate', 'passport_date', 'region'],
                 'required', 'message' => 'Обязательное поле'],
-            [['birthdate', 'passport_date'], 'safe'],
-            [['gender', 'education_level', 'graduate_year', 'passport_number', 'zip', 'agree', 'region'], 'integer'],
+            [['birthdate', 'passport_date'], 'date', 'format'=>'yyyy-mm-dd'],
+            [['gender', 'education_level', 'passport_number', 'zip', 'agree', 'region'], 'integer'],
+            [['graduate_year'], 'number', 'min' => 1970, 'max' => 2030],
             [['passport_issued', 'address_passport_street', 'address_passport_building', 'address_passport_apartment',
                 'address_current_street','address_current_building','address_current_apartment'], 'string'],
             [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code', 'phone', 'email'], 'string', 'max' => 255],

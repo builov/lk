@@ -136,16 +136,12 @@ AppAsset::register($this);
 <script>
 
     $(function() {
-        // Загрузка изображения
-        // var btnSaveImage = $('#upload-form button'),
-        //     btnDeleteImage = $('#delete-image'),
-        //     inputImage = $('#form-image'),
-        //     image = $("#upload-image"),
-        //     process = $('#process');
 
-        // inputImage.on('change', function () {
-        //     btnSaveImage.prop('disabled', false);
-        // });
+        $("#registerform-phone").mask("+7 (999) 999-99-99");
+        $("#registerform-zip").mask("999999");
+        $("#registerform-passport_code").mask("999-999");
+        $("#registerform-snils").mask("999-999-999-99");
+        $("#registerform-graduate_year").mask("9999");
 
         $('button[name="signup-button"]').on('click', function ()
         {
@@ -171,8 +167,19 @@ AppAsset::register($this);
                 $('input#registerform-address_current_building').val('');
                 $('input#registerform-address_current_apartment').val('');
             }
-
         });
+
+
+        // Загрузка изображения
+        // var btnSaveImage = $('#upload-form button'),
+        //     btnDeleteImage = $('#delete-image'),
+        //     inputImage = $('#form-image'),
+        //     image = $("#upload-image"),
+        //     process = $('#process');
+
+        // inputImage.on('change', function () {
+        //     btnSaveImage.prop('disabled', false);
+        // });
 
         $('input[type="file"]').on('change', function (e)
         {

@@ -73,7 +73,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'passport_series')->textInput(['maxlength' => 5, 'class' => 'form-control class1'])->label(false) ?>
 
-                <?= $form->field($model['reg_form'], 'passport_number')->textInput(['maxlength' => 6, 'class' => 'form-control class2'])->label(false) ?>
+                <?= $form->field($model['reg_form'], 'passport_number')->textInput(['maxlength' => 6, 'class' => 'form-control class2'])->label(false)
+                    ->hint('Какие бывают форматы у иностранных паспортов?') ?>
 
                 <?= $form->field($model['reg_form'], 'passport_issued')->textarea(['rows' => 2, 'cols' => 5, 'value' => '']) ?>
 
@@ -86,6 +87,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <legend>Контактные данные</legend>
 
                 <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION)->hint('Для граждан РФ - по паспорту или фактический?') ?>
+
+                <?= $form->field($model['reg_form'], 'zip')->textInput()->hint('По паспорту или фактический?') ?>
+
+                <?= $form->field($model['reg_form'], 'phone')->textInput() ?>
+
+                <?= $form->field($model['reg_form'], 'email')->textInput()
+                    ->hint('Будьте внимательны, на этот адрес Вам будет отправлен пароль от Личного кабинета абитуриента') ?>
 
 <!--                --><?//= $form->field($model['reg_form'], 'address_passport')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Адрес 1']) ?>
 <!---->
@@ -120,12 +128,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </fieldset>
 
 
-                <?= $form->field($model['reg_form'], 'zip')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'phone')->textInput() ?>
-
-                <?= $form->field($model['reg_form'], 'email')->textInput()
-                    ->hint('Будьте внимательны, на этот адрес Вам будет отправлен пароль от Личного кабинета абитуриента') ?>
             </fieldset>
 
             <?= $form->field($model['reg_form'], 'agree')->checkbox([
