@@ -155,8 +155,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <h3>Отправленные заявки</h3>
 
             <ul>
-                <?php foreach($model->getSentApplications() as $prog_id => $prog_name): ?>
-                    <li><?= $prog_name ?></li>
+                <?php foreach($model->getSentApplications() as $prog_id => $program): ?>
+                    <li><?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)</li>
                 <?php endforeach; ?>
             </ul>
 

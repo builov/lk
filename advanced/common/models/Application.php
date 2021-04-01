@@ -22,6 +22,7 @@ class Application extends \yii\db\ActiveRecord
     const STATUS_IN_PROCESS = 2;
     const STATUS_ACCEPTED = 3;
     const STATUS_DECLINED = 4;
+    const STATUSES = ['1' => 'новая', '2' => 'на рассмотрении', '3' => 'принята', '4' => 'отклонена', ];
 
     /**
      * {@inheritdoc}

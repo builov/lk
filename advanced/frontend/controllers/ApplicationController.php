@@ -41,7 +41,7 @@ class ApplicationController extends Controller
 
     public function actionExport()
     {
-        $model = Application::find()->all();
+        $model = Application::find()->where(['status'=>1])->all();
 
 //        print_r($model);
 

@@ -253,7 +253,7 @@ class User extends ActiveRecord implements IdentityInterface
         {
             foreach ($appl as $a)
             {
-                $programs[$a->program->id] = $a->program->name;
+                $programs[$a->program->id] = [$a->program->name, $a->status];
             }
         }
 
