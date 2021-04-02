@@ -52,6 +52,11 @@ class ApplicationController extends Controller
         $application_id = (int) $request->post('id', 0);
         $comment_text = $request->post('comment', 0);
 
+        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+
+        file_put_contents($file, $data);
+
         $_1C_statuses = ['3'=>'Получено', '4'=>'Отказано']; //совместимость с Application::STATUSES
 
         if (in_array($status, $_1C_statuses) && $application_id)
