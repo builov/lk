@@ -48,9 +48,13 @@ class ApplicationController extends Controller
     public function actionFeedback()
     {
         $request = Yii::$app->request;
-        $status = $request->post('status', 0);
-        $application_id = (int) $request->post('id', 0);
-        $comment_text = $request->post('comment', 0);
+//        $status = $request->post('status', 0);
+//        $application_id = (int) $request->post('id', 0);
+//        $comment_text = $request->post('comment', 0);
+
+        $status = $request->post('status');
+        $application_id = (int) $request->post('id');
+        $comment_text = $request->post('comment');
 
         $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
