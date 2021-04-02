@@ -5,8 +5,10 @@ namespace frontend\controllers;
 
 
 use common\models\Application;
+use common\models\Comment;
 use common\models\Profile;
 use common\models\Program;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -27,6 +29,47 @@ class ApplicationController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['feedback'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
+    public function actionTestForm()
+    {
+//        return 'ok';
+        return $this->render('test-form');
+    }
+
+    public function actionFeedback()
+    {
+        $request = Yii::$app->request;
+        $status = $request->post('status', 0);
+        $application_id = (int) $request->post('id', 0);
+        $comment_text = $request->post('comment', 0);
+
+        $_1C_statuses = ['3'=>'Получено', '4'=>'Отказано']; //совместимость с Application::STATUSES
+
+        if (in_array($status, $_1C_statuses) && $application_id)
+        {
+            if ($application = Application::findOne($application_id))
+            {
+                foreach ($_1C_statuses as $key => $value) if ($status == $value) $application->status = $key;
+                $application->updated = time();
+                $application->show_message = 1;
+                $application->save();
+
+                $comment = new Comment();
+                $comment->appl_id = $application->id;
+                $comment->body = $comment_text;
+                $comment->created = time();
+                $comment->save();
+            }
+        }
     }
 
     public function actionSaved($id)

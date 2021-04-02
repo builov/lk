@@ -96,7 +96,8 @@ class SiteController extends Controller
                     Yii::$app->session->setFlash('error', 'Пользователь с таким адресом электронной почты уже существует.');
                 }
                 else {
-                    Yii::$app->session->setFlash('success', 'Пользователь зарегистрирован, код подтверждения отправлен на указанный Вами email.');
+                    Yii::$app->session->setFlash('success', 'Спасибо, на указанный Вами email отправлен код подтверждения (без него учетная запись не будет активирована) и пароль для входа в Личный кабинет абитуриента. 
+Если письмо не пришло, обязательно проверьте папку Спам.');
                 }
             }
         }
@@ -187,7 +188,9 @@ class SiteController extends Controller
     {
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', 'Спасибо за регистрацию. На указанный Вами email 
+            отправлено проверочное письмо, для активации учетной записи следуйте содержащимся в письме инструкциям. 
+            Если письмо не пришло, обязательно проверьте папку Спам.'); //Thank you for registration. Please check your inbox for verification email.
             return $this->goHome();
         }
 
@@ -206,11 +209,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Письмо с инструкциями отправлено на Ваш адрес электронной поч'); //Check your email for further instructions.
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', 'Извините, не удалось отправить письмо на указанный адрес электронной почты.'); //Sorry, we are unable to reset password for the provided email address.
             }
         }
 
@@ -235,7 +238,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', 'Пароль изменен.'); //New password saved
 
             return $this->goHome();
         }
@@ -266,7 +269,7 @@ class SiteController extends Controller
             }
         }
 
-        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
+        Yii::$app->session->setFlash('error', 'Извините, не удалось верифицировать учетную запись - токен неверен.'); //Sorry, we are unable to verify your account with provided token.
         return $this->goHome();
     }
 
@@ -280,10 +283,10 @@ class SiteController extends Controller
         $model = new ResendVerificationEmailForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Письмо с инструкциями отправлено на Ваш адрес электронной почты.'); //Check your email for further instructions.
                 return $this->goHome();
             }
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to resend verification email for the provided email address.');
+            Yii::$app->session->setFlash('error', 'Извините, не удалось отправить письмо на данный адрес электронной почты.'); //Sorry, we are unable to resend verification email for the provided email address.
         }
 
         return $this->render('resendVerificationEmail', [

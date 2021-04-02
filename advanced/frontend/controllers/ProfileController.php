@@ -78,7 +78,7 @@ class ProfileController extends Controller
                 $file->mime = $f['mime'];
                 $file->weight = $f['weight'];
                 $file->created = time();
-                $file->doctype = $model->doctype;
+                $file->doctype = $model->doctype . $model->doctype;
                 $file->save();
 
 //                return '<div class="uploaded-image">

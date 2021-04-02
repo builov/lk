@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <fieldset>
                 <legend>Личные данные</legend>
 
-                <?= $form->field($model['reg_form'], 'lastname')->textInput(['autofocus' => true, 'value' => '']) ?>
+                <?= $form->field($model['reg_form'], 'lastname')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model['reg_form'], 'firstname')->textInput() ?>
 
@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date']) ?>
 
-                <?= $form->field($model['reg_form'], 'snils')->textInput() ?>
+                <?= $form->field($model['reg_form'], 'snils')->textInput()->hint('Иностранцам не нужно?') ?>
 
                 <?php $model['reg_form']->gender = 1 ?>
                 <?= $form->field($model['reg_form'], 'gender')->radioList(Profile::_GENDER); ?>
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model['reg_form'], 'passport_number')->textInput(['maxlength' => 6, 'class' => 'form-control class2'])->label(false)
                     ->hint('Какие бывают форматы у иностранных паспортов?') ?>
 
-                <?= $form->field($model['reg_form'], 'passport_issued')->textarea(['rows' => 2, 'cols' => 5, 'value' => '']) ?>
+                <?= $form->field($model['reg_form'], 'passport_issued')->textarea(['rows' => 2, 'cols' => 5]) ?>
 
                 <?= $form->field($model['reg_form'], 'passport_code')->textInput() ?>
 

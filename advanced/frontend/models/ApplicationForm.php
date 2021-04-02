@@ -59,6 +59,8 @@ class ApplicationForm extends Model
         {
             if ($file['doctype'] == 1) $passport++;
             elseif ($file['doctype'] == 2) $education++;
+//            echo '$passport ' . $passport . "\n";
+//            echo '$education' . $education . "\n\n";
         }
 
         if ($passport < 2 || $education < 2)

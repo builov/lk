@@ -13,10 +13,8 @@ use Yii;
  * @property int|null $status
  * @property int|null $created
  * @property int|null $updated
- * @property int|null $show_message
  *
  * @property User $u
- * @property Comment[] $comments
  */
 class Application extends \yii\db\ActiveRecord
 {
@@ -40,7 +38,7 @@ class Application extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'program_id', 'status', 'created', 'updated', 'show_message'], 'integer'],
+            [['uid', 'program_id', 'status', 'created', 'updated'], 'integer'],
             [['uid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['uid' => 'id']],
         ];
     }
@@ -57,22 +55,14 @@ class Application extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created' => 'Created',
             'updated' => 'Updated',
-            'show_message' => 'Show Message',
         ];
     }
 
-
-
     /**
-     * Gets query for [[Comments]].
+     * Gets query for [[U]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getComments()
-    {
-        return $this->hasMany(Comment::className(), ['appl_id' => 'id']);
-    }
-
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);

@@ -60,7 +60,7 @@ class RegisterForm extends Model
                 'required', 'message' => 'Обязательное поле'],
             [['birthdate', 'passport_date'], 'date', 'format'=>'yyyy-mm-dd'],
             [['gender', 'education_level', 'passport_number', 'zip', 'agree', 'region'], 'integer'],
-            [['graduate_year'], 'number', 'min' => 1970, 'max' => 2030],
+            [['graduate_year'], 'number', 'min' => 1950, 'max' => 2021],
             [['passport_issued', 'address_passport_street', 'address_passport_building', 'address_passport_apartment',
                 'address_current_street','address_current_building','address_current_apartment'], 'string'],
             [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code', 'phone', 'email'], 'string', 'max' => 255],
@@ -128,8 +128,8 @@ class RegisterForm extends Model
 
         try {
             $user = new User();
-            $user->username = $this->email;
-            $user->email = $this->email;
+            $user->username = trim($this->email);
+            $user->email = trim($this->email);
             $user->password_raw = Yii::$app->security->generateRandomString(10);
             $user->setPassword($user->password_raw);
             $user->generateAuthKey();
