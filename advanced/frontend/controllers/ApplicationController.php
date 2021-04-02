@@ -50,12 +50,20 @@ class ApplicationController extends Controller
         $request = Yii::$app->request;
         $data = $request->post('data');
 
+        $data_arr = explode('|', $data);
+
+        $status = $data_arr[0];
+        $application_id = (int) $data_arr[1];
+        $comment_text = $data_arr[2];
+
 //        $data = serialize($_POST);
 
-//        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
+        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
 
         file_put_contents($file, $data);
+
+
 
 
 //        $status = $request->post('status', 0);
