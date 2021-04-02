@@ -48,8 +48,9 @@ class ApplicationController extends Controller
     public function actionFeedback()
     {
         $request = Yii::$app->request;
+        $data = $request->post('data');
 
-        $data = serialize($_POST);
+//        $data = serialize($_POST);
 
 //        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
@@ -57,9 +58,9 @@ class ApplicationController extends Controller
         file_put_contents($file, $data);
 
 
-        $status = $request->post('status', 0);
-        $application_id = (int) $request->post('id', 0);
-        $comment_text = $request->post('comment', 0);
+//        $status = $request->post('status', 0);
+//        $application_id = (int) $request->post('id', 0);
+//        $comment_text = $request->post('comment', 0);
 
 //        $status = $request->post('status');
 //        $application_id = (int) $request->post('id');
