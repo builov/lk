@@ -52,6 +52,8 @@ class ApplicationController extends Controller
 
         $data_arr = explode('|', $data);
 
+        if (count($data_arr) < 3) return false;
+
         $status = $data_arr[0];
         $application_id = (int) $data_arr[1];
         $comment_text = $data_arr[2];
@@ -66,10 +68,6 @@ class ApplicationController extends Controller
 //        $status = $request->post('status', 0);
 //        $application_id = (int) $request->post('id', 0);
 //        $comment_text = $request->post('comment', 0);
-
-//        $status = $request->post('status');
-//        $application_id = (int) $request->post('id');
-//        $comment_text = $request->post('comment');
 
         $_1C_statuses = ['3'=>'Получено', '4'=>'Отказано']; //совместимость с Application::STATUSES
 
@@ -87,8 +85,11 @@ class ApplicationController extends Controller
                 $comment->body = $comment_text;
                 $comment->created = time();
                 $comment->save();
+                return true;
             }
+            else return false;
         }
+        else return false;
     }
 
     public function actionSaved($id)
