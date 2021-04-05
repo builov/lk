@@ -63,9 +63,6 @@ class ApplicationController extends Controller
 
         file_put_contents($file, $data);
 
-
-
-
 //        $status = $request->post('status', 0);
 //        $application_id = (int) $request->post('id', 0);
 //        $comment_text = $request->post('comment', 0);
