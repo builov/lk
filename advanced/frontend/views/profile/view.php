@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endforeach; endif; ?>
                     </div>
 
-                    <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false) ?>
+                    <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)->hint('Только файлы в формате .jpg') ?>
 
 <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
 
@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php endforeach; endif; ?>
                     </div>
 
-                    <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false) ?>
+                    <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false)->hint('Только файлы в формате .jpg') ?>
 
 <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
 
