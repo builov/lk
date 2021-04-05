@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <legend>
                         Паспорт и Свидетельство о регистрации по месту пребывания
-                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>
+<!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
                     </legend>
 
                     <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
@@ -87,7 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <fieldset>
 
-                    <legend>Документы об образовании <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a></legend>
+                    <legend>Документы об образовании
+<!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
+                    </legend>
 
                     <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'2'])->label(false) ?>
 
@@ -113,7 +115,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <h2>Профиль</h2>
 
-            <h3>Личные данные <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a></h3>
+            <h3>Личные данные
+<!--                <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a>-->
+            </h3>
             <p>Фамилия: <?= $model->profile->lastname ?></p>
             <p>Имя: <?= $model->profile->firstname ?></p>
             <p>Отчество: <?= $model->profile->patronim ?></p>
@@ -121,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>СНИЛС: <?= $model->profile->snils ?></p>
             <p>Пол: <?= Profile::_GENDER[$model->profile->gender] ?></p>
 
-            <h3>Контактные данные <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a></h3>
+            <h3>Контактные данные </h3>
             <p>Регион: <?= Profile::_REGION[$model->profile->region] ?></p>
             <p>Адрес (по паспорту): <?= $model->profile->address_passport ?></p>
             <p>Адрес фактический: <?= $model->profile->address_current ?></p>
@@ -129,18 +133,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Телефон: <?= $model->profile->phone ?></p>
             <p>Адрес электронной почты: <?= $model->email ?></p>
 
-            <h3>Образование <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a></h3>
+            <h3>Образование </h3>
             <p>Уровень образования: <?= Profile::_EDUCATION[$model->profile->education_level] ?></p>
             <p>Название учебного заведения: <?= $model->profile->institution ?></p>
             <p>Дата окончания: <?= $model->profile->graduate_year ?></p>
 
-            <h3>Паспорт <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a></h3>
+            <h3>Паспорт </h3>
             <p>Серия и номер паспорта: <?= $model->profile->passport_series ?> <?= $model->profile->passport_number ?></p>
             <p>Кем выдан: <?= $model->profile->passport_issued ?></p>
             <p>Код подразделения: <?= $model->profile->passport_code ?></p>
             <p>дата выдачи: <?= $model->profile->passport_date ?></p>
 
-            <h3><a href="">Смена пароля</a></h3>
+            <h3>Смена пароля</h3>
 
 
         </div>
