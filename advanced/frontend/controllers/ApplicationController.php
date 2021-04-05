@@ -50,6 +50,9 @@ class ApplicationController extends Controller
         $request = Yii::$app->request;
         $data = $request->post('data');
 
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+        file_put_contents($file, $data);
+
         $data_arr = explode('|', $data);
 
         if (count($data_arr) < 3) return false;
@@ -59,11 +62,7 @@ class ApplicationController extends Controller
         $comment_text = $data_arr[2];
 
 //        $data = serialize($_POST);
-
-        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-
-        file_put_contents($file, $data);
+//        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
 
 //        $status = $request->post('status', 0);
 //        $application_id = (int) $request->post('id', 0);
