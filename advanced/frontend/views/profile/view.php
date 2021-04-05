@@ -156,13 +156,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <p>В настоящее время Вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7»</p>
 
-            <h3>Отправленные заявки</h3>
+            <?php if (count($sent_applications) > 0): ?>
+                <h3>Отправленные заявки</h3>
 
-            <ul>
-                <?php foreach($model->getSentApplications() as $prog_id => $program): ?>
-                    <li><?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)</li>
-                <?php endforeach; ?>
-            </ul>
+                <ul>
+                    <?php foreach($sent_applications as $prog_id => $program): ?>
+                        <li><?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)</li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
 
             <p>&nbsp;</p>
             <h2>О поступлении</h2>

@@ -143,13 +143,14 @@ class ProfileController extends Controller
 
 //        print_r($model->profile);
 
-
+        $sent_applications = $model->getSentApplications();
 
         // предъявление формы
         return $this->render('view', [
             'model' => $model,
             'appform' => $form,
             'file_form' => $file_form,
+            'sent_applications' => $sent_applications,
         ]);
     }
 }
