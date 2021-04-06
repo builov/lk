@@ -126,10 +126,10 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Пол: <?= Profile::_GENDER[$model->profile->gender] ?></p>
 
             <h3>Контактные данные </h3>
-            <p>Регион: <?= Profile::_REGION[$model->profile->region] ?></p>
+<!--            <p>Регион: --><?//= Profile::_REGION[$model->profile->region] ?><!--</p>-->
             <p>Адрес (по паспорту): <?= $model->profile->address_passport ?></p>
             <p>Адрес фактический: <?= $model->profile->address_current ?></p>
-            <p>Индекс: <?= $model->profile->zip ?></p>
+<!--            <p>Индекс: --><?//= $model->profile->zip ?><!--</p>-->
             <p>Телефон: <?= $model->profile->phone ?></p>
             <p>Адрес электронной почты: <?= $model->email ?></p>
 
@@ -137,12 +137,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Уровень образования: <?= Profile::_EDUCATION[$model->profile->education_level] ?></p>
             <p>Название учебного заведения: <?= $model->profile->institution ?></p>
             <p>Дата окончания: <?= $model->profile->graduate_year ?></p>
+            <p>Серия и номер документа об образовании: <?= $model->profile->certificate_series ?> <?= $model->profile->certificate_number ?></p>
 
             <h3>Паспорт </h3>
             <p>Серия и номер паспорта: <?= $model->profile->passport_series ?> <?= $model->profile->passport_number ?></p>
             <p>Кем выдан: <?= $model->profile->passport_issued ?></p>
             <p>Код подразделения: <?= $model->profile->passport_code ?></p>
-            <p>дата выдачи: <?= $model->profile->passport_date ?></p>
+            <p>Дата выдачи: <?= $model->profile->passport_date ?></p>
 
             <h3>Смена пароля</h3>
 
