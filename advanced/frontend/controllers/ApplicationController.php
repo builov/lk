@@ -74,13 +74,14 @@ class ApplicationController extends Controller
         {
             if ($application = Application::findOne($application_id))
             {
-                foreach ($_1C_statuses as $key => $value) if ($status == $value) $application->status = $key;
+                foreach ($_1C_statuses as $key => $value) if ($status == $value)
+                    $application->status = $key;
                 $application->updated = time();
                 $application->show_message = 1;
                 $application->save();
 
                 $comment = new Comment();
-                $comment->appl_id = $application->id;
+                $comment->appl_id = $application_id;
                 $comment->body = $comment_text;
                 $comment->created = time();
                 $comment->save();

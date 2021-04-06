@@ -65,10 +65,10 @@ class RegisterForm extends Model
                 'gender', 'education_level', 'graduate_year',
                 'agree', 'birthdate', 'passport_date'],
                 'required', 'message' => 'Обязательное поле'],
-            [['passport_series', 'passport_number', 'passport_code', 'region', 'snils', 'certificate_series', 'certificate_number'],
-                'required', 'when' => function() {
-                    return $this->citizenship == 1;
-            }],
+//            [['passport_series', 'passport_number', 'passport_code', 'region', 'snils', 'certificate_series', 'certificate_number'],
+//                'required', 'when' => function() {
+//                    return $this->citizenship == 1;
+//            }],
 //            [['passport_series_number', 'certificate_series_number'],
 //                'required', 'when' => function() {
 //                return $this->citizenship == 2;
