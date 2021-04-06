@@ -50,10 +50,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date']) ?>
 
-                <?= $form->field($model['reg_form'], 'snils')->textInput()->hint('Иностранцам не нужно?') ?>
-
                 <?php $model['reg_form']->gender = 1 ?>
                 <?= $form->field($model['reg_form'], 'gender')->radioList(Profile::_GENDER); ?>
+
+                <?= $form->field($model['reg_form'], 'citizenship')->dropDownList(Profile::_CITIZENSHIP) ?>
+
+                <?= $form->field($model['reg_form'], 'snils')->textInput() ?>
+
+
             </fieldset>
 
             <fieldset>
@@ -63,7 +67,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'institution')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'graduate_year')->textInput() ?>
+                <?= $form->field($model['reg_form'], 'graduate_year')->textInput(['maxlength' => 4]) ?>
+
+                <label class="control-label" for="registerform-certificate_series">Серия и номер документа об образовании</label>
+
+                <?= $form->field($model['reg_form'], 'certificate_series')->textInput()->label(false) ?>
+
+                <?= $form->field($model['reg_form'], 'certificate_number')->textInput()->label(false) ?>
+
+<!--                --><?//= $form->field($model['reg_form'], 'certificate_series_number')->textInput()->label(false) ?>
             </fieldset>
 
             <fieldset>
@@ -71,10 +83,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <label class="control-label" for="registerform-passport_series">Серия и номер паспорта</label>
 
-                <?= $form->field($model['reg_form'], 'passport_series')->textInput(['maxlength' => 5, 'class' => 'form-control class1'])->label(false) ?>
+                <?= $form->field($model['reg_form'], 'passport_series')->textInput(['class' => 'form-control class1'])->label(false) ?>
 
-                <?= $form->field($model['reg_form'], 'passport_number')->textInput(['maxlength' => 6, 'class' => 'form-control class2'])->label(false)
-                    ->hint('Какие бывают форматы у иностранных паспортов?') ?>
+                <?= $form->field($model['reg_form'], 'passport_number')->textInput(['class' => 'form-control class2'])->label(false) ?>
+
+<!--                --><?//= $form->field($model['reg_form'], 'passport_series_number')->textInput(['class' => 'form-control class3'])->label(false) ?>
 
                 <?= $form->field($model['reg_form'], 'passport_issued')->textarea(['rows' => 2, 'cols' => 5]) ?>
 
@@ -86,9 +99,11 @@ $this->params['breadcrumbs'][] = $this->title;
             <fieldset>
                 <legend>Контактные данные</legend>
 
-                <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION)->hint('Для граждан РФ - по паспорту или фактический?') ?>
 
-                <?= $form->field($model['reg_form'], 'zip')->textInput()->hint('По паспорту или фактический?') ?>
+
+                <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION) ?>
+
+<!--                --><?//= $form->field($model['reg_form'], 'zip')->textInput()->hint('По паспорту или фактический?') ?>
 
                 <?= $form->field($model['reg_form'], 'phone')->textInput() ?>
 
@@ -100,7 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--                --><?//= $form->field($model['reg_form'], 'address_current')->textarea(['rows' => 2, 'cols' => 5, 'value' => 'Адрес 2']) ?>
 
                 <fieldset>
-                    <legend>Адрес (как в паспорте)</legend>
+                    <legend>Адрес регистрации по месту жительства (по паспорту)</legend>
 <!--                    --><?//= $form->field($model['reg_form'], 'address_passport_region')->textInput() ?>
 <!--                    --><?//= $form->field($model['reg_form'], 'address_passport_city')->textInput() ?>
                     <?= $form->field($model['reg_form'], 'address_passport_street')->textInput()
@@ -111,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($model['reg_form'], 'address_passport_building')->textInput()->hint('Без слова "дом"') ?>
                     <?= $form->field($model['reg_form'], 'address_passport_apartment')->textInput()->hint('Без слова "квартира"') ?>
 
-                    <legend>Фактический адрес проживания</legend>
+                    <legend>Адрес по месту пребывания в г. Москве или Московской области</legend>
 
                     <div class="checkbox">
                         <label for="the-same">
@@ -141,7 +156,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Дальше', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>

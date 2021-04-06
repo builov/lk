@@ -8,9 +8,9 @@ $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'to
 ?>
 Здравствуйте, <?= $user->username ?>,
 
-Ваш логин для входа в личный кабинет абитуриента: <?= Html::encode($user->email) ?>.
+Ваш логин для входа в личный кабинет абитуриента: <?= $user->email ?>.
 
-Ваш пароль: <?= Html::encode($user->password_raw) ?>
+Ваш пароль: <?= $user->password_raw ?>
 
 Для завершения регистрации Вам необходимо перейти по следующей ссылке (или скопировать её в адресную строку браузера):
 

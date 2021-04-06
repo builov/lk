@@ -18,7 +18,7 @@ use Yii;
  * @property string|null $institution
  * @property int|null $graduate_year
  * @property string|null $passport_series
- * @property string|null $passport_number
+ * @property int|null $passport_number
  * @property string|null $passport_issued
  * @property string|null $passport_code
  * @property string|null $passport_date
@@ -31,11 +31,10 @@ use Yii;
  * @property int|null $created
  * @property int|null $updated
  * @property int|null $status
- * @property string|null $certificate_series
- * @property string|null $certificate_number
  */
 class Profile extends \yii\db\ActiveRecord
 {
+
     const _EDUCATION = [
         1 => 'Основное общее (9 классов)',
         2 => 'Среднее общее (11 классов)',
@@ -62,9 +61,9 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             [['birthdate', 'passport_date'], 'safe'],
-            [['gender', 'education_level', 'graduate_year', 'region', 'zip', 'agree', 'created', 'updated', 'status'], 'integer'],
+            [['gender', 'education_level', 'graduate_year', 'passport_number', 'region', 'zip', 'agree', 'created', 'updated', 'status'], 'integer'],
             [['passport_issued', 'address_passport', 'address_current'], 'string'],
-            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_number', 'passport_code', 'phone', 'certificate_series', 'certificate_number'], 'string', 'max' => 255],
+            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code', 'phone'], 'string', 'max' => 255],
         ];
     }
 
@@ -98,8 +97,6 @@ class Profile extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'status' => 'Status',
-            'certificate_series' => 'Certificate Series',
-            'certificate_number' => 'Certificate Number',
         ];
     }
 }

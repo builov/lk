@@ -26,7 +26,7 @@ class m210302_073410_create_profile_table extends Migration
             'graduate_year' => $this->integer(),
 
             'passport_series' => $this->string(),
-            'passport_number' => $this->integer(),
+            'passport_number' => $this->string(),
             'passport_issued' => $this->text(),
             'passport_code' => $this->string(),
             'passport_date' => $this->date(),

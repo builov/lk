@@ -19,15 +19,21 @@ class RegisterForm extends Model
     public $patronim;
     public $birthdate;
     public $snils;
+//    public $snils2;
     public $gender;
     public $education_level;
     public $institution;
     public $graduate_year;
+    public $certificate_series;
+    public $certificate_number;
+//    public $certificate_series_number;
     public $passport_series;
     public $passport_number;
+    public $passport_series_number;
     public $passport_issued;
     public $passport_code;
     public $passport_date;
+    public $citizenship;
     public $region;
 //    public $address_passport_region;
 //    public $address_passport_city;
@@ -39,10 +45,11 @@ class RegisterForm extends Model
     public $address_current_street;
     public $address_current_building;
     public $address_current_apartment;
-    public $zip;
+//    public $zip;
     public $phone;
     public $email;
     public $agree;
+    public $addresses_coincide;
 
 
     /**
@@ -52,18 +59,28 @@ class RegisterForm extends Model
     {
         return [
             // 'message'=>'Please enter a value for {attribute}.'
-            [['lastname', 'firstname', 'institution', 'passport_series', 'passport_code',
+            [['lastname', 'firstname', 'institution',
                 'phone', 'email', 'passport_issued',
                 'address_passport_street', 'address_passport_building',
-                'gender', 'education_level', 'graduate_year', 'passport_number',
-                'agree', 'birthdate', 'passport_date', 'region'],
+                'gender', 'education_level', 'graduate_year',
+                'agree', 'birthdate', 'passport_date'],
                 'required', 'message' => 'Обязательное поле'],
+            [['passport_series', 'passport_number', 'passport_code', 'region', 'snils', 'certificate_series', 'certificate_number'],
+                'required', 'when' => function() {
+                    return $this->citizenship == 1;
+            }],
+//            [['passport_series_number', 'certificate_series_number'],
+//                'required', 'when' => function() {
+//                return $this->citizenship == 2;
+//            }],
             [['birthdate', 'passport_date'], 'date', 'format'=>'yyyy-mm-dd'],
-            [['gender', 'education_level', 'passport_number', 'zip', 'agree', 'region'], 'integer'],
+            [['gender', 'education_level', 'passport_number', 'agree', 'region', 'citizenship'], 'integer'],
             [['graduate_year'], 'number', 'min' => 1950, 'max' => 2021],
             [['passport_issued', 'address_passport_street', 'address_passport_building', 'address_passport_apartment',
                 'address_current_street','address_current_building','address_current_apartment'], 'string'],
-            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_code', 'phone', 'email'], 'string', 'max' => 255],
+            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series',
+                'passport_code', 'phone', 'email',
+                'certificate_series', 'certificate_number'], 'string', 'max' => 255],
         ];
     }
 
@@ -82,25 +99,30 @@ class RegisterForm extends Model
             'education_level' => 'Уровень образования',
             'institution' => 'Название учебного заведения',
             'graduate_year' => 'Год окончания',
+            'certificate_series' => 'Серия документа об образовании',
+            'certificate_number' => 'Номер документа об образовании',
+//            'certificate_series_number' => 'Серия и номер документа об образовании',
             'passport_series' => 'Серия паспорта',
             'passport_number' => 'Номер паспорта',
+//            'passport_series_number' => 'Серия и номер паспорта',
             'passport_issued' => 'Кем выдан',
             'passport_code' => 'Код подразделения',
             'passport_date' => 'Дата выдачи',
-            'region' => 'Страна или регион РФ',
+            'citizenship' => 'Гражданство',
+            'region' => 'Регион РФ',
 //            'address_passport' => 'Адрес (как в паспорте)',
 //            'address_current' => 'Фактический адрес проживания',
 //            'address_passport_region' => 'Регион (Субъект РФ для граждан РФ)',
 //            'address_passport_city' => 'Город',
             'address_passport_street' => 'Регион/Район/Город/Улица',
-            'address_passport_building' => 'Дом',
+            'address_passport_building' => 'Дом/Корпус/Строение',
             'address_passport_apartment' => 'Квартира (если есть)',
 //            'address_current_region' => 'Субъект РФ',
 //            'address_current_city' => 'Город',
             'address_current_street' => 'Регион/Район/Город/Улица',
-            'address_current_building' => 'Дом',
+            'address_current_building' => 'Дом/Корпус/Строение',
             'address_current_apartment' => 'Квартира (если есть)',
-            'zip' => 'Почтовый индекс',
+//            'zip' => 'Почтовый индекс',
             'phone' => 'Телефон',
             'email' => 'Электронная почта',
 //            'agree' => 'Я подтверждаю согласие на обработку персональных данных',
@@ -163,18 +185,25 @@ class RegisterForm extends Model
         $profile->birthdate = $this->birthdate;
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
+
+        $profile->region = ($this->citizenship==1) ? $this->region : 4;
+
         $profile->education_level = (int) $this->education_level;
         $profile->institution = $this->institution;
         $profile->graduate_year = (int) $this->graduate_year;
+
         $profile->passport_series = $this->passport_series;
-        $profile->passport_number = (int) $this->passport_number;
+        $profile->passport_number = $this->passport_number;
+        $profile->certificate_series = $this->certificate_series;
+        $profile->certificate_number = $this->certificate_number;
+
         $profile->passport_issued = $this->passport_issued;
         $profile->passport_code = $this->passport_code;
         $profile->passport_date = $this->passport_date;
-        $profile->region = $this->region;
+
         $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building . ', квартира ' . $this->address_passport_apartment;
         $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building . ', квартира ' . $this->address_current_apartment;
-        $profile->zip = (int) $this->zip;
+        $profile->zip = 0; //(int) $this->zip;
         $profile->phone = $this->phone;
         $profile->agree = (int) $this->agree;
         $profile->created = time();

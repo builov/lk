@@ -50,6 +50,13 @@ AppAsset::register($this);
             background-repeat: no-repeat;
             display:inline-block;
         }
+
+        .field-registerform-snils2 {
+            display:none;
+        }
+        .field-registerform-passport_series_number {
+            display:none;
+        }
     </style>
 </head>
 <body>
@@ -137,11 +144,43 @@ AppAsset::register($this);
 
     $(function() {
 
+        $('#registerform-citizenship').on('change', function() {
+            console.log(this.value);
+            if (this.value==1)
+            {
+                $("#registerform-snils").mask("999-999-999-99");
+                // $(".field-registerform-snils1").show();
+                // $(".field-registerform-snils2").hide().find('input').val('');
+                $(".field-registerform-passport_code").show();
+                $(".field-registerform-region").show();
+                // $(".field-registerform-passport_series").show();
+                // $(".field-registerform-passport_number").show();
+                // $(".field-registerform-passport_series_number").hide().find('input').val('');
+                $("#registerform-passport_series").mask("99 99");
+                $("#registerform-passport_number").mask("999999");
+            }
+            else if (this.value==2)
+            {
+                $("#registerform-snils").unmask();
+                // $(".field-registerform-snils2").show();
+                // $(".field-registerform-snils1").hide().find('input').val('');
+                $(".field-registerform-passport_code").hide();
+                $(".field-registerform-region").hide();
+                // $(".field-registerform-passport_series").hide().find('input').val('');
+                // $(".field-registerform-passport_number").hide().find('input').val('');
+                // $(".field-registerform-passport_series_number").show();
+                $("#registerform-passport_series").unmask();
+                $("#registerform-passport_number").unmask();
+            }
+        });
+
         $("#registerform-phone").mask("+7 (999) 999-99-99");
-        $("#registerform-zip").mask("999999");
+        // $("#registerform-zip").mask("999999");
         $("#registerform-passport_code").mask("999-999");
         $("#registerform-snils").mask("999-999-999-99");
         $("#registerform-graduate_year").mask("9999");
+        $("#registerform-passport_series").mask("99 99");
+        $("#registerform-passport_number").mask("999999");
 
         $('button[name="signup-button"]').on('click', function ()
         {

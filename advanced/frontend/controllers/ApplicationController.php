@@ -68,7 +68,7 @@ class ApplicationController extends Controller
 //        $application_id = (int) $request->post('id', 0);
 //        $comment_text = $request->post('comment', 0);
 
-        $_1C_statuses = ['3'=>'Получено', '4'=>'Отказано']; //совместимость с Application::STATUSES
+        $_1C_statuses = ['3'=>'Принято', '4'=>'Отказано']; //совместимость с Application::STATUSES
 
         if (in_array($status, $_1C_statuses) && $application_id)
         {
