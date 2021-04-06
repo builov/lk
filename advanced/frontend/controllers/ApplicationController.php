@@ -47,19 +47,28 @@ class ApplicationController extends Controller
 
     public function actionFeedback()
     {
-        $request = Yii::$app->request;
-        $data = $request->post('data');
+//        $request = Yii::$app->request;
+//        $data = $request->post('data');
+
+        $data = "4|21|Заявление принято
+4|22|Заявление принято";
 
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         file_put_contents($file, $data);
 
-        $data_arr = explode('|', $data);
+        $data_all_arr = explode(PHP_EOL, $data);
 
-        if (count($data_arr) < 3) return false;
+        foreach ($data_all_arr as $data_str)
+        {
+//            echo $data_str . "\n";
+            
+            $data_arr = explode('|', $data_str);
 
-        $status = $data_arr[0];
-        $application_id = (int) $data_arr[1];
-        $comment_text = $data_arr[2];
+            if (count($data_arr) < 3) continue;
+
+            $status = $data_arr[0];
+            $application_id = (int) $data_arr[1];
+            $comment_text = $data_arr[2];
 
 //        $data = serialize($_POST);
 //        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
@@ -68,28 +77,30 @@ class ApplicationController extends Controller
 //        $application_id = (int) $request->post('id', 0);
 //        $comment_text = $request->post('comment', 0);
 
-        $_1C_statuses = ['3'=>'Принято', '4'=>'Отказано']; //совместимость с Application::STATUSES
+//        $_1C_statuses = ['3'=>'Принято', '4'=>'Отказано']; //совместимость с Application::STATUSES
 
-        if (in_array($status, $_1C_statuses) && $application_id)
-        {
-            if ($application = Application::findOne($application_id))
+            if (in_array($status, ['3','4']) && $application_id)
             {
-                foreach ($_1C_statuses as $key => $value) if ($status == $value)
-                    $application->status = $key;
-                $application->updated = time();
-                $application->show_message = 1;
-                $application->save();
+                if ($application = Application::findOne($application_id))
+                {
+//                foreach ($_1C_statuses as $key => $value) if ($status == $value)
+//                    $application->status = $key;
+                    $application->status = $status;
+                    $application->updated = time();
+                    $application->show_message = 1;
+                    $application->save();
 
-                $comment = new Comment();
-                $comment->appl_id = $application_id;
-                $comment->body = $comment_text;
-                $comment->created = time();
-                $comment->save();
-                return true;
+                    $comment = new Comment();
+                    $comment->appl_id = $application_id;
+                    $comment->body = $comment_text;
+                    $comment->created = time();
+                    $comment->save();
+//                return true;
+                }
+//            else return false;
             }
-            else return false;
         }
-        else return false;
+//        else return false;
     }
 
     public function actionSaved($id)
