@@ -47,11 +47,11 @@ class ApplicationController extends Controller
 
     public function actionFeedback()
     {
-//        $request = Yii::$app->request;
-//        $data = $request->post('data');
+        $request = Yii::$app->request;
+        $data = $request->post('data');
 
-        $data = "4|21|Заявление принято
-4|22|Заявление принято";
+//        $data = "4|21|Заявление принято
+//4|22|Заявление принято";
 
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         file_put_contents($file, $data);
@@ -61,7 +61,7 @@ class ApplicationController extends Controller
         foreach ($data_all_arr as $data_str)
         {
 //            echo $data_str . "\n";
-            
+
             $data_arr = explode('|', $data_str);
 
             if (count($data_arr) < 3) continue;
