@@ -130,7 +130,7 @@ class ApplicationController extends Controller
 //            exit();
 
             $apps[$key]['programs'] = [$application->program->id => $application->program->name];
-            $apps[$key]['program_base'] = Profile::_EDUCATION[$application->program->base];
+            $apps[$key]['program_base'] = $application->program->base; //Profile::_EDUCATION[$application->program->base];
             $apps[$key]['program_type'] = Program::_TYPES[$application->program->type];
             $apps[$key]['program_financing'] = Program::_FINANCING[$application->program->financing];
             $apps[$key]['user_id'] = $application->user->id;
@@ -142,7 +142,7 @@ class ApplicationController extends Controller
             $apps[$key]['user_region'] = $application->user->profile->region; //Profile::_REGION[$application->user->profile->region];
             $apps[$key]['user_snils'] = $application->user->profile->snils;
             $apps[$key]['user_gender'] = Profile::_GENDER[$application->user->profile->gender];
-            $apps[$key]['user_education_level'] = Profile::_EDUCATION[$application->user->profile->education_level];
+            $apps[$key]['user_education_level'] = $application->user->profile->education_level; //Profile::_EDUCATION[$application->user->profile->education_level];
             $apps[$key]['user_institution'] = $application->user->profile->institution;
             $apps[$key]['user_graduate_year'] = $application->user->profile->graduate_year;
             $apps[$key]['user_certificate_series'] = $application->user->profile->certificate_series;

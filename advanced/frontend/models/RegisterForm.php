@@ -150,16 +150,17 @@ class RegisterForm extends Model
 
         try {
             $user = new User();
-            $user->username = trim($this->email);
-            $user->email = trim($this->email);
+            $user->username = str_replace(' ', '', $this->email);
+            $user->email = str_replace(' ', '', $this->email);
             $user->password_raw = Yii::$app->security->generateRandomString(10);
             $user->setPassword($user->password_raw);
             $user->generateAuthKey();
             $user->generateEmailVerificationToken();
 
-            $user->save();
-
             $user->fio = $this->lastname . ' ' . $this->firstname . ' ' . $this->patronim;
+
+            if ($this->sendEmail($user)) $user->save();
+            else exit; //todo редирект на страницу с сообщением об ошибке
         }
         catch (\yii\db\Exception $e)
         {
@@ -167,7 +168,8 @@ class RegisterForm extends Model
             return 'error' . $e->errorInfo[1];
         }
 
-        if ($user->id && $this->createProfile($user->id) && $this->sendEmail($user))
+//        if ($user->id && $this->createProfile($user->id) && $this->sendEmail($user))
+        if ($user->id && $this->createProfile($user->id))
         {
             return $user->id;
         }
@@ -221,6 +223,10 @@ class RegisterForm extends Model
      */
     protected function sendEmail($user)
     {
+//        echo '<pre>';
+//        print_r($user);
+//        echo '</pre>';
+
         return Yii::$app
             ->mailer
             ->compose(
