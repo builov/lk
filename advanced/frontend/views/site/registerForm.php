@@ -48,7 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'patronim')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date']) ?>
+<!--                --><?//= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date']) ?>
+                <?= $form->field($model['reg_form'], 'birthdate')->textInput()->hint('В формате дд-мм-гггг') ?>
 
                 <?php $model['reg_form']->gender = 1 ?>
                 <?= $form->field($model['reg_form'], 'gender')->radioList(Profile::_GENDER); ?>
@@ -93,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model['reg_form'], 'passport_code')->textInput() ?>
 
-                <?= $form->field($model['reg_form'], 'passport_date')->textInput(['type' => 'date']) ?>
+                <?= $form->field($model['reg_form'], 'passport_date')->textInput()->hint('В формате дд-мм-гггг') ?>
             </fieldset>
 
             <fieldset>

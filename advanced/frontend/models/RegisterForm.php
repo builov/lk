@@ -73,7 +73,8 @@ class RegisterForm extends Model
 //                'required', 'when' => function() {
 //                return $this->citizenship == 2;
 //            }],
-            [['birthdate', 'passport_date'], 'date', 'format'=>'yyyy-mm-dd'],
+            [['birthdate', 'passport_date'], 'date', 'format'=>'dd-mm-yyyy'],
+//            [['birthdate', 'passport_date'], 'string'],
             [['gender', 'education_level', 'passport_number', 'agree', 'region', 'citizenship'], 'integer'],
             [['graduate_year'], 'number', 'min' => 1950, 'max' => 2021],
             [['passport_issued', 'address_passport_street', 'address_passport_building', 'address_passport_apartment',
@@ -184,7 +185,10 @@ class RegisterForm extends Model
         $profile->lastname = $this->lastname;
         $profile->firstname = $this->firstname;
         $profile->patronim = $this->patronim;
-        $profile->birthdate = $this->birthdate;
+
+        //todo переформатировать дд-мм-гггг в гггг-мм-дд
+        $profile->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
+
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
 
@@ -201,7 +205,7 @@ class RegisterForm extends Model
 
         $profile->passport_issued = $this->passport_issued;
         $profile->passport_code = $this->passport_code;
-        $profile->passport_date = $this->passport_date;
+        $profile->passport_date = implode('-', array_reverse(explode( '-', $this->passport_date)));
 
         $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building . ', квартира ' . $this->address_passport_apartment;
         $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building . ', квартира ' . $this->address_current_apartment;

@@ -50,6 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id' => 'upload-form-passport',
                     'action' => '/profile/upload-file',
                     'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                    'enableClientValidation' => false,
                 ]) ?>
 
                 <fieldset>
@@ -68,7 +69,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php endforeach; endif; ?>
                     </div>
 
-                    <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)->hint('Только файлы в формате .jpg') ?>
+                    <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
+                        ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                    <div class="xhr-message"></div>
 
 <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
 
@@ -83,6 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id' => 'upload-form-education',
                     'action' => '/profile/upload-file',
                     'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                    'enableClientValidation' => false,
                 ]) ?>
 
                 <fieldset>
@@ -100,7 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php endforeach; endif; ?>
                     </div>
 
-                    <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false)->hint('Только файлы в формате .jpg') ?>
+                    <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false)
+                        ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                    <div class="xhr-message"></div>
 
 <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
 

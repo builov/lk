@@ -182,6 +182,9 @@ AppAsset::register($this);
         $("#registerform-passport_series").mask("99 99");
         $("#registerform-passport_number").mask("999999");
 
+        $("#registerform-birthdate").mask("99-99-9999");
+        $("#registerform-passport_date").mask("99-99-9999");
+
         $('button[name="signup-button"]').on('click', function ()
         {
             $("#application-form").submit();
@@ -220,44 +223,57 @@ AppAsset::register($this);
         //     btnSaveImage.prop('disabled', false);
         // });
 
-        $('input[type="file"]').on('change', function (e)
-        {
+        $('input[type="file"]').on('change', function (e) {
             e.preventDefault();
 
-            var form = $(this).parents('form.upload-form');
-            var formData = new FormData(form[0]);
-            var imageContainer = form.find('.image-container');
+            // console.log(typeof $(this).val());
 
-            $.ajax({
-                url: form.attr("action"),
-                type: form.attr("method"),
-                data: formData,
-                dataType: 'html',
-                processData: false,
-                contentType: false,
-                cache: false,
-                // beforeSend: function () {
-                //     process.fadeIn('fast');
-                // },
-                success: function (data) {
-                    form[0].reset();
+            if ($(this).val() != '')
+            {
+                var form = $(this).parents('form.upload-form'),
+                    formData = new FormData(form[0]),
+                    imageContainer = form.find('.image-container'),
+                    messageContainer = form.find('.xhr-message');
 
-                    console.log(data);
+                $.ajax({
+                    url: form.attr("action"),
+                    type: form.attr("method"),
+                    data: formData,
+                    dataType: 'html',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    // beforeSend: function () {
+                    //     process.fadeIn('fast');
+                    // },
+                    success: function (data) {
+                        form[0].reset();
 
-                    imageContainer.append(data);
+                        // console.log(data);
 
-                    // data = JSON.parse(data);
-                    // btnSaveImage.prop('disabled', true);
-                    // btnDeleteImage.fadeIn();
-                    // image.attr('src', data.image);
-                    // process.delay(1000).fadeOut();
-                },
-                error: function () {
-                    // process.delay(1000).fadeOut();
-                    alert('Error!');
-                }
-            });
-            return false;
+                        imageContainer.append(data);
+                        messageContainer.empty();
+
+                        // data = JSON.parse(data);
+                        // btnSaveImage.prop('disabled', true);
+                        // btnDeleteImage.fadeIn();
+                        // image.attr('src', data.image);
+                        // process.delay(1000).fadeOut();
+                    },
+                    error: function (xhr, status, error) {
+                        // process.delay(1000).fadeOut();
+
+                        if (error == 'Unsupported Media Type') {
+                            // console.log('Неподдерживаемый формат файла или слишком большой размер.');
+                            messageContainer.text('Неподдерживаемый формат или слишком большой размер файла.');
+                        } else {
+                            // console.log('Ошибка загрузки файла: ' + error);
+                            // console.log('Ошибка загрузки файла. Возможно, сервер перегружен.');
+                            messageContainer.text('Ошибка загрузки файла: ' + error);
+                        }
+                    }
+                });
+            }
         });
 
         // Удаление изображения

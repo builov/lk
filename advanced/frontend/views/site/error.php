@@ -13,15 +13,23 @@ $this->title = $name;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>
+        Ошибка обработки запроса:
+    </p>
+
     <div class="alert alert-danger">
         <?= nl2br(Html::encode($message)) ?>
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
+        Вы можете сообщить нам о случившемся по электронной почте:
     </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+
+<!--    <p>-->
+<!--        The above error occurred while the Web server was processing your request.-->
+<!--    </p>-->
+<!--    <p>-->
+<!--        Please contact us if you think this is a server error. Thank you.-->
+<!--    </p>-->
 
 </div>

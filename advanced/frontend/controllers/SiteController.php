@@ -69,6 +69,15 @@ class SiteController extends Controller
     }
 
 
+    public function actionRegisterMessage()
+    {
+        $model = new LoginForm();
+
+        return $this->render('registerMessage', [
+            'model' => $model,
+        ]);
+    }
+
 
     /**
      * Displays homepage.
@@ -98,6 +107,7 @@ class SiteController extends Controller
                 else {
                     Yii::$app->session->setFlash('success', 'Спасибо, на указанный Вами email отправлен код подтверждения (без него учетная запись не будет активирована) и пароль для входа в Личный кабинет абитуриента. 
 Если письмо не пришло, обязательно проверьте папку Спам.');
+                    return $this->redirect(['/site/register-message']);
                 }
             }
         }

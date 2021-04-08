@@ -87,6 +87,7 @@ class ProfileController extends Controller
 
                 return "<div class=\"img-uploaded\" style=\"background-image: url('/uploads/" . $model->uploadedFile['name'] . "')\" >&nbsp;</div>";            }
             else {
+                Yii::$app->response->setStatusCode(415);
                 return false;
             }
         }
