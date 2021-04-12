@@ -7,10 +7,21 @@ namespace frontend\controllers;
 use common\models\Application;
 use common\models\Comment;
 use Yii;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class TransmitController extends Controller
 {
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['message'])) {
+            $this->enableCsrfValidation = false;
+        }
+        return parent::beforeAction($action);
+    }
+
+
+
     public function actionMessage()
     {
         $request = Yii::$app->request;
