@@ -53,8 +53,8 @@ class ApplicationController extends Controller
 //        $data = "4|21|Заявление принято
 //4|22|Заявление принято";
 
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-        file_put_contents($file, $data);
+//        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+//        file_put_contents($file, $data);
 
         $data_all_arr = explode(PHP_EOL, $data);
 
@@ -79,7 +79,7 @@ class ApplicationController extends Controller
 
 //        $_1C_statuses = ['3'=>'Принято', '4'=>'Отказано']; //совместимость с Application::STATUSES
 
-            if (in_array($status, ['3','4']) && $application_id)
+            if (in_array($status, ['3','4', '5']) && $application_id)
             {
                 if ($application = Application::findOne($application_id))
                 {
@@ -90,17 +90,18 @@ class ApplicationController extends Controller
                     $application->show_message = 1;
                     $application->save();
 
-                    $comment = new Comment();
-                    $comment->appl_id = $application_id;
-                    $comment->body = $comment_text;
-                    $comment->created = time();
-                    $comment->save();
-//                return true;
+                    if ($status=='3') //для статуса "заявка отклонена"
+                    {
+                        $comment = new Comment();
+                        $comment->appl_id = $application_id;
+                        $comment->body = $comment_text;
+                        $comment->created = time();
+                        $comment->save();
+                    }
+
                 }
-//            else return false;
             }
         }
-//        else return false;
     }
 
     public function actionSaved($id)

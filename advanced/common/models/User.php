@@ -225,22 +225,36 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Files::className(), ['uid' => 'id']);
     }
 
+    public function getApplications()
+    {
+        return $this->hasMany(Application::className(), ['uid' => 'id']);
+    }
+
 //    /**
 //     * @return array of id => name
 //     */
     public function getAvailablePrograms()
     {
-        $fields = Program::find()->select('id, name, base, region')->asArray()->all();
+        $programs = Program::find()->select('id, name, base, region')->asArray()->all();
         $education_level = ($this->profile->education_level > 2) ? 2 : $this->profile->education_level;
         $options = [];
-        foreach ($fields as $value)
+
+        $sent_programs = [];
+        foreach ($this->applications as $application)
+        {
+            if ($application->status < 4) $sent_programs[] = $application->program_id; //если статус 1,2,3
+        }
+
+        foreach ($programs as $program)
         {
 //            $value['base'] = ($value['base'] > 2) ? 2 : $value['base']; //более высокие ступени образования = 11 кл.
-            if ($value['base']==$education_level && in_array($this->profile->region, explode(",", $value['region'])))
+            if ($program['base']==$education_level
+                && in_array($this->profile->region, explode(",", $program['region'])))
             {
-                $options[$value['id']] = $value['name'];
+                if (!in_array($program['id'], $sent_programs)) $options[$program['id']] = $program['name'];
             }
         }
+//        print_r($options);
 //        $this->profile->region;
 //        $this->profile->education_level;
         return $options;
@@ -253,9 +267,11 @@ class User extends ActiveRecord implements IdentityInterface
         {
             foreach ($appl as $a)
             {
-                $programs[$a->program->id] = [$a->program->name, $a->status];
+                $programs[$a->program->id] = [$a->program->name, $a->status, $a->comments];
             }
         }
+
+//        print_r($programs);
 
         return $programs;
     }

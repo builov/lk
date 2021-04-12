@@ -20,104 +20,127 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-8">
 
-            <h2>Заявка на обучение</h2>
+            <?php if (!count($sent_applications)): ?>
 
-            <?php //$fields = Program::find()->select('id, name')->asArray()->all(); ?>
+                <h2>Заявка на обучение</h2>
 
-            <?php $form = ActiveForm::begin([
-                    'id' => 'application-form',
-                    'options' => ['enctype' => 'multipart/form-data']
+                <?php //$fields = Program::find()->select('id, name')->asArray()->all(); ?>
+
+                <?php $form = ActiveForm::begin([
+                'id' => 'application-form',
+                'options' => ['enctype' => 'multipart/form-data']
             ]) ?>
 
-            <?= $form->field($appform, 'program_id')->dropDownList($model->getAvailablePrograms()) ?>
+                <?= $form->field($appform, 'program_id')->dropDownList($model->getAvailablePrograms()) ?>
 
-            <p>Необходимые документы:</p>
-            <ul>
-                <li>паспорт (страница с фото, страница с пропиской)</li>
-                <li>временная регистрация (при наличии)</li>
-                <li>документы об образовании (включая приложение с оценками с двух сторон)</li>
-            </ul>
-            <p>Перед отправкой убедитесь, что все необходимые документы загружены.</p>
-
-            <?php ActiveForm::end() ?>
-
-
-
-
-
-            <div style="margin-top: 3em;">
-                <?php $form2 = ActiveForm::begin([
-                    'id' => 'upload-form-passport',
-                    'action' => '/profile/upload-file',
-                    'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
-                    'enableClientValidation' => false,
-                ]) ?>
-
-                <fieldset>
-
-                    <legend>
-                        Паспорт и Свидетельство о регистрации по месту пребывания
-<!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
-                    </legend>
-
-                    <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
-
-                    <div class="image-container">
-                        <?php if (is_array($model->passport_files)): ?>
-                        <?php foreach ($model->passport_files as $file): ?>
-                            <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
-                        <?php endforeach; endif; ?>
-                    </div>
-
-                    <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
-                        ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
-
-                    <div class="xhr-message"></div>
-
-<!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-
-                </fieldset>
-
-                <?php ActiveForm::end() ?>
-            </div>
-
-
-            <div style="margin-top: 3em;">
-                <?php $form3 = ActiveForm::begin([
-                    'id' => 'upload-form-education',
-                    'action' => '/profile/upload-file',
-                    'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
-                    'enableClientValidation' => false,
-                ]) ?>
-
-                <fieldset>
-
-                    <legend>Документы об образовании
-<!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
-                    </legend>
-
-                    <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'2'])->label(false) ?>
-
-                    <div class="image-container">
-                        <?php if (is_array($model->education_files)): ?>
-                            <?php foreach ($model->education_files as $file): ?>
-                                <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
-                            <?php endforeach; endif; ?>
-                    </div>
-
-                    <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false)
-                        ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
-
-                    <div class="xhr-message"></div>
-
-<!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-
-                </fieldset>
+                <p>Необходимые документы:</p>
+                <ul>
+                    <li>паспорт (страница с фото, страница с пропиской)</li>
+                    <li>временная регистрация (при наличии)</li>
+                    <li>документы об образовании (включая приложение с оценками с двух сторон)</li>
+                </ul>
+                <p>Перед отправкой убедитесь, что все необходимые документы загружены.</p>
 
                 <?php ActiveForm::end() ?>
 
-                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
-            </div>
+                <div style="margin-top: 3em;">
+                    <?php $form2 = ActiveForm::begin([
+                        'id' => 'upload-form-passport',
+                        'action' => '/profile/upload-file',
+                        'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                        'enableClientValidation' => false,
+                    ]) ?>
+
+                    <fieldset>
+
+                        <legend>
+                            Паспорт и Свидетельство о регистрации по месту пребывания
+                            <!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
+                        </legend>
+
+                        <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
+
+                        <div class="image-container">
+                            <?php if (is_array($model->passport_files)): ?>
+                                <?php foreach ($model->passport_files as $file): ?>
+                                    <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
+                                <?php endforeach; endif; ?>
+                        </div>
+
+                        <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
+                            ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                        <div class="xhr-message"></div>
+
+                        <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+
+                    </fieldset>
+
+                    <?php ActiveForm::end() ?>
+                </div>
+
+
+                <div style="margin-top: 3em;">
+                    <?php $form3 = ActiveForm::begin([
+                        'id' => 'upload-form-education',
+                        'action' => '/profile/upload-file',
+                        'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                        'enableClientValidation' => false,
+                    ]) ?>
+
+                    <fieldset>
+
+                        <legend>Документы об образовании
+                            <!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
+                        </legend>
+
+                        <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'2'])->label(false) ?>
+
+                        <div class="image-container">
+                            <?php if (is_array($model->education_files)): ?>
+                                <?php foreach ($model->education_files as $file): ?>
+                                    <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
+                                <?php endforeach; endif; ?>
+                        </div>
+
+                        <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false)
+                            ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                        <div class="xhr-message"></div>
+
+                        <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+
+                    </fieldset>
+
+                    <?php ActiveForm::end() ?>
+
+                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                </div>
+
+            <?php else: ?>
+
+                <h3>Отправленные заявки</h3>
+
+                <ul>
+                    <?php foreach($sent_applications as $prog_id => $program): ?>
+                        <li>
+                            <?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)
+                            <?php if ($program[1]==4): ?>
+                                <div>Комментарий:</div>
+                                <ul>
+                                <?php foreach($program[2] as $comment): ?>
+                                    <li><?= $comment->body ?> (<?= $comment->created ?>)</li>
+                                <?php endforeach; ?>
+                                </ul>
+                                <div>Вы можете отправить заявку снова после устранения недостатков, указанных в комментарии.</div>
+                                <div><?= Html::a('Отправить еще раз', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></div>
+                            <?php endif; ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+            <p><?= Html::a('Новая заявка', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></p>
+            <?php endif; ?>
 
             <hr>
 
@@ -153,7 +176,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Код подразделения: <?= $model->profile->passport_code ?></p>
             <p>Дата выдачи: <?= $model->profile->passport_date ?></p>
 
-            <h3>Смена пароля</h3>
+            <p>&nbsp;</p>
+            <p><?= Html::a('Сменить пароль', ['/site/request-password-reset'], ['class' => 'btn btn-primary']) ?></p>
 
 
         </div>
@@ -163,17 +187,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <p><strong><?= $model->profile->lastname ?> <?= $model->profile->firstname ?> <?= $model->profile->patronim ?></strong></p>
 
-            <p>В настоящее время Вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7»</p>
+            <?php
+                $accepted = [];
+                if (count($sent_applications)) foreach($sent_applications as $prog_id => $program) if ($program[1]==3) $accepted[] = $program[0];
+            ?>
 
-            <?php if (count($sent_applications) > 0): ?>
-                <h3>Отправленные заявки</h3>
-
+            <?php if (count($accepted)): ?>
+                <p>Вы зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7» по программе:</p>
                 <ul>
-                    <?php foreach($sent_applications as $prog_id => $program): ?>
-                        <li><?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)</li>
+                    <?php foreach($accepted as $program): ?>
+                        <li><?= $program ?></li>
                     <?php endforeach; ?>
                 </ul>
+            <?php else: ?>
+                <p>В настоящее время Вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7»</p>
             <?php endif; ?>
+
+
 
             <p>&nbsp;</p>
             <h2>О поступлении</h2>

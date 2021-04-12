@@ -94,7 +94,30 @@ class ProfileController extends Controller
         return false;
     }
 
-    public function actionIndex()
+//    public function actionApplicationForm()
+//    {
+//        $uid = Yii::$app->user->id;
+//        $model = User::findOne($uid);
+//        foreach($model->files as $file)
+//        {
+//            if ($file->mime=='jpg')
+//            {
+//                if ($file->doctype==1) $model->passport_files[] = $file;
+//                else if ($file->doctype==2) $model->education_files[] = $file;
+//            }
+//        }
+//        $form = new ApplicationForm();
+//        $file_form = new FileForm();
+//        $sent_applications = $model->getSentApplications();
+//        return $this->render('applicationFormPage', [
+//            'model' => $model,
+//            'appform' => $form,
+//            'file_form' => $file_form,
+//            'sent_applications' => $sent_applications,
+//        ]);
+//    }
+
+    public function actionIndex($mode='default')
     {
         $uid = Yii::$app->user->id;
 
@@ -128,6 +151,7 @@ class ProfileController extends Controller
                     Yii::$app->session->setFlash('error', 'Ошибка. Попробуйте еще раз.');
                 }
             }
+//            else return $this->redirect(Yii::$app->request->referrer);
 
 //            print_r($form);
 
@@ -146,7 +170,15 @@ class ProfileController extends Controller
 
         $sent_applications = $model->getSentApplications();
 
-        // предъявление формы
+        if ($mode=='form')
+        {
+            return $this->render('applicationFormPage', [
+                'model' => $model,
+                'appform' => $form,
+                'file_form' => $file_form,
+                'sent_applications' => $sent_applications,
+            ]);
+        }
         return $this->render('view', [
             'model' => $model,
             'appform' => $form,

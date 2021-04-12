@@ -43,6 +43,7 @@ return [
             'rules' => [
                 '' => 'site/index',
                 'application/saved/<id:\d+>' => 'application/saved',
+                'profile/application/<mode>' => 'profile',
             ],
         ],
 
