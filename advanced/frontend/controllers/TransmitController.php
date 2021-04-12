@@ -19,6 +19,8 @@ class TransmitController extends Controller
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         file_put_contents($file, $data);
 
+        echo 'adasdasd';
+
 //        $data_all_arr = explode(PHP_EOL, $data);
 //
 //        foreach ($data_all_arr as $data_str)
