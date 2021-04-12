@@ -46,6 +46,7 @@ class TransmitController extends Controller
 
             $model = new Message();
             $model->uid = $user_id;
+            $model->type = $message_type;
             if ($message_type==1)
             {
                 $model->body = 'Дата тестирования: ' . $event_date . '. ' . $message_body;
