@@ -6,6 +6,7 @@ namespace frontend\controllers;
 
 use common\models\Application;
 use common\models\Comment;
+use common\models\Message;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -30,41 +31,28 @@ class TransmitController extends Controller
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         file_put_contents($file, $data);
 
-        echo 'adasdasd';
+        $data_all_arr = explode(PHP_EOL, $data);
 
-//        $data_all_arr = explode(PHP_EOL, $data);
-//
-//        foreach ($data_all_arr as $data_str)
-//        {
-//            $data_arr = explode('|', $data_str);
-//
-//            if (count($data_arr) < 3) continue;
-//
-//            $status = $data_arr[0];
-//            $application_id = (int) $data_arr[1];
-//            $comment_text = $data_arr[2];
-//
-//
-//            if (in_array($status, ['3','4', '5']) && $application_id)
-//            {
-//                if ($application = Application::findOne($application_id))
-//                {
-//                    $application->status = $status;
-//                    $application->updated = time();
-//                    $application->show_message = 1;
-//                    $application->save();
-//
-//                    if ($status=='3') //для статуса "заявка отклонена"
-//                    {
-//                        $comment = new Comment();
-//                        $comment->appl_id = $application_id;
-//                        $comment->body = $comment_text;
-//                        $comment->created = time();
-//                        $comment->save();
-//                    }
-//
-//                }
-//            }
-//        }
+        foreach ($data_all_arr as $data_str)
+        {
+            $data_arr = explode('|', $data_str);
+
+            if (count($data_arr) < 3) continue;
+
+            $message_type = (int) $data_arr[0];
+            $user_id = (int) $data_arr[1];
+            $event_date = $data_arr[2];
+            $message_body = $data_arr[3];
+
+            $model = new Message();
+            $model->uid = $user_id;
+            if ($message_type==1)
+            {
+                $model->body = 'Дата тестирования: ' . $event_date . '. ' . $message_body;
+            }
+            $model->created = time();
+            $model->updated = time();
+            $model->save();
+        }
     }
 }
