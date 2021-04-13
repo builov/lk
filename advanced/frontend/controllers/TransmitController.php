@@ -59,6 +59,7 @@ class TransmitController extends Controller
             $model->save();
             $response_body[] = 'u' . $model->uid;
         }
-        return implode("|", $response_body);
+//        return implode("|", $response_body);
+        return $response_body;
     }
 }
