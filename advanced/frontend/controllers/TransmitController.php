@@ -60,6 +60,7 @@ class TransmitController extends Controller
             $response_body[] = ['uid' => $model->uid];
         }
 //        return implode("|", $response_body);
-        return json_encode($response_body, JSON_UNESCAPED_UNICODE);
+//        return json_encode($response_body, JSON_UNESCAPED_UNICODE);
+        return 'text';
     }
 }
