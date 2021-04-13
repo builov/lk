@@ -233,7 +233,7 @@ class User extends ActiveRecord implements IdentityInterface
 //    /**
 //     * @return array of id => name
 //     */
-    public function getAvailablePrograms()
+    public function getAvailablePrograms_____() //с учетом отправленных заявок
     {
         $programs = Program::find()->select('id, name, base, region')->asArray()->all();
         $education_level = ($this->profile->education_level > 2) ? 2 : $this->profile->education_level;
@@ -242,7 +242,7 @@ class User extends ActiveRecord implements IdentityInterface
         $sent_programs = [];
         foreach ($this->applications as $application)
         {
-            if ($application->status < 4) $sent_programs[] = $application->program_id; //если статус 1,2,3
+            if ($application->status != Application::STATUS_DECLINED) $sent_programs[] = $application->program_id; //если статус 1,2,3
         }
 
         foreach ($programs as $program)
@@ -260,6 +260,23 @@ class User extends ActiveRecord implements IdentityInterface
         return $options;
     }
 
+    public function getAvailablePrograms()  //без учета отправленных заявок
+    {
+        $programs = Program::find()->select('id, name, base, region')->asArray()->all();
+        $education_level = ($this->profile->education_level > 2) ? 2 : $this->profile->education_level;
+        $options = [];
+
+        foreach ($programs as $program)
+        {
+            if ($program['base']==$education_level
+                && in_array($this->profile->region, explode(",", $program['region'])))
+            {
+                $options[$program['id']] = $program['name'];
+            }
+        }
+        return $options;
+    }
+
     public function getSentApplications()
     {
         $programs = [];
@@ -270,9 +287,6 @@ class User extends ActiveRecord implements IdentityInterface
                 $programs[$a->program->id] = [$a->program->name, $a->status, $a->comments];
             }
         }
-
-//        print_r($programs);
-
         return $programs;
     }
 }

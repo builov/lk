@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Application;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 //use yii\jui\DatePicker;
@@ -33,10 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin([
                 'id' => 'application-form',
                 'options' => ['enctype' => 'multipart/form-data'],
-//                'action' => '/profile',
+                'action' => '/profile',
             ]) ?>
 
-            <?= $form->field($appform, 'program_id')->dropDownList($model->getAvailablePrograms()) ?>
+            <?php
+            $options = $available_programs;
+            foreach ($available_programs as $program_id => $program_name) {
+                if (array_key_exists($program_id, $sent_applications)
+                    && $sent_applications[$program_id][1] != Application::STATUS_DECLINED)
+                    unset($options[$program_id]);
+            }
+            ?>
+            <?= $form->field($appform, 'program_id')->dropDownList($options) ?>
 
             <p>Необходимые документы:</p>
             <ul>

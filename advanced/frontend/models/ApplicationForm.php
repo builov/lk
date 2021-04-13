@@ -41,7 +41,12 @@ class ApplicationForm extends Model
     public function duplicationCheck()
     {
         $uid = Yii::$app->user->id;
-        if (Application::find()->where(['uid' => $uid, 'program_id' => $this->program_id])->count())
+        if ($applications = Application::find()->where(['uid' => $uid, 'program_id' => $this->program_id])->all())
+            return true;
+
+        $count = 0;
+        foreach ($applications as $application) if ($application->status != Application::STATUS_DECLINED) $count++;
+        if ((bool) $count)
         {
             Yii::$app->session->setFlash('error', 'Заявка на обучение по этой программе уже отправлена.');
             return false;

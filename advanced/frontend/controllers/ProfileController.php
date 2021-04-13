@@ -119,11 +119,7 @@ class ProfileController extends Controller
 
     public function actionIndex($mode='default')
     {
-        $uid = Yii::$app->user->id;
-
-//        echo Yii::$app->params['uploadDir'];
-
-        $model = User::findOne($uid);
+        $model = User::findOne(Yii::$app->user->id);
 
         foreach($model->files as $file)
         {
@@ -166,17 +162,33 @@ class ProfileController extends Controller
 //            }
         }
 
-//        print_r($model->profile);
+        //отправленные заявки ($applied_programs)
+        //опции для селекта: доступные программы ($available_programs) - одобренные заявки ($accepted_programs)
+        //условие показа кнопки: доступные программы ($available_programs) - отправленные заявки ($applied_programs)
 
-        $sent_applications = $model->getSentApplications();
+        $sent_applications = $model->getSentApplications(); //для вывода отправленных заявок со статусами и комментариями
+        $available_programs = $model->getAvailablePrograms(); //доступные для абитуриента программы
+//        $applied_programs = []; //отправленные заявки (program->id => program->name)
+//        $accepted_programs = []; //одобренные заявки (program->id => program->name)
+//        foreach ($model->applications as $application)
+//        {
+//            $applied_programs[] = $application->program->name;
+//            if ($application->status < Application::STATUS_DECLINED)
+//            {
+//                $accepted_programs[] = $application->program->name; //если статус 1,2,3
+//            }
+//        }
 
-        if ($mode=='form')
+//        print_r($sent_applications);
+
+        if ($mode=='form' && 1)
         {
             return $this->render('applicationFormPage', [
                 'model' => $model,
                 'appform' => $form,
                 'file_form' => $file_form,
                 'sent_applications' => $sent_applications,
+                'available_programs' => $available_programs,
             ]);
         }
         return $this->render('view', [
@@ -184,6 +196,7 @@ class ProfileController extends Controller
             'appform' => $form,
             'file_form' => $file_form,
             'sent_applications' => $sent_applications,
+            'available_programs' => $available_programs,
         ]);
     }
 }

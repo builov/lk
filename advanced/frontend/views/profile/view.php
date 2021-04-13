@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Application;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 //use yii\jui\DatePicker;
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['enctype' => 'multipart/form-data']
             ]) ?>
 
-                <?= $form->field($appform, 'program_id')->dropDownList($model->getAvailablePrograms()) ?>
+                <?= $form->field($appform, 'program_id')->dropDownList($available_programs) ?>
 
                 <p>Необходимые документы:</p>
                 <ul>
@@ -124,8 +125,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <ul>
                     <?php foreach($sent_applications as $prog_id => $program): ?>
                         <li>
-                            <?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)
-                            <?php if ($program[1]==4): ?>
+                            <?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= Application::STATUSES[$program[1]] ?></span>)
+                            <?php if ($program[1] == Application::STATUS_DECLINED): ?>
                                 <div>Комментарий:</div>
                                 <ul>
                                 <?php foreach($program[2] as $comment): ?>
@@ -139,7 +140,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach; ?>
                 </ul>
 
-            <p><?= Html::a('Новая заявка', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></p>
+
+                <?php if ((bool)(count($available_programs) - count($sent_applications))): ?>
+                    <p><?= Html::a('Новая заявка', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></p>
+                <?php endif; ?>
+
             <?php endif; ?>
 
             <hr>

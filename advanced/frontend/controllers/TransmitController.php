@@ -33,6 +33,8 @@ class TransmitController extends Controller
 
         $data_all_arr = explode(PHP_EOL, $data);
 
+        $response_body = [];
+
         foreach ($data_all_arr as $data_str)
         {
             $data_arr = explode('|', $data_str);
@@ -53,7 +55,10 @@ class TransmitController extends Controller
             }
             $model->created = time();
             $model->updated = time();
+            $model->status = 1;
             $model->save();
+            $response_body[] = $model->uid;
         }
+        return implode("|", $response_body);
     }
 }
