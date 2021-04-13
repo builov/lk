@@ -57,7 +57,7 @@ class TransmitController extends Controller
             $model->updated = time();
             $model->status = 1;
             $model->save();
-            $response_body[] = $model->uid;
+            $response_body[] = 'u' . $model->uid;
         }
         return implode("|", $response_body);
     }
