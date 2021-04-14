@@ -35,8 +35,8 @@ class TransmitController extends Controller
 
         $data_all_arr = explode(PHP_EOL, $data);
 
-//        $response_body = [];
-        $response_body = '';
+        $response_body = [];
+//        $response_body = '';
 
         foreach ($data_all_arr as $data_str)
         {
@@ -70,17 +70,17 @@ class TransmitController extends Controller
 //            print_r($m['uid']);
 
 //            $response_body[] = ['uid' => $model->uid];
-            $response_body = $m['uid'];
+            $response_body[] = $m['uid'];
 //            $response_body .= "$model->uid";
 
-            $json = '[{"users":"' . $response_body . '"}]';
-            file_put_contents($file, $json);
+//            $json = '[{"users":"' . $response_body . '"}]';
+//            file_put_contents($file, $json);
         }
 
-//        $str = implode(",", $response_body);
+        $str = implode(",", $response_body);
 
-//        $json = '[{"users":"' . $response_body . '"}]';
-//        file_put_contents($file, $json);
+        $json = '[{"users":"' . $str . '"}]';
+        file_put_contents($file, $json);
         $response = file_get_contents($file);
 
 //        print_r($str);
