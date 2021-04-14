@@ -59,8 +59,7 @@ class TransmitController extends Controller
             $model->save();
             $response_body[] = ['uid' => $model->uid];
         }
-//        return implode("|", $response_body);
-//        return json_encode($response_body, JSON_UNESCAPED_UNICODE);
-        return '[{"users":"69,70,72,80"}]';
+        $str = implode(",", $response_body);
+        return '[{"users":"' . $str . '"}]';
     }
 }
