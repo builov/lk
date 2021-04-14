@@ -4,7 +4,8 @@
 <!--        <input type="text" name="status" value="получено / отказано" />-->
 <!--        <input type="text" name="id" />-->
 <!--        <input type="text" name="comment" />-->
-        <input type="text" name="data" />
+<!--        <input type="text" name="data" />-->
+        <textarea name="data"></textarea>
         <button type="submit" name="button">Submit</button>
     </form>
 
