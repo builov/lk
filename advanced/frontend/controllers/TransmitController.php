@@ -29,22 +29,22 @@ class TransmitController extends Controller
 
 //        print_r($_POST);
 
-        file_put_contents($file, $_POST['data']);
-        exit;
+//        file_put_contents($file, $_POST['data']);
+//        exit;
+//
+//        $request = Yii::$app->request;
+//        $d = $request->post('data');
 
-        $request = Yii::$app->request;
-        $d = $request->post('data');
-
-        $data = (string) $d;
+        $data = $_POST['data'];
 
 
 
-        file_put_contents($file, $data);
+//        file_put_contents($file, $data);
 
         $data_all_arr = explode(PHP_EOL, $data);
 
         $response_body = [];
-//        $response_body = '';
+        $json = '';
 
         foreach ($data_all_arr as $data_str)
         {
@@ -76,10 +76,10 @@ class TransmitController extends Controller
 //            $response_body[] = $m->uid;
 
             $json = '[{"users":"' . $m->uid . '"}]';
-            file_put_contents($file, $json);
+
         }
 
-
+        file_put_contents($file, $json);
 
 //        print_r($response_body);
 
