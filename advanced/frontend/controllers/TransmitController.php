@@ -61,6 +61,6 @@ class TransmitController extends Controller
         }
 //        return implode("|", $response_body);
 //        return json_encode($response_body, JSON_UNESCAPED_UNICODE);
-        return '[{"response":{"data":{"users":"69,70,72,80"}}}]';
+        return '[{"users":"69,70,72,80"}]';
     }
 }
