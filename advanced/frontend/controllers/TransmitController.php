@@ -25,12 +25,19 @@ class TransmitController extends Controller
 
     public function actionMessage()
     {
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+
+//        print_r($_POST);
+
+        file_put_contents($file, $_POST['data']);
+        exit;
+
         $request = Yii::$app->request;
         $d = $request->post('data');
 
         $data = (string) $d;
 
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+
 
         file_put_contents($file, $data);
 
@@ -69,7 +76,7 @@ class TransmitController extends Controller
 //            $response_body[] = $m->uid;
 
             $json = '[{"users":"' . $m->uid . '"}]';
-            //file_put_contents($file, $json);
+            file_put_contents($file, $json);
         }
 
 
@@ -82,7 +89,7 @@ class TransmitController extends Controller
 
 //        $json = '[{"users":"' . $str . '"}]';
 
-        //$response = file_get_contents($file);
-        //return $response;
+        $response = file_get_contents($file);
+        return $response;
     }
 }
