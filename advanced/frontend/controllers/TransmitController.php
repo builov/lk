@@ -75,7 +75,9 @@ class TransmitController extends Controller
             $m = Message::findOne($model->id);
 //            $response_body[] = $m->uid;
 
-            $json = '[{"users":"' . $m->uid . '"}]';
+            $str = $m->uid;
+
+            $json = '[{"users":"' . $str . '"}]';
             file_put_contents($file, $json);
         }
 
