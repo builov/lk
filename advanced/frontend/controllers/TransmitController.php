@@ -60,13 +60,11 @@ class TransmitController extends Controller
 //            $response_body[] = ['uid' => $model->uid];
             $response_body[] = $model->uid;
         }
-        $str = implode(",", $response_body);
+        $str = (string) implode(",", $response_body);
 
 //        print_r($str);
 
-
-
-        $str = '72,79';
+//        $str = '72,79';
 
         return '[{"users":"' . $str . '"}]';
 //        return '[{"users":"72,79"}]';
