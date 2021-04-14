@@ -32,6 +32,7 @@ class TransmitController extends Controller
 
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
 
+        file_put_contents($file, $data);
 
         $data_all_arr = explode(PHP_EOL, $data);
 
@@ -68,7 +69,7 @@ class TransmitController extends Controller
 //            $response_body[] = $m->uid;
 
             $json = '[{"users":"' . $m->uid . '"}]';
-            file_put_contents($file, $json);
+            //file_put_contents($file, $json);
         }
 
 
@@ -81,7 +82,7 @@ class TransmitController extends Controller
 
 //        $json = '[{"users":"' . $str . '"}]';
 
-        $response = file_get_contents($file);
-        return $response;
+        //$response = file_get_contents($file);
+        //return $response;
     }
 }
