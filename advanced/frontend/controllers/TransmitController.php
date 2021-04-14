@@ -64,38 +64,22 @@ class TransmitController extends Controller
             $model->status = 1;
             $model->save();
 
-
-//            $m = Message::find($model->id)->select('uid')->asArray()->one();
             $m = Message::findOne($model->id);
+//            $response_body[] = $m->uid;
 
-//            print_r($m->uid);
-
-//            $response_body[] = ['uid' => $model->uid];
-            $response_body[] = $m->uid;
-//            $response_body .= "$model->uid";
-
-//            $json = '[{"users":"' . $response_body . '"}]';
-//            file_put_contents($file, $json);
+            $json = '[{"users":"' . $m->uid . '"}]';
+            file_put_contents($file, $json);
         }
 
 //        print_r($response_body);
 
-        $str = implode(",", $response_body);
+//        $str = implode(",", $response_body);
 
 //        echo $str;
 
-        $json = '[{"users":"' . $str . '"}]';
-        
-        if (file_put_contents($file, $json))
-        {
-            $response = file_get_contents($file);
+//        $json = '[{"users":"' . $str . '"}]';
 
-//        print_r($str);
-//        $str = '72,79';
-
-            return $response;
-//        return '[{"users":"72,79"}]';
-        }
-        return false;
+        $response = file_get_contents($file);
+        return $response;
     }
 }
