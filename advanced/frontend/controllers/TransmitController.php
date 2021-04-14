@@ -28,7 +28,8 @@ class TransmitController extends Controller
         $request = Yii::$app->request;
         $data = $request->post('data');
 
-
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+        file_put_contents($file, $data);
 
         $data_all_arr = explode(PHP_EOL, $data);
 
@@ -63,8 +64,7 @@ class TransmitController extends Controller
 
 //        print_r($str);
 
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-        file_put_contents($file, $str);
+
 
         $str = '72,79';
 
