@@ -17,6 +17,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <h3>Сообщения:</h3>
+
+    <div class="message-area">
+        <ul>
+            <?php foreach ($messages as $message): ?>
+                <li><?= $message->body ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
 
     <div class="row">
         <div class="col-lg-8">

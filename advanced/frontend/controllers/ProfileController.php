@@ -6,6 +6,7 @@ namespace frontend\controllers;
 
 use common\models\Application;
 use common\models\Files;
+use common\models\Message;
 use common\models\Program;
 use common\models\User;
 use common\models\Profile;
@@ -119,7 +120,8 @@ class ProfileController extends Controller
 
     public function actionIndex($mode='default')
     {
-        $model = User::findOne(Yii::$app->user->id);
+        $uid = Yii::$app->user->id;
+        $model = User::findOne($uid);
 
         foreach($model->files as $file)
         {
@@ -133,6 +135,10 @@ class ProfileController extends Controller
         $form = new ApplicationForm();
 
         $file_form = new FileForm();
+
+        $messages = Message::find()->where(['uid' => $uid, 'status' => 1])->all();
+
+//        print_r($messages);
 
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
@@ -181,7 +187,7 @@ class ProfileController extends Controller
 
 //        print_r($sent_applications);
 
-        if ($mode=='form' && 1)
+        if ($mode=='form' && 1) //todo добавить условие, что есть программы, на которые еще можно отправить заявку (неотправленные + отклоненные)
         {
             return $this->render('applicationFormPage', [
                 'model' => $model,
@@ -197,6 +203,7 @@ class ProfileController extends Controller
             'file_form' => $file_form,
             'sent_applications' => $sent_applications,
             'available_programs' => $available_programs,
+            'messages' => $messages,
         ]);
     }
 }
