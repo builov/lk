@@ -61,6 +61,6 @@ class TransmitController extends Controller
         }
 //        return implode("|", $response_body);
 //        return json_encode($response_body, JSON_UNESCAPED_UNICODE);
-        return '[{"programs":{"appl18":{"program3":"Сестринское дело очно-заочная, после 11 кл., договор"}}]}]';
+        return '[{"programs":{"appl18":{"program3":"Сестринское дело очно-заочная, после 11 кл., договор"}}}]';
     }
 }
