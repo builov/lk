@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="message-area">
         <ul>
             <?php foreach ($messages as $message): ?>
-                <li><?= $message->body ?></li>
+                <li><?= $message->body ?> <a href="">Большен не показывать</a></li>
             <?php endforeach; ?>
         </ul>
     </div>
