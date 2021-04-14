@@ -28,8 +28,7 @@ class TransmitController extends Controller
         $request = Yii::$app->request;
         $data = $request->post('data');
 
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-        file_put_contents($file, $data);
+
 
         $data_all_arr = explode(PHP_EOL, $data);
 
@@ -60,6 +59,10 @@ class TransmitController extends Controller
             $response_body[] = ['uid' => $model->uid];
         }
         $str = implode(",", $response_body);
+
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+        file_put_contents($file, $str);
+
         return '[{"users":"' . $str . '"}]';
     }
 }
