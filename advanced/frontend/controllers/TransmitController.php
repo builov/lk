@@ -26,9 +26,9 @@ class TransmitController extends Controller
     public function actionMessage()
     {
         $request = Yii::$app->request;
-        $data = $request->post('data');
+        $d = $request->post('data');
 
-//        $data = (string) $d;
+        $data = (string) $d;
 
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
 
