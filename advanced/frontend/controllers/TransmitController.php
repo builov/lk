@@ -28,8 +28,10 @@ class TransmitController extends Controller
         $request = Yii::$app->request;
         $data = $request->post('data');
 
+//        $data = (string) $d;
+
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-        file_put_contents($file, $data);
+
 
         $data_all_arr = explode(PHP_EOL, $data);
 
@@ -37,6 +39,9 @@ class TransmitController extends Controller
 
         foreach ($data_all_arr as $data_str)
         {
+            file_put_contents($file, $data_str, FILE_APPEND);
+            file_put_contents($file, PHP_EOL, FILE_APPEND);
+
             $data_arr = explode('|', $data_str);
 
             if (count($data_arr) < 3) continue;
