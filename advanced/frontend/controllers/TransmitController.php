@@ -68,8 +68,10 @@ class TransmitController extends Controller
 //            $response_body[] = $m->uid;
 
             $json = '[{"users":"' . $m->uid . '"}]';
-            file_put_contents($file, $json);
+
         }
+
+        file_put_contents($file, $json);
 
 //        print_r($response_body);
 
