@@ -64,6 +64,7 @@ class TransmitController extends Controller
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         file_put_contents($file, $str);
 
-        return '[{"users":"' . $str . '"}]';
+//        return '[{"users":"' . $str . '"}]';
+        return '[{"users":"72,79"}]';
     }
 }
