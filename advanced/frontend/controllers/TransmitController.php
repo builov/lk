@@ -36,6 +36,7 @@ class TransmitController extends Controller
         $data_all_arr = explode(PHP_EOL, $data);
 
         $response_body = [];
+        $response_body = '';
 
         foreach ($data_all_arr as $data_str)
         {
@@ -62,16 +63,18 @@ class TransmitController extends Controller
             $model->updated = time();
             $model->status = 1;
             $model->save();
+
 //            $response_body[] = ['uid' => $model->uid];
-            $response_body[] = $model->uid;
+//            $response_body[] = $model->uid;
+            $response_body .= "$model->uid";
         }
-        $str = (string) implode(",", $response_body);
+//        $str = (string) implode(",", $response_body);
 
 //        print_r($str);
 
 //        $str = '72,79';
 
-        return '[{"users":"' . $str . '"}]';
+        return '[{"users":"' . $response_body . '"}]';
 //        return '[{"users":"72,79"}]';
     }
 }
