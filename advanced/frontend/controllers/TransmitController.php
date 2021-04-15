@@ -33,7 +33,7 @@ class TransmitController extends Controller
         $data['messages'] = [];
         foreach ($messages as $message)
         {
-            $data['messages'][$message['type']] = $message['id'];
+            $data['messages']['type' . $message['type']] = $message['id'];
         }
 
 //        print_r($data);

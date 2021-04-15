@@ -79,7 +79,7 @@ class ApplicationController extends Controller
 
 //        $_1C_statuses = ['3'=>'Принято', '4'=>'Отказано']; //совместимость с Application::STATUSES
 
-            if (in_array($status, ['3','4', '5']) && $application_id)
+            if (in_array($status, ['3','4','5']) && $application_id)
             {
                 if ($application = Application::findOne($application_id))
                 {
