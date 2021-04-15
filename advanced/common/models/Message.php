@@ -14,6 +14,9 @@ use Yii;
  * @property int|null $created
  * @property int|null $updated
  * @property int|null $status
+ * @property int|null $appl_id
+ * @property int|null $date
+ * @property string|null $code
  *
  * @property User $u
  */
@@ -33,8 +36,9 @@ class Message extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'type', 'created', 'updated', 'status'], 'integer'],
+            [['uid', 'type', 'created', 'updated', 'status', 'appl_id', 'date'], 'integer'],
             [['body'], 'string'],
+            [['code'], 'string', 'max' => 255],
             [['uid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['uid' => 'id']],
         ];
     }
@@ -52,6 +56,9 @@ class Message extends \yii\db\ActiveRecord
             'created' => 'Created',
             'updated' => 'Updated',
             'status' => 'Status',
+            'appl_id' => 'Appl ID',
+            'date' => 'Date',
+            'code' => 'Code',
         ];
     }
 

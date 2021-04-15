@@ -1,8 +1,6 @@
 <?php
 
-
 namespace frontend\controllers;
-
 
 use common\models\Application;
 use common\models\Comment;
@@ -12,6 +10,9 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
+/**
+ * Заявки на обучение
+ */
 class ApplicationController extends Controller
 {
     public function behaviors()
@@ -39,12 +40,21 @@ class ApplicationController extends Controller
         return parent::beforeAction($action);
     }
 
+    /**
+     * форма для тестирования POST-запросов
+     */
     public function actionTestForm()
     {
 //        return 'ok';
         return $this->render('test-form');
     }
 
+    /**
+     * интерфейс обмена данными с 1С
+     * ответ Приемной комиссии на заявку
+     * принимает строку формата "статус (принято/отклонено)|id заявки|комментарий"
+     * возвращает http status code 201 в случае успешного выполнения
+     */
     public function actionFeedback()
     {
         $request = Yii::$app->request;
@@ -105,27 +115,32 @@ class ApplicationController extends Controller
         }
     }
 
+    /**
+     * интерфейс обмена данными с 1С
+     * принимает id заявки на обучение
+     * присваивает заявке status=2 (на рассмотрении)
+     * возвращает http status code 201 в случае успешного выполнения
+     */
     public function actionSaved($id)
     {
         //todo проверять ip-адрес
         $model = Application::findOne($id);
         if ($model['status']==1) $model['status'] = 2;
         $model['updated'] = time();
-        $model->save();
+        if ($model->save()) Yii::$app->response->statusCode = 201;
     }
 
-
+    /**
+     * интерфейс обмена данными с 1С
+     * возвращает json массив новых заявок на обучение (status=1)
+     */
     public function actionExport()
     {
         $model = Application::find()->where(['status'=>1])->all();
 
-//        print_r($model);
-
         $apps = [];
         foreach ($model as $application)
         {
-            $key = 'appl' . $application->id;
-
             $key = $application->id;
 
 //            print_r($application->user->files);
@@ -196,9 +211,6 @@ class ApplicationController extends Controller
         }
 
         $res = array_values($data);
-
-//        print_r($res);
-
 
         return json_encode($res, JSON_UNESCAPED_UNICODE);
     }

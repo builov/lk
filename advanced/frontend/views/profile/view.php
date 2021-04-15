@@ -17,12 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <h3>Сообщения:</h3>
+    <?php if (count($messages)): ?>
+        <h3>Сообщения:</h3>
+    <?php endif; ?>
 
     <div class="message-area">
         <ul>
             <?php foreach ($messages as $message): ?>
-                <li><?= $message->body ?> <a href="">Большен не показывать</a></li>
+                <li><?= $message->body ?> <a href="/message/<?= $message->id ?>/dont-show">Больше не показывать</a></li>
             <?php endforeach; ?>
         </ul>
     </div>

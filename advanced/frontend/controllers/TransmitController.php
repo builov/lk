@@ -1,8 +1,6 @@
 <?php
 
-
 namespace frontend\controllers;
-
 
 use common\models\Application;
 use common\models\Comment;
@@ -12,6 +10,9 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
+/**
+ * интерфейс обмена данными с 1С
+ */
 class TransmitController extends Controller
 {
     public function beforeAction($action)
@@ -32,20 +33,21 @@ class TransmitController extends Controller
 //        $user = User::findOne($id);
         $messages = Message::find()->select('id,type')->where(['uid' => $id])->asArray()->all();
 
-//        print_r($messages);
-
         $data['user'] = $id;
         $data['messages'] = [];
         foreach ($messages as $message)
         {
             $data['messages']['type' . $message['type']] = $message['id'];
         }
-
-//        print_r($data);
-
         return json_encode($data);
     }
 
+    /**
+     * интерфейс обмена данными с 1С
+     * создает сообщение для пользователя в ЛК
+     * принимает строку формата "тип сообщения|uid|дата|код сообщения по АИС"
+     * возвращает http status code 201 в случае успешного выполнения
+     */
     public function actionMessage()
     {
 //        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
@@ -67,18 +69,21 @@ class TransmitController extends Controller
             $message_type = (int) $data_arr[0];
             $user_id = (int) $data_arr[1];
             $event_date = $data_arr[2];
-            $message_body = $data_arr[3];
+            $message_code = $data_arr[3];
 
             $model = new Message();
             $model->uid = $user_id;
             $model->type = $message_type;
             if ($message_type==1)
             {
-                $model->body = 'Дата тестирования: ' . $event_date . '. ' . $message_body;
+                $model->body = 'Дата тестирования: ' . date('d-m-Y H:i:s', $event_date);
             }
             $model->created = time();
             $model->updated = time();
             $model->status = 1;
+//            $model->appl_id
+            $model->date = $event_date;
+            $model->code = $message_code;
             if ($model->save()) Yii::$app->response->statusCode = 201;
 
 //            $m = Message::findOne($model->id);
