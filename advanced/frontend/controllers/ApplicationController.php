@@ -88,15 +88,16 @@ class ApplicationController extends Controller
                     $application->status = $status;
                     $application->updated = time();
                     $application->show_message = 1;
-                    $application->save();
+                    if ($application->save()) Yii::$app->response->statusCode = 201;
 
                     if ($status=='3') //для статуса "заявка отклонена"
                     {
+                        Yii::$app->response->statusCode = 200;
                         $comment = new Comment();
                         $comment->appl_id = $application_id;
                         $comment->body = $comment_text;
                         $comment->created = time();
-                        $comment->save();
+                        if ($comment->save()) Yii::$app->response->statusCode = 201;
                     }
 
                 }
