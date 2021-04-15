@@ -22,6 +22,11 @@ class TransmitController extends Controller
         return parent::beforeAction($action);
     }
 
+    /**
+     * интерфейс обмена данными с 1С
+     * принимает id пользователя
+     * возвращает массив сообщений пользователя (последнее сообщение каждого типа (type))
+     */
     public function actionUserMessages($id)
     {
 //        $user = User::findOne($id);
@@ -74,7 +79,7 @@ class TransmitController extends Controller
             $model->created = time();
             $model->updated = time();
             $model->status = 1;
-            $model->save();
+            if ($model->save()) Yii::$app->response->statusCode = 201;
 
 //            $m = Message::findOne($model->id);
         }
