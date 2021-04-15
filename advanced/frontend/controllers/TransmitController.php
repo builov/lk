@@ -76,7 +76,7 @@ class TransmitController extends Controller
             $model->type = $message_type;
             if ($message_type==1)
             {
-                $model->body = 'Дата тестирования: ' . date('d-m-Y H:i:s', $event_date);
+                $model->body = 'Дата тестирования: ' . date('d-m-Y H:i', $event_date);
             }
             $model->created = time();
             $model->updated = time();
