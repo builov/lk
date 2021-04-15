@@ -7,6 +7,7 @@ namespace frontend\controllers;
 use common\models\Application;
 use common\models\Comment;
 use common\models\Message;
+use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -21,30 +22,33 @@ class TransmitController extends Controller
         return parent::beforeAction($action);
     }
 
+    public function actionUserMessages($id)
+    {
+//        $user = User::findOne($id);
+        $messages = Message::find()->select('id,type')->where(['uid' => $id])->asArray()->all();
 
+//        print_r($messages);
+
+        $data['user'] = $id;
+        $data['messages'] = [];
+        foreach ($messages as $message)
+        {
+            $data['messages'][$message['type']] = $message['id'];
+        }
+
+//        print_r($data);
+
+        return json_encode($data);
+    }
 
     public function actionMessage()
     {
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+//        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
 
-//        print_r($_POST);
-
-//        file_put_contents($file, $_POST['data']);
-//        exit;
-//
-//        $request = Yii::$app->request;
-//        $d = $request->post('data');
-
-        $data = $_POST['data'];
-
-
-
-//        file_put_contents($file, $data);
+        $request = Yii::$app->request;
+        $data = $request->post('data');
 
         $data_all_arr = explode(PHP_EOL, $data);
-
-        $response_body = [];
-        $json = '';
 
         foreach ($data_all_arr as $data_str)
         {
@@ -72,26 +76,7 @@ class TransmitController extends Controller
             $model->status = 1;
             $model->save();
 
-            $m = Message::findOne($model->id);
-//            $response_body[] = $m->uid;
-
-            $str = $m->uid;
-
-            $json = '[{"users":"' . $str . '"}]';
-            file_put_contents($file, $json);
+//            $m = Message::findOne($model->id);
         }
-
-
-
-//        print_r($response_body);
-
-//        $str = implode(",", $response_body);
-
-//        echo $str;
-
-//        $json = '[{"users":"' . $str . '"}]';
-
-        $response = file_get_contents($file);
-        return $response;
     }
 }
