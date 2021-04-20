@@ -29,7 +29,7 @@ class RegisterForm extends Model
 //    public $certificate_series_number;
     public $passport_series;
     public $passport_number;
-    public $passport_series_number;
+//    public $passport_series_number;
     public $passport_issued;
     public $passport_code;
     public $passport_date;
@@ -57,14 +57,25 @@ class RegisterForm extends Model
      */
     public function rules()
     {
+        $current_year = (int) date("Y");
         return [
             // 'message'=>'Please enter a value for {attribute}.'
-            [['lastname', 'firstname', 'institution',
-                'phone', 'email', 'passport_issued',
-                'address_passport_street', 'address_passport_building',
-                'gender', 'education_level', 'graduate_year',
-                'agree', 'birthdate', 'passport_date'],
-                'required', 'message' => 'Обязательное поле'],
+            [['lastname',
+                'firstname',
+                'institution',
+                'phone',
+                'email',
+                'passport_issued',
+                'address_passport_street',
+                'address_passport_building',
+                'gender',
+                'education_level',
+                'graduate_year',
+                'agree',
+                'birthdate',
+                'passport_date'],
+                'required',
+                'message' => 'Обязательное поле'],
 //            [['passport_series', 'passport_number', 'passport_code', 'region', 'snils', 'certificate_series', 'certificate_number'],
 //                'required', 'when' => function() {
 //                    return $this->citizenship == 1;
@@ -75,13 +86,31 @@ class RegisterForm extends Model
 //            }],
             [['birthdate', 'passport_date'], 'date', 'format'=>'dd-mm-yyyy'],
 //            [['birthdate', 'passport_date'], 'string'],
-            [['gender', 'education_level', 'passport_number', 'agree', 'region', 'citizenship'], 'integer'],
-            [['graduate_year'], 'number', 'min' => 1950, 'max' => 2021],
-            [['passport_issued', 'address_passport_street', 'address_passport_building', 'address_passport_apartment',
-                'address_current_street','address_current_building','address_current_apartment'], 'string'],
-            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series',
-                'passport_code', 'phone', 'email',
-                'certificate_series', 'certificate_number'], 'string', 'max' => 255],
+            [['gender',
+                'education_level',
+                'passport_number',
+                'agree',
+                'region',
+                'citizenship'], 'integer'],
+            [['graduate_year'], 'number', 'min' => 1950, 'max' => $current_year],
+            [['passport_issued',
+                'address_passport_street',
+                'address_passport_building',
+                'address_passport_apartment',
+                'address_current_street',
+                'address_current_building',
+                'address_current_apartment'], 'string'],
+            [['lastname',
+                'firstname',
+                'patronim',
+                'snils',
+                'institution',
+                'passport_series',
+                'passport_code',
+                'phone',
+                'email',
+                'certificate_series',
+                'certificate_number'], 'string', 'max' => 255],
         ];
     }
 
@@ -145,7 +174,6 @@ class RegisterForm extends Model
 //                    [2] => Duplicate entry 'mail1@mail.ru' for key 'username'
 //                )
 
-
             return null;
         }
 
@@ -170,14 +198,14 @@ class RegisterForm extends Model
         }
 
 //        if ($user->id && $this->createProfile($user->id) && $this->sendEmail($user))
-        if ($user->id && $this->createProfile($user->id))
+        if ($user->id && $this->setProfile($user->id))
         {
             return $user->id;
         }
         else return false;
     }
 
-    public function createProfile($uid)
+    public function setProfile($uid)
     {
         $profile = new Profile();
 
@@ -186,7 +214,7 @@ class RegisterForm extends Model
         $profile->firstname = $this->firstname;
         $profile->patronim = $this->patronim;
 
-        //todo переформатировать дд-мм-гггг в гггг-мм-дд
+        //переформатирование дд-мм-гггг в гггг-мм-дд
         $profile->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
 
         $profile->snils = $this->snils;

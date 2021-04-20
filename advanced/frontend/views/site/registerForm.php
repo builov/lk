@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--                --><?//= $form->field($model['reg_form'], 'birthdate')->textInput(['type' => 'date']) ?>
                 <?= $form->field($model['reg_form'], 'birthdate')->textInput()->hint('В формате дд-мм-гггг') ?>
 
-                <?php $model['reg_form']->gender = 1 ?>
+<!--                --><?php //$model['reg_form']->gender = 1 ?>
                 <?= $form->field($model['reg_form'], 'gender')->radioList(Profile::_GENDER); ?>
 
                 <?= $form->field($model['reg_form'], 'citizenship')->dropDownList(Profile::_CITIZENSHIP) ?>
@@ -101,8 +101,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <legend>Контактные данные</legend>
 
 
-
-                <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION) ?>
+                <?php $region_options = Profile::_REGION; $region_options[0] = ''; ?>
+                <?= $form->field($model['reg_form'], 'region')->dropDownList($region_options) ?>
 
 <!--                --><?//= $form->field($model['reg_form'], 'zip')->textInput()->hint('По паспорту или фактический?') ?>
 

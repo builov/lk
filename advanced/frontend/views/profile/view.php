@@ -3,9 +3,8 @@
 use common\models\Application;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-//use yii\jui\DatePicker;
 use common\models\Profile;
-use common\models\Program;
+use yii\widgets\Pjax;
 
 //print_r($model->education_files);
 
@@ -17,17 +16,22 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php Pjax::begin(); ?>
     <?php if (count($messages)): ?>
         <h3>Сообщения:</h3>
+        <div class="message-area">
+            <ul>
+                <?php foreach ($messages as $message): ?>
+                    <li>
+                        <?= $message->body ?>
+                        <?php $url = '/message/' . $message->id . '/dont-show'; ?>
+                        <?= Html::a('Больше не показывать', [$url], ['class' => 'dont-show-message-button']) ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
     <?php endif; ?>
-
-    <div class="message-area">
-        <ul>
-            <?php foreach ($messages as $message): ?>
-                <li><?= $message->body ?> <a href="/message/<?= $message->id ?>/dont-show">Больше не показывать</a></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+    <?php Pjax::end(); ?>
 
 
     <div class="row">
@@ -137,7 +141,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <ul>
                     <?php foreach($sent_applications as $prog_id => $program): ?>
                         <li>
-                            <?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= Application::STATUSES[$program[1]] ?></span>)
+                            <a href="/application/<?= $program[3] ?>"><?= $program[0] ?></a> (<span class="status<?= $program[1] ?>"><?= Application::STATUSES[$program[1]] ?></span>)
                             <?php if ($program[1] == Application::STATUS_DECLINED): ?>
                                 <div>Комментарий:</div>
                                 <ul>
@@ -161,7 +165,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <hr>
 
-            <h2>Профиль</h2>
+            <h2>Профиль <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a></h2>
 
             <h3>Личные данные
 <!--                <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a>-->

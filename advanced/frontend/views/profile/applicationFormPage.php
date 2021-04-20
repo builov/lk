@@ -29,6 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <!--            <h2>Заявка на обучение</h2>-->
 
+            <?php
+            $options = $available_programs;
+            foreach ($available_programs as $program_id => $program_name) {
+                if (array_key_exists($program_id, $sent_applications)
+                    && $sent_applications[$program_id][1] != Application::STATUS_DECLINED)
+                    unset($options[$program_id]);
+            }
+//            if (count($options)):
+            ?>
+
             <?php //$fields = Program::find()->select('id, name')->asArray()->all(); ?>
 
             <?php $form = ActiveForm::begin([
@@ -37,14 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'action' => '/profile',
             ]) ?>
 
-            <?php
-            $options = $available_programs;
-            foreach ($available_programs as $program_id => $program_name) {
-                if (array_key_exists($program_id, $sent_applications)
-                    && $sent_applications[$program_id][1] != Application::STATUS_DECLINED)
-                    unset($options[$program_id]);
-            }
-            ?>
             <?= $form->field($appform, 'program_id')->dropDownList($options) ?>
 
             <p>Необходимые документы:</p>
@@ -78,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="image-container">
                         <?php if (is_array($model->passport_files)): ?>
                             <?php foreach ($model->passport_files as $file): ?>
-                                <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
+                                <a target="_blank" href="/uploads/<?= $file['name'] ?>"><div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div></a>
                             <?php endforeach; endif; ?>
                     </div>
 
@@ -114,7 +116,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="image-container">
                         <?php if (is_array($model->education_files)): ?>
                             <?php foreach ($model->education_files as $file): ?>
-                                <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
+                                <a target="_blank" href="/uploads/<?= $file['name'] ?>"><div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div></a>
                             <?php endforeach; endif; ?>
                     </div>
 
@@ -131,10 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
-
-
-
-
+<!--        --><?// endif; ?>
         </div>
         <div class="col-lg-4">
             <?php if (count($sent_applications) > 0): ?>

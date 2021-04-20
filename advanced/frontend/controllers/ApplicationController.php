@@ -9,6 +9,7 @@ use common\models\Program;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 
 /**
  * Заявки на обучение
@@ -38,6 +39,22 @@ class ApplicationController extends Controller
             $this->enableCsrfValidation = false;
         }
         return parent::beforeAction($action);
+    }
+
+    /**
+     * просмотр заявки
+     */
+    public function actionIndex($id)
+    {
+        $model = Application::findOne($id);
+
+        if ($model->uid != \Yii::$app->user->id) {
+            throw new ForbiddenHttpException('Access denied');
+        }
+
+        return $this->render('view', [
+            'model' => $model
+        ]);
     }
 
     /**

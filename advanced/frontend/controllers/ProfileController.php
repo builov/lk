@@ -11,7 +11,9 @@ use common\models\Program;
 use common\models\User;
 use common\models\Profile;
 use frontend\models\ApplicationForm;
+use frontend\models\EditProfileForm;
 use frontend\models\FileForm;
+use frontend\models\RegisterForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -38,6 +40,76 @@ class ProfileController extends Controller
         ];
     }
 
+
+    public function actionEdit()
+    {
+        $uid = Yii::$app->user->id;
+        $user = User::find($uid)->one();
+
+        $profile = $user->profile;
+
+        $model = new EditProfileForm(); //todo не подойдет, лучше сделать отдельную форму
+
+        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
+        {
+            echo 'sdfsdf';
+
+//            if (!$model->check())
+//            {
+//                Yii::$app->session->setFlash('error', 'Ошибка...');
+//                return;
+//            }
+        }
+
+//        print_r($profile);
+
+//        $model->lastname = $profile->lastname;
+//        $model->firstname = $profile->firstname;
+//        $model->patronim = $profile->patronim;
+//        $model->birthdate = $profile->birthdate;
+//        $model->snils = $profile->snils;
+//        $model->gender = $profile->gender;
+//        $model->education_level = $profile->education_level;
+//        $model->institution = $profile->institution;
+//        $model->graduate_year = $profile->graduate_year;
+//        $model->certificate_series = $profile->certificate_series;
+//        $model->certificate_number = $profile->certificate_number;
+//        $model->passport_series = $profile->;
+//        $model->passport_number = $profile->;
+//        $model->passport_issued = $profile->;
+//        $model->passport_code = $profile->;
+//        $model->passport_date = $profile->;
+//        $model->citizenship = $profile->;
+//        $model->region = $profile->;
+//        $model->address_passport_street = $profile->;
+//        $model->address_passport_building = $profile->;
+//        $model->address_passport_apartment = $profile->;
+//        $model->address_current_street = $profile->;
+//        $model->address_current_building = $profile->;
+//        $model->address_current_apartment = $profile->;
+//        $model->phone = $profile->;
+//        $model->email = $profile->;
+//        $model->agree = $profile->;
+//        $model->addresses_coincide = $profile->;
+
+//        $model->load($user->profile); //чето не работает :(
+
+        return $this->render('editForm', [
+            'model' => $model,
+        ]);
+
+    }
+
+
+    public function actionDontShowMessage($id)
+    {
+        $uid = Yii::$app->user->id;
+        $message = Message::find()->where(['uid' => $uid, 'id' => $id])->one();
+        $message->status = 0;
+        if (!$message->save()) Yii::$app->session->setFlash('error', 'Ошибка обработки запроса.');
+
+        return $this->redirect(['/profile']);
+    }
 
 
     public function actionUploadFile()

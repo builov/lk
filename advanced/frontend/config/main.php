@@ -44,7 +44,9 @@ return [
                 '' => 'site/index',
                 'application/saved/<id:\d+>' => 'application/saved',
                 'profile/application/<mode>' => 'profile',
-                'user/<id:\d+>/messages' => 'transmit/user-messages'
+                'user/<id:\d+>/messages' => 'transmit/user-messages',
+                'message/<id:\d+>/dont-show' => 'profile/dont-show-message',
+                'application/<id:\d+>' => 'application/index'
             ],
         ],
 
