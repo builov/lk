@@ -100,9 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <fieldset>
                 <legend>Контактные данные</legend>
 
-
-                <?php $region_options = Profile::_REGION; $region_options[0] = ''; ?>
-                <?= $form->field($model['reg_form'], 'region')->dropDownList($region_options) ?>
+                <?= $form->field($model['reg_form'], 'region')->dropDownList(Profile::_REGION) ?>
 
 <!--                --><?//= $form->field($model['reg_form'], 'zip')->textInput()->hint('По паспорту или фактический?') ?>
 
@@ -153,7 +151,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'style' => 'visibility:visible;'
                 ],
                 'disabled' => false,
-                'checked' => true
+                'checked' => false
             ]) ?>
 
             <div class="form-group">

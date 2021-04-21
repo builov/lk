@@ -43,56 +43,30 @@ class ProfileController extends Controller
 
     public function actionEdit()
     {
-        $uid = Yii::$app->user->id;
-        $user = User::find($uid)->one();
+//        $uid = Yii::$app->user->id;
+//        $user = User::find($uid)->one();
+//        $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
 
-        $profile = $user->profile;
+        $model = new EditProfileForm(); //заполняется данными текущего пользователя в init()
 
-        $model = new EditProfileForm(); //todo не подойдет, лучше сделать отдельную форму
-
-        if (Yii::$app->request->isPost && $model->load(Yii::$app->request->post()))
+        if (Yii::$app->request->isPost)
         {
-            echo 'sdfsdf';
-
-//            if (!$model->check())
-//            {
-//                Yii::$app->session->setFlash('error', 'Ошибка...');
-//                return;
-//            }
+            if ($model->load(Yii::$app->request->post()))
+            {
+                if (!$model->check())
+                {
+                    Yii::$app->session->setFlash('error', 'Ошибка...');
+                }
+                else {
+                    //сохранение профиля
+                    if ($model->updateProfile()) Yii::$app->session->setFlash('success', 'Изменения успешно сохранены.');
+                    return $this->redirect(['/profile']);
+                }
+            }
+            else {
+                Yii::$app->session->setFlash('error', 'Что-то пошло не так...');
+            }
         }
-
-//        print_r($profile);
-
-//        $model->lastname = $profile->lastname;
-//        $model->firstname = $profile->firstname;
-//        $model->patronim = $profile->patronim;
-//        $model->birthdate = $profile->birthdate;
-//        $model->snils = $profile->snils;
-//        $model->gender = $profile->gender;
-//        $model->education_level = $profile->education_level;
-//        $model->institution = $profile->institution;
-//        $model->graduate_year = $profile->graduate_year;
-//        $model->certificate_series = $profile->certificate_series;
-//        $model->certificate_number = $profile->certificate_number;
-//        $model->passport_series = $profile->;
-//        $model->passport_number = $profile->;
-//        $model->passport_issued = $profile->;
-//        $model->passport_code = $profile->;
-//        $model->passport_date = $profile->;
-//        $model->citizenship = $profile->;
-//        $model->region = $profile->;
-//        $model->address_passport_street = $profile->;
-//        $model->address_passport_building = $profile->;
-//        $model->address_passport_apartment = $profile->;
-//        $model->address_current_street = $profile->;
-//        $model->address_current_building = $profile->;
-//        $model->address_current_apartment = $profile->;
-//        $model->phone = $profile->;
-//        $model->email = $profile->;
-//        $model->agree = $profile->;
-//        $model->addresses_coincide = $profile->;
-
-//        $model->load($user->profile); //чето не работает :(
 
         return $this->render('editForm', [
             'model' => $model,

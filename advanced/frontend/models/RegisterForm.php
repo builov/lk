@@ -93,6 +93,7 @@ class RegisterForm extends Model
                 'region',
                 'citizenship'], 'integer'],
             [['graduate_year'], 'number', 'min' => 1950, 'max' => $current_year],
+            ['agree', 'compare', 'compareValue' => 1, 'operator' => '==', 'message' => 'Необходимо подтвердить согласие на обработку персональных данных.'],
             [['passport_issued',
                 'address_passport_street',
                 'address_passport_building',

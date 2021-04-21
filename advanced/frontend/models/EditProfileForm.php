@@ -3,6 +3,7 @@
 
 namespace frontend\models;
 
+use common\models\Profile;
 use common\models\User;
 use Yii;
 use yii\base\Model;
@@ -92,6 +93,18 @@ class EditProfileForm extends Model
                 'citizenship',
                 'agree'], 'integer'],
             [['graduate_year'], 'number', 'min' => 1950, 'max' => $current_year],
+            ['agree', 'compare', 'compareValue' => 1, 'operator' => '==', 'message' => 'Необходимо подтвердить истинность указанных данных.'],
+            ['region', 'compare', 'compareValue' => 0, 'operator' => '!=', 'when' => function($model) {
+                                                                                        return $model->citizenship == 1;
+                                                                                    }, 'whenClient' => "function (attribute, value) {
+                                                                                        return $('#editprofileform-citizenship').val() == '1';
+                                                                                    }",
+                'message' => 'Необходимо указать регион РФ.'],
+            [['snils','passport_series','passport_code','certificate_number'], 'required', 'when' => function($model) {
+                return $model->citizenship == 1;
+            }, 'whenClient' => "function (attribute, value) {
+                return $('#editprofileform-citizenship').val() == '1';
+            }"],
             [['passport_issued',
                 'address_passport',
                 'address_current'], 'string'],
@@ -150,39 +163,46 @@ class EditProfileForm extends Model
             $this->$key = $profile->$key;
         }
         $this->citizenship = ($profile->region==4) ? 2 : 1;
-        $this->agree = 0;
+//        $this->agree = 0;
         $this->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
         $this->passport_date = implode('-', array_reverse(explode( '-', $this->passport_date)));
-//        $this->region = '';
+        $this->region = ($profile->region==4) ? 0 : $profile->region;
+    }
 
 
+    public function check()
+    {
+        return true;
+    }
 
+    public function updateProfile()
+    {
+        $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
+//        print_r($profile);
 
+        $profile->lastname = $this->lastname;
+        $profile->firstname = $this->firstname;
+        $profile->patronim = $this->patronim;
+        $profile->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
+        $profile->snils = $this->snils;
+        $profile->gender = (int) $this->gender;
+        $profile->education_level = (int) $this->education_level;
+        $profile->institution = $this->institution;
+        $profile->graduate_year = (int) $this->graduate_year;
+        $profile->passport_series = $this->passport_series;
+        $profile->passport_number = $this->passport_number;
+        $profile->passport_issued = $this->passport_issued;
+        $profile->passport_code = $this->passport_code;
+        $profile->passport_date = implode('-', array_reverse(explode( '-', $this->passport_date)));
+        $profile->region = ($this->citizenship==1) ? $this->region : 4;
+        $profile->address_passport = $this->address_passport;
+        $profile->address_current = $this->address_current;
+        $profile->phone = $this->phone;
+        $profile->updated = time();
+        $profile->certificate_series = $this->certificate_series;
+        $profile->certificate_number = $this->certificate_number;
 
-
-//        $this->lastname = $profile->lastname;
-//        $this->firstname;
-//        $this->patronim;
-//        $this->birthdate;
-//        $this->snils;
-//        $this->gender;
-//        $this->education_level;
-//        $this->institution;
-//        $this->graduate_year;
-//        $this->certificate_series;
-//        $this->certificate_number;
-//        $this->passport_series;
-//        $this->passport_number;
-//        $this->passport_issued;
-//        $this->passport_code;
-//        $this->passport_date;
-//        $this->citizenship;
-//        $this->region;
-//        $this->address_passport;
-//        $this->address_current;
-//        $this->zip;
-//        $this->phone;
-//        $this->agree;
+        return $profile->save();
     }
 
 

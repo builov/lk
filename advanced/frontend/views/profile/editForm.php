@@ -89,7 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <fieldset>
                 <legend>Контактные данные</legend>
 
-                <?= $form->field($model, 'region')->dropDownList(Profile::_REGION) ?>
+                <?php $option[0] = ''; $region_options = $option + Profile::_REGION; ?>
+                <?= $form->field($model, 'region')->dropDownList($region_options) ?>
 
                 <?= $form->field($model, 'phone')->textInput() ?>
 
@@ -105,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'style' => 'visibility:visible;'
                 ],
                 'disabled' => false,
-                'checked' => true
+                'checked' => false
             ]) ?>
 
 

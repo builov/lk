@@ -144,6 +144,51 @@ AppAsset::register($this);
 
     $(function() {
 
+        console.log($('#editprofileform-citizenship').val());
+
+        //форма редактирования профиля
+
+        if ($('#editprofileform-citizenship').value==1)
+        {
+            $("#editprofileform-passport_code").mask("999-999");
+            $("#editprofileform-snils").mask("999-999-999-99");
+            $("#editprofileform-passport_series").mask("99 99");
+            $("#editprofileform-passport_number").mask("999999");
+        }
+        else if (this.value==2)
+        {
+            $(".field-editprofileform-passport_code").hide();
+            $(".field-editprofileform-region").hide();
+        }
+
+        $("#editprofileform-phone").mask("+7 (999) 999-99-99");
+        $("#editprofileform-graduate_year").mask("9999");
+        $("#editprofileform-birthdate").mask("99-99-9999");
+        $("#editprofileform-passport_date").mask("99-99-9999");
+
+        $('#editprofileform-citizenship').on('change', function() {
+            console.log(this.value);
+            if (this.value==1)
+            {
+                $(".field-editprofileform-passport_code").show();
+                $(".field-editprofileform-region").show();
+                $("#editprofileform-snils").mask("999-999-999-99");
+                $("#editprofileform-passport_series").mask("99 99");
+                $("#editprofileform-passport_number").mask("999999");
+            }
+            else if (this.value==2)
+            {
+                $(".field-editprofileform-passport_code").hide();
+                $(".field-editprofileform-region").hide();
+                $("#editprofileform-snils").unmask();
+                $("#editprofileform-passport_series").unmask();
+                $("#editprofileform-passport_number").unmask();
+            }
+        });
+
+
+        //форма регистрации
+
         $('#registerform-citizenship').on('change', function() {
             console.log(this.value);
             if (this.value==1)
@@ -185,11 +230,6 @@ AppAsset::register($this);
         $("#registerform-birthdate").mask("99-99-9999");
         $("#registerform-passport_date").mask("99-99-9999");
 
-        $('button[name="signup-button"]').on('click', function ()
-        {
-            $("#application-form").submit();
-        });
-
         $('#the-same').on('click', function ()
         {
             if ($(this).prop('checked'))
@@ -212,16 +252,12 @@ AppAsset::register($this);
         });
 
 
-        // Загрузка изображения
-        // var btnSaveImage = $('#upload-form button'),
-        //     btnDeleteImage = $('#delete-image'),
-        //     inputImage = $('#form-image'),
-        //     image = $("#upload-image"),
-        //     process = $('#process');
+        //форма заявки на обучение
 
-        // inputImage.on('change', function () {
-        //     btnSaveImage.prop('disabled', false);
-        // });
+        $('button[name="signup-button"]').on('click', function ()
+        {
+            $("#application-form").submit();
+        });
 
         $('input[type="file"]').on('change', function (e) {
             e.preventDefault();
