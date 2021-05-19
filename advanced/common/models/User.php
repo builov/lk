@@ -32,6 +32,7 @@ class User extends ActiveRecord implements IdentityInterface
     public $password_raw;
     public $passport_files;
     public $education_files;
+    public $achievements_files;
 
 
     /**

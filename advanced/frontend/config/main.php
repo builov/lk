@@ -46,10 +46,10 @@ return [
                 'profile/application/<mode>' => 'profile',
                 'user/<id:\d+>/messages' => 'transmit/user-messages',
                 'message/<id:\d+>/dont-show' => 'profile/dont-show-message',
-                'application/<id:\d+>' => 'application/index'
+                'application/<id:\d+>' => 'application/index',
+                'delete-scan/<type>' => 'profile/delete-scan'
             ],
         ],
-
     ],
     'params' => $params,
 ];

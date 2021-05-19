@@ -11,6 +11,7 @@ use common\models\Program;
 use common\models\User;
 use common\models\Profile;
 use frontend\models\ApplicationForm;
+use frontend\models\DocumentScan;
 use frontend\models\EditProfileForm;
 use frontend\models\FileForm;
 use frontend\models\RegisterForm;
@@ -18,26 +19,49 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\UploadedFile;
 
 class ProfileController extends Controller
 {
+//    actions:
+//    actionDeleteScan($type)
+//    actionEdit()
+//    actionDontShowMessage($id)
+//    actionUploadFile()
+//    actionTest()
+//    actionIndex($mode='default')
+
 
     public function behaviors()
     {
+//        $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index'],
+//                'only' => ['index'],
                 'rules' => [
                     [
-                        'actions' => ['index'],
+//                        'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['user'],
                     ],
                 ],
             ],
         ];
+    }
+
+    /**
+     * Удаление сканов документов текущего пользователя
+     * @param $type: 'passport', 'education', 'achievements'
+     * @return \yii\web\Response
+     */
+    public function actionDeleteScan($type)
+    {
+        $scan = new DocumentScan(['doctype' => $type, 'uid' => Yii::$app->user->id]);
+//        print_r($scan->doctype);
+        $scan->delete();
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
 
@@ -47,13 +71,19 @@ class ProfileController extends Controller
 //        $user = User::find($uid)->one();
 //        $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
 
+        $condition = [2,3]; //заявка в статусе "на рассмотрении" или "одобрена"
+        if (Application::find()->where(['uid' => Yii::$app->user->id])->andWhere(['in','status',$condition])->count())
+            return $this->redirect(['/profile']); //редактирование постфактум запрещено
+
         $model = new EditProfileForm(); //заполняется данными текущего пользователя в init()
+
+//        print_r($model);
 
         if (Yii::$app->request->isPost)
         {
             if ($model->load(Yii::$app->request->post()))
             {
-                if (!$model->check())
+                if (!$model->check()) //todo сейчас ничего не проверяется
                 {
                     Yii::$app->session->setFlash('error', 'Ошибка...');
                 }
@@ -164,17 +194,42 @@ class ProfileController extends Controller
 //        ]);
 //    }
 
+    public function actionTest()
+    {
+
+
+        $arr = [];
+        foreach (Files::TYPES as $key => $value)
+        {
+            $arr[$value[0]] = $key;
+        }
+
+        print_r($arr);
+    }
+
+
+
+
     public function actionIndex($mode='default')
     {
+//        //пример применения RBAC Rules. Проверено, вроде работает.
+//        $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
+//        if (\Yii::$app->user->can('viewOwnProfile', ['profile' => $profile])) {
+//            throw new ForbiddenHttpException('Access denied');
+//        }
+
         $uid = Yii::$app->user->id;
         $model = User::findOne($uid);
+
+//        print_r(Files::TYPES);
 
         foreach($model->files as $file)
         {
             if ($file->mime=='jpg')
             {
-                if ($file->doctype==1) $model->passport_files[] = $file;
-                else if ($file->doctype==2) $model->education_files[] = $file;
+                if ($file->doctype==Files::TYPES['passport'][0]) $model->passport_files[] = $file;
+                else if ($file->doctype==Files::TYPES['education'][0]) $model->education_files[] = $file;
+                else if ($file->doctype==Files::TYPES['achievements'][0]) $model->achievements_files[] = $file;
             }
         }
 
@@ -194,6 +249,7 @@ class ProfileController extends Controller
                 if ($form->createApplication())
                 {
                     Yii::$app->session->setFlash('success', 'Заявка успешно отправлена.');
+                    return $this->redirect(['/profile']);
                 }
                 else {
                     Yii::$app->session->setFlash('error', 'Ошибка. Попробуйте еще раз.');
@@ -233,6 +289,13 @@ class ProfileController extends Controller
 
 //        print_r($sent_applications);
 
+
+        $editable = false;
+        foreach ($sent_applications as $application) $applications_statuses[] = $application[1];
+        if ($applications_statuses && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
+            && !in_array(Application::STATUS_ACCEPTED, $applications_statuses)) $editable = true;
+
+
         if ($mode=='form' && 1) //todo добавить условие, что есть программы, на которые еще можно отправить заявку (неотправленные + отклоненные)
         {
             return $this->render('applicationFormPage', [
@@ -241,6 +304,7 @@ class ProfileController extends Controller
                 'file_form' => $file_form,
                 'sent_applications' => $sent_applications,
                 'available_programs' => $available_programs,
+                'editable' => $editable,
             ]);
         }
         return $this->render('view', [
@@ -250,6 +314,7 @@ class ProfileController extends Controller
             'sent_applications' => $sent_applications,
             'available_programs' => $available_programs,
             'messages' => $messages,
+            'editable' => $editable,
         ]);
     }
 }

@@ -58,6 +58,7 @@ class RegisterForm extends Model
     public function rules()
     {
         $current_year = (int) date("Y");
+        $date_format = 'dd' . Profile::_DATE_DIVIDER . 'mm' . Profile::_DATE_DIVIDER . 'yyyy';
         return [
             // 'message'=>'Please enter a value for {attribute}.'
             [['lastname',
@@ -85,6 +86,7 @@ class RegisterForm extends Model
 //                return $this->citizenship == 2;
 //            }],
             [['birthdate', 'passport_date'], 'date', 'format'=>'dd-mm-yyyy'],
+            [['birthdate', 'passport_date'], 'checkDate'],
 //            [['birthdate', 'passport_date'], 'string'],
             [['gender',
                 'education_level',
@@ -113,6 +115,13 @@ class RegisterForm extends Model
                 'certificate_series',
                 'certificate_number'], 'string', 'max' => 255],
         ];
+    }
+
+    public function checkDate($attribute) //https://progergirl.blogspot.com/2018/04/yii2-custom-validator.html
+    {
+        $date = explode(Profile::_DATE_DIVIDER, $this->$attribute);
+        if (!checkdate($date[1], $date[0], $date[2]))
+            $this->addError($attribute,'Указана некорректная дата.');
     }
 
     /**
@@ -216,7 +225,7 @@ class RegisterForm extends Model
         $profile->patronim = $this->patronim;
 
         //переформатирование дд-мм-гггг в гггг-мм-дд
-        $profile->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
+        $profile->birthdate = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->birthdate)));
 
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
@@ -234,16 +243,21 @@ class RegisterForm extends Model
 
         $profile->passport_issued = $this->passport_issued;
         $profile->passport_code = $this->passport_code;
-        $profile->passport_date = implode('-', array_reverse(explode( '-', $this->passport_date)));
+        $profile->passport_date = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
 
-        $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building . ', квартира ' . $this->address_passport_apartment;
-        $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building . ', квартира ' . $this->address_current_apartment;
+        $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building;
+        if (trim($this->address_passport_apartment) != '') $profile->address_passport .= ', квартира ' . $this->address_passport_apartment;
+        $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building;
+        if (trim($this->address_current_apartment) != '') $profile->address_current .= ', квартира ' . $this->address_current_apartment;
         $profile->zip = 0; //(int) $this->zip;
         $profile->phone = $this->phone;
         $profile->agree = (int) $this->agree;
         $profile->created = time();
 //        $profile->updated
 //        $profile->status
+
+//        print_r($profile);
+//        echo var_dump($this->address_current_apartment);
 
         return $profile->save();
     }

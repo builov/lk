@@ -7,6 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use common\models\Profile;
+use yii\widgets\Breadcrumbs;
 
 //print_r($model);
 
@@ -15,6 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="">
+
+    <?= Breadcrumbs::widget([
+        'homeLink' => ['label' => 'Личный кабинет', 'url' => '/profile'],
+        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+    ]) ?>
 
 
     <div class="row">

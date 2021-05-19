@@ -13,11 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-request-password-reset">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Напишите Ваш адрес электронной почты, указанный при регистрации Личного кабинете абитуриента. На него будет отправлена ссылка для сброса пароля.</p>
+    <p>Напишите Ваш адрес электронной почты, указанный при регистрации. На него будет отправлена ссылка для сброса пароля.</p>
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form', 'validateOnBlur' => false]); ?>
 
                 <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
@@ -26,6 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
             <?php ActiveForm::end(); ?>
+
+            <a href="/">Регистрация</a>
         </div>
     </div>
 </div>

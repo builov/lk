@@ -35,7 +35,8 @@ class FileForm extends Model
     {
         if ($this->validate())
         {
-            $standard_names = ['1'=>'passport', '2'=>'education'];
+            $standard_names = []; //['1'=>'passport', '2'=>'education'];
+            foreach (Files::TYPES as $key => $value) $standard_names[$value[0]] = $key;
 
             //$this->imageFile->baseName
             $uid = Yii::$app->user->id;

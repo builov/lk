@@ -70,17 +70,16 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <fieldset>
 
-                        <legend>
-                            Паспорт и Свидетельство о регистрации по месту пребывания
-                            <!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
-                        </legend>
+                        <legend>Паспорт и Свидетельство о регистрации по месту пребывания</legend>
 
                         <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
 
                         <div class="image-container">
                             <?php if (is_array($model->passport_files)): ?>
                                 <?php foreach ($model->passport_files as $file): ?>
-                                    <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
+                            <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                            </a>
                                 <?php endforeach; endif; ?>
                         </div>
 
@@ -107,17 +106,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <fieldset>
 
-                        <legend>Документы об образовании
-                            <!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
-                        </legend>
+                        <legend>Документы об образовании</legend>
 
                         <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'2'])->label(false) ?>
 
                         <div class="image-container">
                             <?php if (is_array($model->education_files)): ?>
                                 <?php foreach ($model->education_files as $file): ?>
-                                    <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div>
+                            <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                    <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
                                 <?php endforeach; endif; ?>
+                            </a>
                         </div>
 
                         <?= $form3->field($file_form, 'imageFile')->fileInput()->label(false)
@@ -130,9 +129,51 @@ $this->params['breadcrumbs'][] = $this->title;
                     </fieldset>
 
                     <?php ActiveForm::end() ?>
+                </div>
+
+
+                <div style="margin-top: 3em;">
+                    <?php $form4 = ActiveForm::begin([
+                        'id' => 'upload-form-achievements',
+                        'action' => '/profile/upload-file',
+                        'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                        'enableClientValidation' => false,
+                    ]) ?>
+
+                    <fieldset>
+
+                        <legend>
+                            Личные достижения
+<!--                            --><?php //if ($editable): ?><!--<a href="/delete-scan/achievements" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>--><?php //endif; ?>
+                        </legend>
+
+                        <?= $form4->field($file_form, 'doctype')->hiddenInput(['value'=>'3'])->label(false) ?>
+
+                        <div class="image-container">
+                            <?php if (is_array($model->achievements_files)): ?>
+                                <?php foreach ($model->achievements_files as $file): ?>
+                                    <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                        <div class="img-uploaded"
+                                             style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                                    </a>
+                                <?php endforeach; endif; ?>
+                        </div>
+
+                        <?= $form4->field($file_form, 'imageFile')->fileInput()->label(false)
+                            ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                        <div class="xhr-message"></div>
+
+                        <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+
+                    </fieldset>
+
+                    <?php ActiveForm::end() ?>
 
                     <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </div>
+
+
 
             <?php else: ?>
 
@@ -165,7 +206,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <hr>
 
-            <h2>Профиль <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a></h2>
+
+            <h2>Профиль <?php if ($editable): ?><a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a><?php endif; ?></h2>
 
             <h3>Личные данные
 <!--                <a href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a>-->
@@ -173,7 +215,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Фамилия: <?= $model->profile->lastname ?></p>
             <p>Имя: <?= $model->profile->firstname ?></p>
             <p>Отчество: <?= $model->profile->patronim ?></p>
-            <p>Дата рождение: <?= $model->profile->birthdate ?></p>
+            <p>Дата рождение: <?= date("d-m-Y", strtotime($model->profile->birthdate)) ?></p>
             <p>СНИЛС: <?= $model->profile->snils ?></p>
             <p>Пол: <?= Profile::_GENDER[$model->profile->gender] ?></p>
 
@@ -195,7 +237,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Серия и номер паспорта: <?= $model->profile->passport_series ?> <?= $model->profile->passport_number ?></p>
             <p>Кем выдан: <?= $model->profile->passport_issued ?></p>
             <p>Код подразделения: <?= $model->profile->passport_code ?></p>
-            <p>Дата выдачи: <?= $model->profile->passport_date ?></p>
+            <p>Дата выдачи: <?= date("d-m-Y", strtotime($model->profile->passport_date)) ?></p>
 
             <p>&nbsp;</p>
             <p><?= Html::a('Сменить пароль', ['/site/request-password-reset'], ['class' => 'btn btn-primary']) ?></p>

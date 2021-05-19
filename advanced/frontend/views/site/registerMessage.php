@@ -10,12 +10,16 @@ use yii\bootstrap\ActiveForm;
 
 
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
             <h3>Мы сохранили Ваши данные, осталось совсем немного</h3>
 
             <p>Чтобы войти в Личный кабинет абитуриента, проверьте Ваш почтовый ящик, на который мы выслали код подтверждения и пароль.</p>
+
+            <a href="/site/resend-verification-email">Отправить код подтверждения еще раз</a> (будет отправлен на тот же email, указанный при регистрации).
+
+
         </div>
-        <div class="col-lg-4">
+        <!--div class="col-lg-4">
 
             <h2>Вход</h2>
 
@@ -40,6 +44,6 @@ use yii\bootstrap\ActiveForm;
 
             <?php ActiveForm::end(); ?>
 
-        </div>
+        </div-->
     </div>
 </div>

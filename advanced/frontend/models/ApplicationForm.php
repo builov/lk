@@ -70,7 +70,11 @@ class ApplicationForm extends Model
 
         if ($passport < 2 || $education < 2)
         {
-            Yii::$app->session->setFlash('error', 'Загрузите необходимые сканы документов.');
+            Yii::$app->session->setFlash('error', 'Загрузите необходимые сканы документов:
+            <ul>
+                <li>паспорт: страница с фото, страница с пропиской (минимум 2 файла)</li>
+                <li>документы об образовании, включая приложение с оценками с двух сторон (минимум 2 файла)</li>
+            </ul>');
             return false;
         }
         return true;
@@ -85,6 +89,7 @@ class ApplicationForm extends Model
         $model->status = 1;
         $model->created = time();
         $model->updated = time();
+        $model->show_message = 1;
 
         return $model->save();
     }

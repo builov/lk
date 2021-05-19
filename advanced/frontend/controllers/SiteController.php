@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\rbac\OwnerRule;
 
 /**
  * Site controller
@@ -67,6 +68,16 @@ class SiteController extends Controller
             ],
         ];
     }
+
+
+
+    public function actionTest()
+    {
+        $rule = new OwnerRule();
+        $params = [];
+        $rule->execute(69, 'user', $params);
+    }
+
 
 
     public function actionRegisterMessage()
@@ -184,10 +195,10 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
+//    public function actionAbout()
+//    {
+//        return $this->render('about');
+//    }
 
     /**
      * Signs user up.
@@ -204,9 +215,11 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+        return $this->goHome();
+
+//        return $this->render('signup', [
+//            'model' => $model,
+//        ]);
     }
 
     /**
@@ -219,7 +232,7 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Письмо с инструкциями отправлено на Ваш адрес электронной поч'); //Check your email for further instructions.
+                Yii::$app->session->setFlash('success', 'Письмо с инструкциями отправлено на Ваш адрес электронной почты.'); //Check your email for further instructions.
 
                 return $this->goHome();
             } else {
@@ -270,9 +283,25 @@ class SiteController extends Controller
         try {
             $model = new VerifyEmailForm($token);
         } catch (InvalidArgumentException $e) {
-            throw new BadRequestHttpException($e->getMessage());
+//            throw new BadRequestHttpException($e->getMessage()); //todo что-нибудь более гуманное
+            Yii::$app->session->setFlash('error',
+                'Ошибка. Возможные причины: токен неверен, просрочен или используется повторно; пользователь не найден или уже верифицирован. 
+                <a href="/site/request-password-reset">Забыли пароль?</a>'
+            );
+            //<a href="/site/resend-verification-email">Отправить проверочный код на email еще раз</a>
+            return $this->redirect('/site/login');
         }
         if ($user = $model->verifyEmail()) {
+
+            //назначение RBAC роли user
+            if (!Yii::$app->user->can('user'))
+            {
+                $auth = Yii::$app->authManager;
+                $role = $auth->getRole('user');
+                $auth->assign($role, $user->id);
+            }
+
+
             if (Yii::$app->user->login($user)) {
                 Yii::$app->session->setFlash('success', 'Спасибо, Ваша учетная запись активирована!');
                 return $this->goHome();
@@ -294,7 +323,8 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'Письмо с инструкциями отправлено на Ваш адрес электронной почты.'); //Check your email for further instructions.
-                return $this->goHome();
+//                return $this->goHome();
+                return $this->redirect(['/site/login']);
             }
             Yii::$app->session->setFlash('error', 'Извините, не удалось отправить письмо на данный адрес электронной почты.'); //Sorry, we are unable to resend verification email for the provided email address.
         }

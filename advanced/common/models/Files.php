@@ -22,6 +22,12 @@ use Yii;
  */
 class Files extends \yii\db\ActiveRecord
 {
+    const TYPES = [
+        'passport' => [1,11],
+        'education' => [2,22],
+        'achievements' => [3,33]
+    ];
+
     /**
      * {@inheritdoc}
      */

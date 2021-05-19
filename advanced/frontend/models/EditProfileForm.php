@@ -9,34 +9,7 @@ use Yii;
 use yii\base\Model;
 
 /**
- * This is the edit form class for model "Profile".
- *
- * @property int $uid
- * @property string|null $lastname
- * @property string|null $firstname
- * @property string|null $patronim
- * @property string|null $birthdate
- * @property string|null $snils
- * @property int|null $gender
- * @property int|null $education_level
- * @property string|null $institution
- * @property int|null $graduate_year
- * @property string|null $passport_series
- * @property string|null $passport_number
- * @property string|null $passport_issued
- * @property string|null $passport_code
- * @property string|null $passport_date
- * @property int|null $region
- * @property string|null $address_passport
- * @property string|null $address_current
- * @property int|null $zip
- * @property string|null $phone
- * @property int|null $agree
- * @property int|null $created
- * @property int|null $updated
- * @property int|null $status
- * @property string|null $certificate_series
- * @property string|null $certificate_number
+ * Edit form class for model "Profile".
  */
 class EditProfileForm extends Model
 {
@@ -164,8 +137,8 @@ class EditProfileForm extends Model
         }
         $this->citizenship = ($profile->region==4) ? 2 : 1;
 //        $this->agree = 0;
-        $this->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
-        $this->passport_date = implode('-', array_reverse(explode( '-', $this->passport_date)));
+        $this->birthdate = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->birthdate)));
+        $this->passport_date = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
         $this->region = ($profile->region==4) ? 0 : $profile->region;
     }
 
@@ -183,7 +156,7 @@ class EditProfileForm extends Model
         $profile->lastname = $this->lastname;
         $profile->firstname = $this->firstname;
         $profile->patronim = $this->patronim;
-        $profile->birthdate = implode('-', array_reverse(explode( '-', $this->birthdate)));
+        $profile->birthdate = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->birthdate)));
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
         $profile->education_level = (int) $this->education_level;
@@ -193,7 +166,7 @@ class EditProfileForm extends Model
         $profile->passport_number = $this->passport_number;
         $profile->passport_issued = $this->passport_issued;
         $profile->passport_code = $this->passport_code;
-        $profile->passport_date = implode('-', array_reverse(explode( '-', $this->passport_date)));
+        $profile->passport_date = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
         $profile->region = ($this->citizenship==1) ? $this->region : 4;
         $profile->address_passport = $this->address_passport;
         $profile->address_current = $this->address_current;

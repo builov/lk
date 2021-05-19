@@ -17,13 +17,23 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            <?php $form = ActiveForm::begin([
+                    'id' => 'login-form',
+                    'enableAjaxValidation'   => false,
+                    'enableClientValidation' => true,
+                    'validateOnBlur'         => false,
+                    'validateOnType'         => false,
+                    'validateOnChange'       => false,
+                    'validateOnSubmit'       => true,
+            ]); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
                 <?= $form->field($model, 'password')->passwordInput() ?>
 
                 <?= $form->field($model, 'rememberMe')->checkbox() ?>
+
+            <p>Если у Вас еще нет учетной записи: <a class="btn btn-primary" href="/">зарегистрируйтесь</a>.</p>
 
                 <div style="color:#999;margin:1em 0">
                     <?= Html::a('Забыли пароль?', ['site/request-password-reset']) ?>

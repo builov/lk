@@ -7,6 +7,7 @@ use yii\bootstrap\ActiveForm;
 //use common\models\Profile;
 //use common\models\Program;
 use yii\widgets\Breadcrumbs;
+use yii\widgets\Pjax;
 
 //print_r($model->education_files);
 
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin([
                 'id' => 'application-form',
                 'options' => ['enctype' => 'multipart/form-data'],
-                'action' => '/profile',
+//                'action' => '/profile',
             ]) ?>
 
             <?= $form->field($appform, 'program_id')->dropDownList($options) ?>
@@ -59,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end() ?>
 
+            <?php Pjax::begin(); ?>
 
             <div style="margin-top: 3em;">
                 <?php $form2 = ActiveForm::begin([
@@ -72,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <legend>
                         Паспорт и Свидетельство о регистрации по месту пребывания
-                        <!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
+                        <?php if ($editable): ?><a href="/delete-scan/passport" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a><?php endif; ?>
                     </legend>
 
                     <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
@@ -80,7 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="image-container">
                         <?php if (is_array($model->passport_files)): ?>
                             <?php foreach ($model->passport_files as $file): ?>
-                                <a target="_blank" href="/uploads/<?= $file['name'] ?>"><div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div></a>
+                                <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                    <div class="img-uploaded"
+                                         style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                                </a>
                             <?php endforeach; endif; ?>
                     </div>
 
@@ -107,8 +112,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <fieldset>
 
-                    <legend>Документы об образовании
-                        <!--                        <a href="" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a>-->
+                    <legend>
+                        Документы об образовании
+                        <?php if ($editable): ?><a href="/delete-scan/education" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a><?php endif; ?>
                     </legend>
 
                     <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'2'])->label(false) ?>
@@ -116,7 +122,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="image-container">
                         <?php if (is_array($model->education_files)): ?>
                             <?php foreach ($model->education_files as $file): ?>
-                                <a target="_blank" href="/uploads/<?= $file['name'] ?>"><div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] ?>')" >&nbsp;</div></a>
+                                <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                    <div class="img-uploaded"
+                                         style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                                </a>
                             <?php endforeach; endif; ?>
                     </div>
 
@@ -133,7 +142,51 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
-<!--        --><?// endif; ?>
+
+
+            <div style="margin-top: 3em;">
+                <?php $form4 = ActiveForm::begin([
+                    'id' => 'upload-form-achievements',
+                    'action' => '/profile/upload-file',
+                    'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                    'enableClientValidation' => false,
+                ]) ?>
+
+                <fieldset>
+
+                    <legend>
+                        Личные достижения
+                        <?php if ($editable): ?><a href="/delete-scan/achievements" class="delete-image"><span class="glyphicon glyphicon-trash"></span></a><?php endif; ?>
+                    </legend>
+
+                    <?= $form4->field($file_form, 'doctype')->hiddenInput(['value'=>'3'])->label(false) ?>
+
+                    <div class="image-container">
+                        <?php if (is_array($model->achievements_files)): ?>
+                            <?php foreach ($model->achievements_files as $file): ?>
+                                <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                    <div class="img-uploaded"
+                                         style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                                </a>
+                            <?php endforeach; endif; ?>
+                    </div>
+
+                    <?= $form4->field($file_form, 'imageFile')->fileInput()->label(false)
+                        ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                    <div class="xhr-message"></div>
+
+                    <!--                    --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+
+                </fieldset>
+
+                <?php ActiveForm::end() ?>
+
+                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+            </div>
+
+            <?php Pjax::end(); ?>
+
         </div>
         <div class="col-lg-4">
             <?php if (count($sent_applications) > 0): ?>

@@ -57,7 +57,12 @@ AppAsset::register($this);
         .field-registerform-passport_series_number {
             display:none;
         }
+
+        img.icon {
+
+        }
     </style>
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -104,6 +109,10 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+
+    $menuItems[] = '<li><a href="tel:+74959152783"><img class="icon" src="/img/telephone.svg" /> +7 495 915-27-83</a></li>';
+    $menuItems[] = '<li><a target="_blank" href="mailto:pk@medcollege7.ru"><img class="icon" src="/img/envelope.svg" /> pk@medcollege7.ru</a></li>';
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
