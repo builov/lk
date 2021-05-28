@@ -58,7 +58,7 @@ class TransmitController extends Controller
         $data_all_arr = explode(PHP_EOL, $data);
 
         foreach ($data_all_arr as $data_str)
-        {
+        {   
 //            file_put_contents($file, $data_str, FILE_APPEND);
 //            file_put_contents($file, PHP_EOL, FILE_APPEND);
 
