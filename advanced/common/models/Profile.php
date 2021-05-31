@@ -46,7 +46,7 @@ class Profile extends \yii\db\ActiveRecord
     const _GENDER = [1 => 'Женский', 2 => 'Мужской'];
     const _REGION = [1 => 'г. Москва', 2 => 'Московская область', 3 => 'Другой субъект РФ']; //регион 4 это иностранец
     const _CITIZENSHIP = [1 => 'Российская Федерация', 2 => 'Другое'];
-    const _DATE_DIVIDER = '-'; //на самом деле разделитель задается sql форматом date, где нужна строка формата yyyy-mm-dd
+    const _DATE_DIVIDER = '.'; //на самом деле разделитель задается sql форматом date, где нужна строка формата yyyy-mm-dd
 
     /**
      * {@inheritdoc}

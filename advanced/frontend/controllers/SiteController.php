@@ -121,13 +121,17 @@ class SiteController extends Controller
                     return $this->redirect(['/site/register-message']);
                 }
             }
+            else {
+                Yii::$app->session->setFlash('error', 'Ошибка регистрации пользователя.');
+            }
         }
+       
 
         $model['reg_form'] = $reg_form;
         $model['login_form'] = $login_form;
 
         // предъявление формы
-        return $this->render('registerForm', [
+        return $this->render('registerFormNew', [
             'model' => $model,
         ]);
     }

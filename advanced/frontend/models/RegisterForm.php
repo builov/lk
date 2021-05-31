@@ -85,7 +85,7 @@ class RegisterForm extends Model
 //                'required', 'when' => function() {
 //                return $this->citizenship == 2;
 //            }],
-            [['birthdate', 'passport_date'], 'date', 'format'=>'dd-mm-yyyy'],
+            [['birthdate', 'passport_date'], 'date', 'format' => $date_format],
             [['birthdate', 'passport_date'], 'checkDate'],
 //            [['birthdate', 'passport_date'], 'string'],
             [['gender',
@@ -204,6 +204,9 @@ class RegisterForm extends Model
         catch (\yii\db\Exception $e)
         {
 //            print_r($e->errorInfo[1]);
+
+            Yii::$app->session->setFlash('error', $e->errorInfo[1]);
+
             return 'error' . $e->errorInfo[1];
         }
 
@@ -225,7 +228,7 @@ class RegisterForm extends Model
         $profile->patronim = $this->patronim;
 
         //переформатирование дд-мм-гггг в гггг-мм-дд
-        $profile->birthdate = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->birthdate)));
+        $profile->birthdate = implode("-", array_reverse(explode( Profile::_DATE_DIVIDER, $this->birthdate)));
 
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
@@ -243,7 +246,7 @@ class RegisterForm extends Model
 
         $profile->passport_issued = $this->passport_issued;
         $profile->passport_code = $this->passport_code;
-        $profile->passport_date = implode(Profile::_DATE_DIVIDER, array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
+        $profile->passport_date = implode("-", array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
 
         $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building;
         if (trim($this->address_passport_apartment) != '') $profile->address_passport .= ', квартира ' . $this->address_passport_apartment;
