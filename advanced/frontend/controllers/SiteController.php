@@ -125,7 +125,7 @@ class SiteController extends Controller
                 Yii::$app->session->setFlash('error', 'Ошибка регистрации пользователя.');
             }
         }
-       
+
 
         $model['reg_form'] = $reg_form;
         $model['login_form'] = $login_form;

@@ -6984,7 +6984,8 @@ dl.dl-horizontal {
     visibility: hidden; }
     .checkbox__item label input:checked ~ .checkbox__decor .icon__checked {
       opacity: 1;
-      visibility: visible; }
+      visibility: visible;
+    }
 
 .checkbox__decor {
   width: 20px;

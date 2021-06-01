@@ -119,8 +119,13 @@ AppAsset::register($this);
         </div>
     </div>
     <div class="content">
-
-        <div class="container mt-5 mb-0""><?= Alert::widget() ?></div>
+<style>
+    .alert-wrap .alert {
+        margin-top: 3em;
+        margin-bottom: 0;
+    }
+</style>
+        <div class="container alert-wrap"><?= Alert::widget() ?></div>
 
         <?= $content ?>
 

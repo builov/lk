@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
-/* @var $model \frontend\models\RegisterFormStepOne */
+/* @var $model \frontend\models\RegisterForm */
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
 
-<!--                            , ['options' => ['tag' => false, 'template' => "{input}"]]-->
+
 
                             <div class="ct__box-bl">
                                 <div class="form__steps">
@@ -565,14 +565,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <div class="checkbox__item" data-name="agree">
                                                             <label>
 <!--                                                                <input type="checkbox" checked name="agree">-->
-                                                                <?= $form->field($model['reg_form'], 'agree')->checkbox([
-                                                                    'label' => '',
-                                                                    'labelOptions' => [
-                                                                        'style' => 'visibility:hidden;'
-                                                                    ],
-                                                                    'disabled' => false,
-                                                                    'checked' => true
-                                                                ]) ?>
+
+                                                                <?= $form->field(
+                                                                        $model['reg_form'],
+                                                                        'agree',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]]
+                                                                )->checkbox([],false)->label(false) ?>
+
                                                                 <div class="checkbox__decor">
                                                                     <i class="icon__checked">
                                                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
