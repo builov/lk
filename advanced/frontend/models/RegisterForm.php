@@ -51,6 +51,10 @@ class RegisterForm extends Model
     public $agree;
     public $addresses_coincide;
 
+    public $address_passport_korpus;
+    public $address_passport_stroenie;
+    public $address_current_korpus;
+    public $address_current_stroenie;
 
     /**
      * {@inheritdoc}
@@ -102,7 +106,11 @@ class RegisterForm extends Model
                 'address_passport_apartment',
                 'address_current_street',
                 'address_current_building',
-                'address_current_apartment'], 'string'],
+                'address_current_apartment',
+                'address_passport_korpus',
+                'address_passport_stroenie',
+                'address_current_korpus',
+                'address_current_stroenie'], 'string'],
             [['lastname',
                 'firstname',
                 'patronim',
@@ -166,6 +174,10 @@ class RegisterForm extends Model
             'phone' => 'Телефон',
             'email' => 'Электронная почта',
 //            'agree' => 'Я подтверждаю согласие на обработку персональных данных',
+            'address_passport_korpus' => 'Корпус',
+            'address_passport_stroenie' => 'Строение',
+            'address_current_korpus' => 'Корпус',
+            'address_current_stroenie' => 'Строение',
         ];
     }
 
@@ -198,7 +210,8 @@ class RegisterForm extends Model
 
             $user->fio = $this->lastname . ' ' . $this->firstname . ' ' . $this->patronim;
 
-            if ($this->sendEmail($user)) $user->save();
+//            if ($this->sendEmail($user)) $user->save();
+            if ($user->save()) $this->sendEmail($user);
             else exit; //todo редирект на страницу с сообщением об ошибке
         }
         catch (\yii\db\Exception $e)
@@ -249,8 +262,12 @@ class RegisterForm extends Model
         $profile->passport_date = implode("-", array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
 
         $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building;
+        if (trim($this->address_passport_korpus) != '') $profile->address_passport .= ', корпус ' . $this->address_passport_korpus;
+        if (trim($this->address_passport_stroenie) != '') $profile->address_passport .= ', строение ' . $this->address_passport_stroenie;
         if (trim($this->address_passport_apartment) != '') $profile->address_passport .= ', квартира ' . $this->address_passport_apartment;
         $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building;
+        if (trim($this->address_current_korpus) != '') $profile->address_current .= ', корпус ' . $this->address_current_korpus;
+        if (trim($this->address_current_stroenie) != '') $profile->address_current .= ', строение ' . $this->address_current_stroenie;
         if (trim($this->address_current_apartment) != '') $profile->address_current .= ', квартира ' . $this->address_current_apartment;
         $profile->zip = 0; //(int) $this->zip;
         $profile->phone = $this->phone;

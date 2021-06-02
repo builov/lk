@@ -21,7 +21,7 @@ class AppAsset extends AssetBundle
         'css/new/libs/jquery.scrollbar.css',
         'css/new/libs/jquery.formstyler.css',
         'css/new/libs/jquery.formstyler.theme.css',
-        'css/new/libs/slick.min.css',
+//        'css/new/libs/slick.min.css',
         'css/new/dist/app.css'
     ];
     public $js = [

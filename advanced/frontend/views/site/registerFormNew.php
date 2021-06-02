@@ -408,7 +408,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 Корпус
                                                             </div>
                                                             <div class="form__field numb-only-field" data-name="d-corpus-1" data-numb-length="4">
-                                                                <input type="text" class="input">
+<!--                                                                <input type="text" class="input">-->
+                                                                <?= $form->field($model['reg_form'], 'address_passport_korpus',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input'])->label(false) ?>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 form__field-col">
@@ -416,7 +419,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 Строение
                                                             </div>
                                                             <div class="form__field" data-name="d-stroenie-1">
-                                                                <input type="text" class="input">
+<!--                                                                <input type="text" class="input">-->
+                                                                <?= $form->field($model['reg_form'], 'address_passport_stroenie',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input'])->label(false) ?>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 form__field-col">
@@ -500,7 +506,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 Корпус
                                                             </div>
                                                             <div class="form__field numb-only-field" data-name="d-corpus-2" data-numb-length="4">
-                                                                <input type="text" class="input">
+<!--                                                                <input type="text" class="input">-->
+                                                                <?= $form->field($model['reg_form'], 'address_current_korpus',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input'])->label(false) ?>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 form__field-col">
@@ -508,7 +517,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 Строение
                                                             </div>
                                                             <div class="form__field" data-name="d-stroenie-2">
-                                                                <input type="text" class="input">
+<!--                                                                <input type="text" class="input">-->
+                                                                <?= $form->field($model['reg_form'], 'address_current_stroenie',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input'])->label(false) ?>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 form__field-col">
@@ -658,44 +670,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             Вход
                         </div>
                     </div>
-<!--                    <div class="ct__box">-->
-<!--                        <form autocomplete="off" method="post" action="" class="form-login">-->
-<!--                            <div class="form__list">-->
-<!--                                <div class="form__item">-->
-<!--                                    <div class="form__item-label">-->
-<!--                                        Ваш e-mail-->
-<!--                                    </div>-->
-<!--                                    <div class="form__item-field email-field req-field" data-name="d-email">-->
-<!--                                        <input type="text" autocomplete="off" placeholder="" class="input">-->
-<!--                                        <div class="error__message"></div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="form__item">-->
-<!--                                    <div class="form__item-label">-->
-<!--                                        Пароль-->
-<!--                                    </div>-->
-<!--                                    <div class="form__item-field req-field" data-name="d-password">-->
-<!--                                        <input type="password" autocomplete="off" placeholder="" class="input">-->
-<!--                                        <div class="error__message"></div>-->
-<!--                                    </div>-->
-<!---->
-<!--                                </div>-->
-<!--                                <div class="form__item">-->
-<!--                                    <button type="submit" disabled class="btn__custom btn__custom-full d-flex align-items-center justify-content-center">-->
-<!--                                        Войти-->
-<!--                                    </button>-->
-<!--                                </div>-->
-<!--                                <div class="form__item">-->
-<!--                                    <div class="form__link">-->
-<!--                                        <a href="#recovery-modal" data-touch="false" data-modal="true" data-fancybox="">-->
-<!--                                            Забыли пароль?-->
-<!--                                        </a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </form>-->
-<!--                    </div>-->
-
                     <div class="ct__box">
                     <?php $form = ActiveForm::begin([
                         'id' => 'login-form',
@@ -750,8 +724,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     <?php ActiveForm::end(); ?>
                     </div>
-
-
                 </div>
             </div>
         </div>
