@@ -1,4 +1,15 @@
 $(document).ready(function(){
+
+    // $('a#modal-link').fancybox({
+    //     src: '/site/request-password-reset',
+    //     type: 'ajax',
+    //     afterShow: function(instance, current) {
+    //         console.log($(instance.$trigger));
+    //         // $('form.form-recovery').attr('action', this.src);
+    //     }
+    // });
+
+
     if (hasTouch()) {
         // remove all the :hover stylesheets
         try {

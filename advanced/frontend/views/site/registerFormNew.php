@@ -676,7 +676,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'options' => [
                             'class' => 'form-login'
                         ],
-                        'action' => 'site/login',
+                        'action' => '/site/login',
                         'enableAjaxValidation'   => false,
                         'enableClientValidation' => false,
                         'validateOnBlur'         => false,
@@ -716,9 +716,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="form__item">
                                 <div class="form__link">
-                                    <a href="/site/request-password-reset" data-touch="false" data-modal="true" data-fancybox="">
+                                    <a data-fancybox data-type="ajax" data-src="/site/request-password-reset" href="javascript:;">
                                         Забыли пароль?
                                     </a>
+<!--                                    <a id="modal-link" href="javascript:;">-->
+<!--                                        Забыли пароль?-->
+<!--                                    </a>-->
                                 </div>
                             </div>
                         </div>
