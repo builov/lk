@@ -315,7 +315,7 @@ class SiteController extends Controller
 
 
             if (Yii::$app->user->login($user)) {
-                Yii::$app->session->setFlash('success', 'Спасибо, Ваша учетная запись активирована!');
+                Yii::$app->session->setFlash('success', 'Спасибо, Ваша учетная запись активирована. Вы можете отправить заявку на обучение.');
                 return $this->goHome();
             }
         }

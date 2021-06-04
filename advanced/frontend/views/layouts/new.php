@@ -141,6 +141,10 @@ AppAsset::register($this);
         margin-top: 3em;
         margin-bottom: 0;
     }
+    .help-block-error {
+        color: #F44336;
+        font-size: small;
+    }
 </style>
         <div class="container alert-wrap"><?= Alert::widget() ?></div>
 

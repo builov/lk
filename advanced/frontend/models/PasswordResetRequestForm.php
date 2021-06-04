@@ -20,7 +20,7 @@ class PasswordResetRequestForm extends Model
     {
         return [
             ['email', 'trim'],
-            ['email', 'required'],
+            ['email', 'required', 'message' => 'Необходимо указать Ваш email.'],
             ['email', 'email'],
             ['email', 'exist',
                 'targetClass' => '\common\models\User',

@@ -117,7 +117,9 @@ class ApplicationController extends Controller
                     $application->show_message = 1;
                     if ($application->save()) Yii::$app->response->statusCode = 201;
 
-                    if ($status=='3') //для статуса "заявка отклонена"
+                    //todo отправить письмо
+
+                    if ($status=='4') //для статуса "заявка отклонена"
                     {
                         Yii::$app->response->statusCode = 200;
                         $comment = new Comment();
@@ -144,7 +146,11 @@ class ApplicationController extends Controller
         $model = Application::findOne($id);
         if ($model['status']==1) $model['status'] = 2;
         $model['updated'] = time();
-        if ($model->save()) Yii::$app->response->statusCode = 201;
+        if ($model->save())
+        {
+            //todo отправитьь письмо
+            Yii::$app->response->statusCode = 201;
+        }
     }
 
     /**

@@ -291,8 +291,9 @@ class ProfileController extends Controller
 
 
         $editable = false;
+        $applications_statuses = [];
         foreach ($sent_applications as $application) $applications_statuses[] = $application[1];
-        if ($applications_statuses && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
+        if (count($applications_statuses) && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
             && !in_array(Application::STATUS_ACCEPTED, $applications_statuses)) $editable = true;
 
 

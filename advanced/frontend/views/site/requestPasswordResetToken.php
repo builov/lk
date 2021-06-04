@@ -22,12 +22,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         <h2><?= Html::encode($this->title) ?></h2>
 
-                        <p>Напишите Ваш адрес электронной почты, указанный при регистрации. На него будет отправлена ссылка для сброса пароля.</p>
+                        <p>Ваш адрес электронной почты, указанный при регистрации. На него будет отправлена ссылка для сброса пароля.</p>
 
 
                         <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form', 'validateOnBlur' => false]); ?>
 
-                        <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+                        <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label(false) ?>
 
                         <div class="form-group">
                             <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>

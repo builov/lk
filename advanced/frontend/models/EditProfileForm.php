@@ -128,7 +128,7 @@ class EditProfileForm extends Model
     {
         parent::init();
 
-        $user = User::find(Yii::$app->user->id)->one();
+        $user = User::find()->where(['id' => Yii::$app->user->id])->one();
         $profile = $user->profile;
 
         foreach ($this as $key => $value)

@@ -39,7 +39,7 @@ $this->title = 'Сброс пароля';
     <div class="modal__custom-bl">
         <div class="modal__header">
             <div class="modal__title">
-                <h2><?= Html::encode($this->title) ?></h2>
+                <?= Html::encode($this->title) ?>
             </div>
 <!--            <a href="#" class="modal__close modal-close-js">-->
 <!--                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
@@ -59,24 +59,19 @@ $this->title = 'Сброс пароля';
                 ]); ?>
                     <div class="form__group">
                         <div class="form__item">
-
-                            <p>Напишите Ваш адрес электронной почты, указанный при регистрации. На него будет отправлена ссылка для сброса пароля.</p>
-
-
-
-<!--                            <div class="form__item-label">-->
-<!--                                Ваш e-mail-->
-<!--                            </div>-->
+                            <div class="form__item-label">
+                                Ваш адрес электронной почты, указанный при регистрации. На него будет отправлена ссылка для сброса пароля.
+                            </div>
                             <div class="form__field">
 <!--                                <input type="text">-->
-                                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+                                <?= $form->field($model, 'email')->textInput(['autofocus' => true])->label(false) ?>
                             </div>
                         </div>
                         <div class="form__item">
-<!--                            <button type="submit" class="btn__custom btn__custom-full d-flex align-items-center justify-content-center">-->
-<!--                                Напомнить-->
-<!--                            </button>-->
-                            <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
+                            <button type="submit" class="btn__custom btn__custom-full d-flex align-items-center justify-content-center">
+                                Отправить
+                            </button>
+<!--                            --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
                         </div>
 
                         <?php ActiveForm::end(); ?>
