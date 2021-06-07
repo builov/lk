@@ -46,6 +46,7 @@ class TransmitController extends Controller
      * интерфейс обмена данными с 1С
      * создает сообщение для пользователя в ЛК
      * принимает строку формата "тип сообщения|uid|дата|код сообщения по АИС"
+     * формат сегмента "дата": 08.06.2021 15:26:12
      * возвращает http status code 201 в случае успешного выполнения
      */
     public function actionMessage()
@@ -70,21 +71,32 @@ class TransmitController extends Controller
             $user_id = (int) $data_arr[1];
             $event_date = $data_arr[2];
             $message_code = $data_arr[3];
+//            $event_date_time = explode (' ', $data_arr[2]);
+//            $event_date = $event_date_time[0];
+//            $event_time = $event_date_time[1];
 
+
+            //формирование письма с сообщением
+            $user = User::find()->where(['id' => $user_id])->one();
+            $subj = 'Сообщение от Приемной комиссии';
+            $message = $message_code;
+
+            //сохранение сообшения в БД
             $model = new Message();
             $model->uid = $user_id;
             $model->type = $message_type;
             if ($message_type==1)
             {
-                $model->body = 'Дата тестирования: ' . date('d-m-Y H:i', $event_date);
+                $model->body = 'Дата тестирования: ' . date('d-m-Y H:i', strtotime($event_date));
             }
             $model->created = time();
             $model->updated = time();
             $model->status = 1;
 //            $model->appl_id
-            $model->date = $event_date;
+            $model->date = strtotime($event_date);
             $model->code = $message_code;
-            if ($model->save()) Yii::$app->response->statusCode = 201;
+
+            if ($model->save() && $user->sendEmail($message, $subj)) Yii::$app->response->statusCode = 201;
 
 //            $m = Message::findOne($model->id);
         }

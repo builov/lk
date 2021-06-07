@@ -290,4 +290,20 @@ class User extends ActiveRecord implements IdentityInterface
         }
         return $programs;
     }
+
+    public function sendEmail($message_text, $subj)
+    {
+        $name = $this->profile->firstname . ' ' . $this->profile->patronim;
+
+        return Yii::$app
+            ->mailer
+            ->compose(
+                ['html' => 'notice-html', 'text' => 'notice-text'],
+                ['name' => $name, 'message_text' => $message_text]
+            )
+            ->setFrom([Yii::$app->params['supportEmail'] => 'Приемная комиссия'])
+            ->setTo($this->email)
+            ->setSubject($subj)
+            ->send();
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\User;
 use frontend\models\RegisterForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -73,9 +74,17 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        $rule = new OwnerRule();
-        $params = [];
-        $rule->execute(69, 'user', $params);
+        $ts = strtotime ('08.06.2021 15:26:12');
+
+        echo date('d-m-Y H:i', strtotime ('08.06.2021 15:26:12'));
+
+
+
+//        if(!Yii::$app->user->isGuest)
+//        {
+//            $user = User::find()->where(['id' => Yii::$app->user->id])->one();
+//            $user->sendEmail('Текст сообщения', 'Тема сообщения');
+//        }
     }
 
 
