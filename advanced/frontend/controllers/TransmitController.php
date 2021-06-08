@@ -88,6 +88,7 @@ class TransmitController extends Controller
                 //отправка письма с сообщением
                 $user = User::find()->where(['id' => $user_id])->one();
                 $subj = 'Сообщение от Приемной комиссии';
+                $data = [];
                 $data['course'] = $course;
                 $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
 
