@@ -89,6 +89,7 @@ class TransmitController extends Controller
                 $user = User::find()->where(['id' => $user_id])->one();
                 $subj = 'Сообщение от Приемной комиссии';
                 $data['course'] = $course;
+                $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
 
                 if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
             }
