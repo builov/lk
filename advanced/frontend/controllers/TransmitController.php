@@ -75,11 +75,13 @@ class TransmitController extends Controller
 //            $event_date = $event_date_time[0];
 //            $event_time = $event_date_time[1];
 
+            $template = Message::_CODES[$message_code];
+
 
             //формирование письма с сообщением
             $user = User::find()->where(['id' => $user_id])->one();
             $subj = 'Сообщение от Приемной комиссии';
-            $message = $message_code;
+            $message = ''; //$message_code;
 
             //сохранение сообшения в БД
             $model = new Message();
@@ -96,7 +98,7 @@ class TransmitController extends Controller
             $model->date = strtotime($event_date);
             $model->code = $message_code;
 
-            if ($model->save() && $user->sendEmail($message, $subj)) Yii::$app->response->statusCode = 201;
+            if ($model->save() && $user->sendEmail($message, $subj, $template)) Yii::$app->response->statusCode = 201;
 
 //            $m = Message::findOne($model->id);
         }

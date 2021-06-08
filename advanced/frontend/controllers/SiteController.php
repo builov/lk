@@ -74,11 +74,12 @@ class SiteController extends Controller
 
     public function actionTest()
     {
-        $ts = strtotime ('08.06.2021 15:26:12');
 
-        echo date('d-m-Y H:i', strtotime ('08.06.2021 15:26:12'));
+        echo '1080.91С' == '1080.91С';
 
 
+//        $ts = strtotime ('08.06.2021 15:26:12');
+//        echo date('d-m-Y H:i', strtotime ('08.06.2021 15:26:12'));
 
 //        if(!Yii::$app->user->isGuest)
 //        {
