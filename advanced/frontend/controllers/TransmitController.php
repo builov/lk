@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Application;
 use common\models\Comment;
 use common\models\Message;
+use common\models\MessageTemplate;
 use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -59,10 +60,7 @@ class TransmitController extends Controller
         $data_all_arr = explode(PHP_EOL, $data);
 
         foreach ($data_all_arr as $data_str)
-        {   
-//            file_put_contents($file, $data_str, FILE_APPEND);
-//            file_put_contents($file, PHP_EOL, FILE_APPEND);
-
+        {
             $data_arr = explode('|', $data_str);
 
             if (count($data_arr) < 3) continue;
@@ -71,35 +69,32 @@ class TransmitController extends Controller
             $user_id = (int) $data_arr[1];
             $event_date = $data_arr[2];
             $message_code = $data_arr[3];
-//            $event_date_time = explode (' ', $data_arr[2]);
-//            $event_date = $event_date_time[0];
-//            $event_time = $event_date_time[1];
-
-            $template = Message::_CODES[$message_code];
-
-
-            //формирование письма с сообщением
-            $user = User::find()->where(['id' => $user_id])->one();
-            $subj = 'Сообщение от Приемной комиссии';
-            $message = ''; //$message_code;
+            $course = (array_key_exists(4, $data_arr)) ? $data_arr[4] : false;
 
             //сохранение сообшения в БД
-            $model = new Message();
-            $model->uid = $user_id;
-            $model->type = $message_type;
-            if ($message_type==1)
+            $message = new Message();
+            $message->uid = $user_id;
+            $message->type = $message_type;
+//            if ($message_type==1) $message->body = 'Дата тестирования: ' . date('d-m-Y H:i', strtotime($event_date));
+            $message->created = time();
+            $message->updated = time();
+            $message->status = 1;
+//            $message->appl_id
+            $message->date = strtotime($event_date);
+            $message->code = $message_code;
+
+            if ($message->save())
             {
-                $model->body = 'Дата тестирования: ' . date('d-m-Y H:i', strtotime($event_date));
+                //отправка письма с сообщением
+                $user = User::find()->where(['id' => $user_id])->one();
+                $subj = 'Сообщение от Приемной комиссии';
+                $data['course'] = $course;
+
+                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
             }
-            $model->created = time();
-            $model->updated = time();
-            $model->status = 1;
-//            $model->appl_id
-            $model->date = strtotime($event_date);
-            $model->code = $message_code;
 
-            if ($model->save() && $user->sendEmail($message, $subj, $template)) Yii::$app->response->statusCode = 201;
-
+//            print_r($message->template);
+//            if ($model->save() && $user->sendEmail($message, $subj)) Yii::$app->response->statusCode = 201;
 //            $m = Message::findOne($model->id);
         }
     }

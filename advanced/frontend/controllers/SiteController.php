@@ -75,7 +75,9 @@ class SiteController extends Controller
     public function actionTest()
     {
 
-        echo '1080.91С' == '1080.91С';
+
+
+//        echo '1080.91С' == '1080.91С';
 
 
 //        $ts = strtotime ('08.06.2021 15:26:12');

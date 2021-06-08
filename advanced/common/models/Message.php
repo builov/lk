@@ -113,4 +113,9 @@ class Message extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);
     }
+
+    public function getTemplate()
+    {
+        return $this->hasOne(MessageTemplate::className(), ['code' => 'code']);
+    }
 }
