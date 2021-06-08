@@ -295,7 +295,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $name = $this->profile->firstname . ' ' . $this->profile->patronim;
 
-        print_r($data);
+//        print_r($data);
 
         $template_html = $message->template['template'] . '-html';
         $template_text = $message->template['template'] . '-text';
