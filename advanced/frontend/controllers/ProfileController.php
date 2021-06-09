@@ -218,6 +218,9 @@ class ProfileController extends Controller
 //            throw new ForbiddenHttpException('Access denied');
 //        }
 
+        $this->layout = 'main';
+
+
         $uid = Yii::$app->user->id;
         $model = User::findOne($uid);
 
@@ -292,9 +295,16 @@ class ProfileController extends Controller
 
         $editable = false;
         $applications_statuses = [];
-        foreach ($sent_applications as $application) $applications_statuses[] = $application[1];
-        if (count($applications_statuses) && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
-            && !in_array(Application::STATUS_ACCEPTED, $applications_statuses)) $editable = true;
+        foreach ($sent_applications as $application)
+        {
+            $applications_statuses[] = $application[1];
+        }
+        if (count($applications_statuses)
+            && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
+            && !in_array(Application::STATUS_ACCEPTED, $applications_statuses))
+        {
+            $editable = true;
+        }
 
 
         if ($mode=='form' && 1) //todo добавить условие, что есть программы, на которые еще можно отправить заявку (неотправленные + отклоненные)

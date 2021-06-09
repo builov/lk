@@ -84,6 +84,8 @@ class ApplicationController extends Controller
 
         $data_all_arr = explode(PHP_EOL, $data);
 
+//        print_r($data);
+
         foreach ($data_all_arr as $data_str)
         {
             $data_arr = explode('|', $data_str);
