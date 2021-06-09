@@ -33,8 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php
             $options = $available_programs;
             foreach ($available_programs as $program_id => $program_name) {
-                if (array_key_exists($program_id, $sent_applications)
-                    && $sent_applications[$program_id][1] != Application::STATUS_DECLINED)
+                if (array_key_exists($program_id, $sent_applications[0])
+                    && $sent_applications[0][$program_id][1] != Application::STATUS_DECLINED)
                     unset($options[$program_id]);
             }
 //            if (count($options)):
@@ -189,11 +189,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
         </div>
         <div class="col-lg-4">
-            <?php if (count($sent_applications) > 0): ?>
+            <?php if (count($sent_applications[0]) > 0): ?>
                 <h3>Отправленные заявки</h3>
 
                 <ul>
-                    <?php foreach($sent_applications as $prog_id => $program): ?>
+                    <?php foreach($sent_applications[0] as $prog_id => $program): ?>
                         <li><?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)</li>
                     <?php endforeach; ?>
                 </ul>

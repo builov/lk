@@ -240,10 +240,6 @@ class ProfileController extends Controller
 
         $file_form = new FileForm();
 
-        $messages = Message::find()->where(['uid' => $uid, 'status' => 1])->all();
-
-//        print_r($messages);
-
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
         {
@@ -290,12 +286,12 @@ class ProfileController extends Controller
 //            }
 //        }
 
-//        print_r($sent_applications);
+//        print_r($sent_applications[0]);
 
 
         $editable = false;
         $applications_statuses = [];
-        foreach ($sent_applications as $application)
+        foreach ($sent_applications[0] as $application)
         {
             $applications_statuses[] = $application[1];
         }
@@ -318,6 +314,9 @@ class ProfileController extends Controller
                 'editable' => $editable,
             ]);
         }
+
+        $messages = Message::find()->where(['uid' => $uid, 'status' => 1])->all();
+
         return $this->render('view', [
             'model' => $model,
             'appform' => $form,

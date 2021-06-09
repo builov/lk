@@ -118,4 +118,28 @@ class Message extends \yii\db\ActiveRecord
     {
         return $this->hasOne(MessageTemplate::className(), ['code' => 'code']);
     }
+
+    public function getApplication()
+    {
+        return $this->hasOne(Application::className(), ['id' => 'appl_id']);
+    }
+
+    public function getText()
+    {
+        $name = $this->u->profile->firstname . ' ' . $this->u->profile->patronim;
+        $text = $this->template->body;
+        $course = '<strong>«' . $this->application->program->name . '»</strong>';
+        $datetime = $this->date;
+        $search = array(
+            '[name]',
+            '[course]',
+            '[datetime]'
+        );
+        $replace = array(
+            $name,
+            $course,
+            $datetime
+        );
+        return str_replace($search, $replace, $text);
+    }
 }

@@ -79,6 +79,11 @@ class Application extends \yii\db\ActiveRecord
         return $this->hasMany(Comment::className(), ['appl_id' => 'id']);
     }
 
+    public function getMessages()
+    {
+        return $this->hasMany(Message::className(), ['appl_id' => 'id']);
+    }
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);

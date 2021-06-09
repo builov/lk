@@ -118,6 +118,7 @@ class ApplicationController extends Controller
                         //создание и сохранение сообшения в БД
                         $message = new Message();
                         $message->uid = $application->uid;
+                        $message->type = $status;
                         $message->created = time();
                         $message->updated = time();
                         $message->status = 1;

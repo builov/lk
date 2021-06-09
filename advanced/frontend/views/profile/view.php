@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <ul>
                 <?php foreach ($messages as $message): ?>
                     <li>
-                        <?= $message->body ?>
+                        <?= $message->getText() ?>
                         <?php $url = '/message/' . $message->id . '/dont-show'; ?>
                         <?= Html::a('Больше не показывать', [$url], ['class' => 'dont-show-message-button']) ?>
                     </li>
@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-8">
 
-            <?php if (!count($sent_applications)): ?>
+            <?php if (!count($sent_applications[0])): ?>
 
                 <h2>Заявка на обучение</h2>
 
@@ -180,16 +180,24 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h3>Отправленные заявки</h3>
 
                 <ul>
-                    <?php foreach($sent_applications as $prog_id => $program): ?>
+                    <?php foreach($sent_applications[0] as $prog_id => $program): ?>
                         <li>
-                            <a href="/application/<?= $program[3] ?>"><?= $program[0] ?></a> (<span class="status<?= $program[1] ?>"><?= Application::STATUSES[$program[1]] ?></span>)
+<!--                            <a href="/application/--><?//= $program[3] ?><!--">-->
+                                <?= $program[0] ?>
+<!--                            </a> -->
+                            (<span class="status<?= $program[1] ?>"><?= Application::STATUSES[$program[1]] ?></span>)
                             <?php if ($program[1] == Application::STATUS_DECLINED): ?>
+
+
                                 <div>Комментарий:</div>
                                 <ul>
                                 <?php foreach($program[2] as $comment): ?>
-                                    <li><?= $comment->body ?> (<?= $comment->created ?>)</li>
+                                    <li><?= $comment->getText() ?> (<?= date('d.m.Y', $comment->created) ?>)</li>
                                 <?php endforeach; ?>
                                 </ul>
+
+
+
                                 <div>Вы можете отправить заявку снова после устранения недостатков, указанных в комментарии.</div>
                                 <div><?= Html::a('Отправить еще раз', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></div>
                             <?php endif; ?>
@@ -198,7 +206,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </ul>
 
 
-                <?php if ((bool)(count($available_programs) - count($sent_applications))): ?>
+                <?php if ((bool)(count($available_programs) - count($sent_applications[0]))): ?>
                     <p><?= Html::a('Новая заявка', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></p>
                 <?php endif; ?>
 
@@ -252,7 +260,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php
                 $accepted = [];
-                if (count($sent_applications)) foreach($sent_applications as $prog_id => $program) if ($program[1]==3) $accepted[] = $program[0];
+                if (count($sent_applications[0])) foreach($sent_applications[0] as $prog_id => $program) if ($program[1]==3) $accepted[] = $program[0];
             ?>
 
             <?php if (count($accepted)): ?>

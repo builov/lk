@@ -281,14 +281,16 @@ class User extends ActiveRecord implements IdentityInterface
     public function getSentApplications()
     {
         $programs = [];
+        $applications = [];
         if ($appl = Application::find()->where(['uid' => $this->id])->all())
         {
             foreach ($appl as $a)
             {
-                $programs[$a->program->id] = [$a->program->name, $a->status, $a->comments, $a->id];
+                $programs[$a->program->id] = [$a->program->name, $a->status, $a->messages, $a->id];
+                $applications[$a->id] = $a->program->name;
             }
         }
-        return $programs;
+        return array($programs, $applications);
     }
 
     public function sendEmail($message, $subj, $data)
