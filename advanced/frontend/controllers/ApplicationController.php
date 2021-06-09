@@ -92,7 +92,7 @@ class ApplicationController extends Controller
 
             if (count($data_arr) < 3) continue;
 
-            $status = $data_arr[0];
+            $status = $data_arr[0]; //статус заявки
             $application_id = (int) $data_arr[1];
             $message_code = $data_arr[2];
 
@@ -118,7 +118,6 @@ class ApplicationController extends Controller
                         //создание и сохранение сообшения в БД
                         $message = new Message();
                         $message->uid = $application->uid;
-                        $message->type = $status;
                         $message->created = time();
                         $message->updated = time();
                         $message->status = 1;
