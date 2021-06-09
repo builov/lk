@@ -4,8 +4,10 @@ namespace frontend\controllers;
 
 use common\models\Application;
 use common\models\Comment;
+use common\models\Message;
 use common\models\Profile;
 use common\models\Program;
+use common\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -69,16 +71,13 @@ class ApplicationController extends Controller
     /**
      * интерфейс обмена данными с 1С
      * ответ Приемной комиссии на заявку
-     * принимает строку формата "статус (принято/отклонено)|id заявки|комментарий"
+     * принимает строку формата "статус (принято/отклонено)|id заявки|комментарий (код сообщения)"
      * возвращает http status code 201 в случае успешного выполнения
      */
     public function actionFeedback()
     {
         $request = Yii::$app->request;
         $data = $request->post('data');
-
-//        $data = "4|21|Заявление принято
-//4|22|Заявление принято";
 
 //        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
 //        file_put_contents($file, $data);
@@ -87,46 +86,55 @@ class ApplicationController extends Controller
 
         foreach ($data_all_arr as $data_str)
         {
-//            echo $data_str . "\n";
-
             $data_arr = explode('|', $data_str);
 
             if (count($data_arr) < 3) continue;
 
             $status = $data_arr[0];
             $application_id = (int) $data_arr[1];
-            $comment_text = $data_arr[2];
+            $message_code = $data_arr[2];
 
-//        $data = serialize($_POST);
-//        $data = 'Статус: ' . $status . '; ID: ' . $application_id . '; Комментарий: ' . $comment_text . ".\n\n";
-
-//        $status = $request->post('status', 0);
-//        $application_id = (int) $request->post('id', 0);
-//        $comment_text = $request->post('comment', 0);
-
-//        $_1C_statuses = ['3'=>'Принято', '4'=>'Отказано']; //совместимость с Application::STATUSES
-
-            if (in_array($status, ['3','4','5']) && $application_id)
+            if (in_array($status, ['3','4','5']) && $application_id) //см. Application::STATUSES
             {
                 if ($application = Application::findOne($application_id))
                 {
-//                foreach ($_1C_statuses as $key => $value) if ($status == $value)
-//                    $application->status = $key;
                     $application->status = $status;
                     $application->updated = time();
                     $application->show_message = 1;
-                    if ($application->save()) Yii::$app->response->statusCode = 201;
-
-                    //todo отправить письмо
-
-                    if ($status=='4') //для статуса "заявка отклонена"
+                    if ($application->save())
                     {
-                        Yii::$app->response->statusCode = 200;
-                        $comment = new Comment();
-                        $comment->appl_id = $application_id;
-                        $comment->body = $comment_text;
-                        $comment->created = time();
-                        if ($comment->save()) Yii::$app->response->statusCode = 201;
+                        if ($status=='4') //для статуса "заявка отклонена": Комментарий
+                        {
+                            //todo может оно и вообще не нужно, достаточно Сообщений
+                            $comment = new Comment();
+                            $comment->appl_id = $application_id;
+                            $comment->body = $message_code;
+                            $comment->created = time();
+                            $comment->save();
+                        }
+
+                        //создание и сохранение сообшения в БД
+                        $message = new Message();
+                        $message->uid = $application->uid;
+                        $message->created = time();
+                        $message->updated = time();
+                        $message->status = 1;
+                        $message->appl_id = $application->id;
+                        $message->code = $message_code;
+
+                        if ($message->save())
+                        {
+//                            print_r($application->program->name);
+
+                            //отправка письма с сообщением
+                            $user = User::find()->where(['id' => $message->uid])->one();
+                            $subj = 'Сообщение от Приемной комиссии';
+                            $data = [];
+                            $data['course'] = $application->program->name;
+
+                            if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
+                        }
+//                        Yii::$app->response->statusCode = 201;
                     }
 
                 }
@@ -148,8 +156,26 @@ class ApplicationController extends Controller
         $model['updated'] = time();
         if ($model->save())
         {
-            //todo отправитьь письмо
-            Yii::$app->response->statusCode = 201;
+            //создание и сохранение сообшения в БД
+            $message = new Message();
+            $message->uid = $model->uid;
+//            $message->type;
+            $message->created = time();
+            $message->updated = time();
+            $message->status = 1;
+            $message->appl_id = $model->id;
+//            $message->date;
+            $message->code = '1040';
+
+            if ($message->save())
+            {
+                //отправка письма с сообщением
+                $user = User::find()->where(['id' => $message->uid])->one();
+                $subj = 'Сообщение от Приемной комиссии';
+                $data['course'] = $model->program->name;
+
+                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
+            }
         }
     }
 

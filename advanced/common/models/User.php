@@ -296,9 +296,13 @@ class User extends ActiveRecord implements IdentityInterface
         $name = $this->profile->firstname . ' ' . $this->profile->patronim;
 
 //        print_r($data);
+//        print_r($name);
 
         $template_html = $message->template['template'] . '-html';
         $template_text = $message->template['template'] . '-text';
+
+//        print_r($template_html);
+//        print_r($template_text);
 
         return Yii::$app
             ->mailer
