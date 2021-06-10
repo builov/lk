@@ -71,6 +71,18 @@ class SiteController extends Controller
     }
 
 
+    public function beforeAction($action)
+    {
+        if (in_array($action->id, ['login']))
+        {
+            if (!Yii::$app->user->isGuest) {
+                return $this->goHome();
+            }
+        }
+        return parent::beforeAction($action);
+    }
+
+
 
     public function actionTest()
     {
