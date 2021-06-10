@@ -172,8 +172,8 @@ AppAsset2::register($this);
 
         $("#editprofileform-phone").mask("+7 (999) 999-99-99");
         $("#editprofileform-graduate_year").mask("9999");
-        $("#editprofileform-birthdate").mask("99-99-9999");
-        $("#editprofileform-passport_date").mask("99-99-9999");
+        $("#editprofileform-birthdate").mask("99.99.9999");
+        $("#editprofileform-passport_date").mask("99.99.9999");
 
         $('#editprofileform-citizenship').on('change', function() {
             console.log(this.value);
@@ -236,8 +236,8 @@ AppAsset2::register($this);
         $("#registerform-passport_series").mask("99 99");
         $("#registerform-passport_number").mask("999999");
 
-        $("#registerform-birthdate").mask("99-99-9999");
-        $("#registerform-passport_date").mask("99-99-9999");
+        $("#registerform-birthdate").mask("99.99.9999");
+        $("#registerform-passport_date").mask("99.99.9999");
 
         $('#the-same').on('click', function ()
         {

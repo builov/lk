@@ -290,7 +290,7 @@ class User extends ActiveRecord implements IdentityInterface
                 $applications[$a->id] = $a->program->name;
             }
         }
-        return array($programs, $applications);
+        return array($programs, $appl);
     }
 
     public function sendEmail($message, $subj, $data)

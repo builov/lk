@@ -152,7 +152,7 @@ class EditProfileForm extends Model
     public function updateProfile()
     {
         $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
-//        print_r($profile);
+
 
         $profile->lastname = $this->lastname;
         $profile->firstname = $this->firstname;
@@ -175,6 +175,8 @@ class EditProfileForm extends Model
         $profile->updated = time();
         $profile->certificate_series = $this->certificate_series;
         $profile->certificate_number = $this->certificate_number;
+
+//        print_r($profile);
 
         return $profile->save();
     }

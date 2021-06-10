@@ -179,25 +179,42 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <h3>Отправленные заявки</h3>
 
-                <ul>
-                    <?php foreach($sent_applications[0] as $prog_id => $program): ?>
-                        <li>
+<!--                <ul>-->
+<!--                    --><?php //foreach($sent_applications[0] as $prog_id => $program): ?>
+<!--                        <li>-->
 <!--                            <a href="/application/--><?//= $program[3] ?><!--">-->
-                                <?= $program[0] ?>
+<!--                                --><?//= $program[0] ?>
 <!--                            </a> -->
-                            (<span class="status<?= $program[1] ?>"><?= Application::STATUSES[$program[1]] ?></span>)
-                            <?php if ($program[1] == Application::STATUS_DECLINED): ?>
+<!--                            (<span class="status--><?//= $program[1] ?><!--">--><?//= Application::STATUSES[$program[1]] ?><!--</span>)-->
+<!--                            --><?php //if ($program[1] == Application::STATUS_DECLINED): ?>
+<!--                                <div>Комментарий:</div>-->
+<!--                                <ul>-->
+<!--                                --><?php //foreach($program[2] as $message): ?>
+<!--                                    <li>--><?//= $message->getText() ?><!-- (--><?//= date('d.m.Y', $message->created) ?><!--)</li>-->
+<!--                                --><?php //endforeach; ?>
+<!--                                </ul>-->
+<!--                                <div>Вы можете отправить заявку снова после устранения недостатков, указанных в комментарии.</div>-->
+<!--                                <div>--><?//= Html::a('Отправить еще раз', ['profile/application/form'], ['class' => 'btn btn-primary']) ?><!--</div>-->
+<!--                            --><?php //endif; ?>
+<!--                        </li>-->
+<!--                    --><?php //endforeach; ?>
+<!--                </ul>-->
 
 
+
+                <ul>
+                    <?php foreach($sent_applications[1] as $application): ?>
+                        <li>
+                            <?= $application->program->name ?>
+                            (<span class="status<?= $application->status ?>"><?= Application::STATUSES[$application->status] ?></span>)
+                            <?php if ($application->status == Application::STATUS_DECLINED): ?>
                                 <div>Комментарий:</div>
                                 <ul>
-                                <?php foreach($program[2] as $comment): ?>
-                                    <li><?= $comment->getText() ?> (<?= date('d.m.Y', $comment->created) ?>)</li>
-                                <?php endforeach; ?>
+<!--                                    --><?php //print_r($application->getDeclineMessages()) ?>
+                                    <?php foreach($application->getDeclineMessages() as $message): ?>
+                                        <li><?= $message->template->summary ?> (<?= date('d.m.Y', $message->created) ?>)</li>
+                                    <?php endforeach; ?>
                                 </ul>
-
-
-
                                 <div>Вы можете отправить заявку снова после устранения недостатков, указанных в комментарии.</div>
                                 <div><?= Html::a('Отправить еще раз', ['profile/application/form'], ['class' => 'btn btn-primary']) ?></div>
                             <?php endif; ?>
@@ -223,14 +240,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <p>Фамилия: <?= $model->profile->lastname ?></p>
             <p>Имя: <?= $model->profile->firstname ?></p>
             <p>Отчество: <?= $model->profile->patronim ?></p>
-            <p>Дата рождение: <?= date("d-m-Y", strtotime($model->profile->birthdate)) ?></p>
+            <p>Дата рождения: <?= date("d-m-Y", strtotime($model->profile->birthdate)) ?></p>
             <p>СНИЛС: <?= $model->profile->snils ?></p>
             <p>Пол: <?= Profile::_GENDER[$model->profile->gender] ?></p>
 
             <h3>Контактные данные </h3>
 <!--            <p>Регион: --><?//= Profile::_REGION[$model->profile->region] ?><!--</p>-->
             <p>Адрес (по паспорту): <?= $model->profile->address_passport ?></p>
-            <p>Адрес фактический: <?= $model->profile->address_current ?></p>
+            <p>Адрес пребывания: <?= $model->profile->address_current ?></p>
 <!--            <p>Индекс: --><?//= $model->profile->zip ?><!--</p>-->
             <p>Телефон: <?= $model->profile->phone ?></p>
             <p>Адрес электронной почты: <?= $model->email ?></p>

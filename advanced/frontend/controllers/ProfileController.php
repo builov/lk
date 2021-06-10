@@ -67,6 +67,9 @@ class ProfileController extends Controller
 
     public function actionEdit()
     {
+        $this->layout = 'main';
+
+
 //        $uid = Yii::$app->user->id;
 //        $user = User::find($uid)->one();
 //        $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();

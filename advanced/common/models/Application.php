@@ -68,6 +68,13 @@ class Application extends \yii\db\ActiveRecord
     }
 
 
+    public function getDeclineMessages()
+    {
+        $declide_codes = array('1030','1080.91С','1080.4');
+        $messages = Message::find()->where(['in','code', $declide_codes])->andWhere(['uid' => $this->uid])->all();
+
+        return $messages;
+    }
 
     /**
      * Gets query for [[Comments]].
