@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <ul>
                 <?php foreach ($messages as $message): ?>
                     <li>
-<!--                        --><?//= $message->getText() ?>
-                        <?= $message->appl_id ?>
+                        <?= $message->getText() ?>
+<!--                        --><?//= $message->appl_id ?>
                         <?php $url = '/message/' . $message->id . '/dont-show'; ?>
                         <?= Html::a('Больше не показывать', [$url], ['class' => 'dont-show-message-button']) ?>
                     </li>
