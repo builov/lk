@@ -158,10 +158,10 @@ class ApplicationController extends Controller
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         $request = Yii::$app->getRequest(); //->getUserIP();
         $ip = $request->getUserIP();
-        $agent = $request->getUserAgent();
+        $agent = $request->getUserAgent(); //'1C+Enterprise/8.3'
 
-        file_put_contents($file, $agent);
-        
+//        file_put_contents($file, $agent);
+
 
         $model = Application::findOne($id);
         if ($model['status']==1) $model['status'] = 2;
