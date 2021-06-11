@@ -153,45 +153,47 @@ class ApplicationController extends Controller
     public function actionSaved($id)
     {
         //todo проверять ip-адрес
-
-//        print Yii::$app->getRequest()->getUserIP();
-
 //        /www/applicant_area/advanced/frontend/web/uploads/log.txt
 
-        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-        $ip = Yii::$app->getRequest()->getUserIP();
-        echo file_put_contents($file, $ip);
-
-
-
-
-
-//        $model = Application::findOne($id);
-//        if ($model['status']==1) $model['status'] = 2;
-//        $model['updated'] = time();
-//        if ($model->save())
-//        {
-//            //создание и сохранение сообшения в БД
-//            $message = new Message();
-//            $message->uid = $model->uid;
-////            $message->type;
-//            $message->created = time();
-//            $message->updated = time();
-//            $message->status = 1;
-//            $message->appl_id = $model->id;
-////            $message->date;
-//            $message->code = '1040';
+//        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+//        $request = Yii::$app->getRequest(); //->getUserIP();
+//        $ip = $request->getUserIP();
+//        $agent = $request->getUserAgent();
 //
-//            if ($message->save())
-//            {
-//                //отправка письма с сообщением
-//                $user = User::find()->where(['id' => $message->uid])->one();
-//                $subj = 'Сообщение от Приемной комиссии';
-//                $data['course'] = $model->program->name;
+////        echo $agent;
 //
-//                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
-//            }
-//        }
+//        echo file_put_contents($file, $agent);
+
+
+
+
+
+        $model = Application::findOne($id);
+        if ($model['status']==1) $model['status'] = 2;
+        $model['updated'] = time();
+        if ($model->save())
+        {
+            //создание и сохранение сообшения в БД
+            $message = new Message();
+            $message->uid = $model->uid;
+//            $message->type;
+            $message->created = time();
+            $message->updated = time();
+            $message->status = 1;
+            $message->appl_id = $model->id;
+//            $message->date;
+            $message->code = '1040';
+
+            if ($message->save())
+            {
+                //отправка письма с сообщением
+                $user = User::find()->where(['id' => $message->uid])->one();
+                $subj = 'Сообщение от Приемной комиссии';
+                $data['course'] = $model->program->name;
+
+                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
+            }
+        }
     }
 
     /**
