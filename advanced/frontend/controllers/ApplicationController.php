@@ -154,11 +154,13 @@ class ApplicationController extends Controller
     {
         //todo проверять ip-адрес
 
-        print Yii::$app->getRequest()->getUserIP();
+//        print Yii::$app->getRequest()->getUserIP();
+
+//        /www/applicant_area/advanced/frontend/web/uploads/log.txt
 
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         $ip = Yii::$app->getRequest()->getUserIP();
-        file_put_contents($file, $ip);
+        echo file_put_contents($file, $ip);
 
 
 
