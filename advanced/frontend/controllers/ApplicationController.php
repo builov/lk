@@ -153,32 +153,40 @@ class ApplicationController extends Controller
     public function actionSaved($id)
     {
         //todo проверять ip-адрес
-        $model = Application::findOne($id);
-        if ($model['status']==1) $model['status'] = 2;
-        $model['updated'] = time();
-        if ($model->save())
-        {
-            //создание и сохранение сообшения в БД
-            $message = new Message();
-            $message->uid = $model->uid;
-//            $message->type;
-            $message->created = time();
-            $message->updated = time();
-            $message->status = 1;
-            $message->appl_id = $model->id;
-//            $message->date;
-            $message->code = '1040';
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+        $ip = Yii::$app->getRequest()->getUserIP();
+        file_put_contents($file, $ip);
 
-            if ($message->save())
-            {
-                //отправка письма с сообщением
-                $user = User::find()->where(['id' => $message->uid])->one();
-                $subj = 'Сообщение от Приемной комиссии';
-                $data['course'] = $model->program->name;
 
-                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
-            }
-        }
+
+
+
+//        $model = Application::findOne($id);
+//        if ($model['status']==1) $model['status'] = 2;
+//        $model['updated'] = time();
+//        if ($model->save())
+//        {
+//            //создание и сохранение сообшения в БД
+//            $message = new Message();
+//            $message->uid = $model->uid;
+////            $message->type;
+//            $message->created = time();
+//            $message->updated = time();
+//            $message->status = 1;
+//            $message->appl_id = $model->id;
+////            $message->date;
+//            $message->code = '1040';
+//
+//            if ($message->save())
+//            {
+//                //отправка письма с сообщением
+//                $user = User::find()->where(['id' => $message->uid])->one();
+//                $subj = 'Сообщение от Приемной комиссии';
+//                $data['course'] = $model->program->name;
+//
+//                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
+//            }
+//        }
     }
 
     /**
