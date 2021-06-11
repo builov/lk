@@ -155,18 +155,13 @@ class ApplicationController extends Controller
         //todo проверять ip-адрес
 //        /www/applicant_area/advanced/frontend/web/uploads/log.txt
 
-//        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-//        $request = Yii::$app->getRequest(); //->getUserIP();
-//        $ip = $request->getUserIP();
-//        $agent = $request->getUserAgent();
-//
-////        echo $agent;
-//
-//        echo file_put_contents($file, $agent);
+        $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
+        $request = Yii::$app->getRequest(); //->getUserIP();
+        $ip = $request->getUserIP();
+        $agent = $request->getUserAgent();
 
-
-
-
+        file_put_contents($file, $agent);
+        
 
         $model = Application::findOne($id);
         if ($model['status']==1) $model['status'] = 2;
