@@ -129,6 +129,7 @@ class Message extends \yii\db\ActiveRecord
         $name = $this->u->profile->firstname . ' ' . $this->u->profile->patronim;
         $text = $this->template->body;
 //        $course = ($this->appl_id) ? '<strong>«' . $this->application->program->name . '»</strong>' : '';
+        $course = '';
         $datetime = $this->date;
         $search = array(
             '[name]',
