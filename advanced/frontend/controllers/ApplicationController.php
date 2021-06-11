@@ -153,6 +153,9 @@ class ApplicationController extends Controller
     public function actionSaved($id)
     {
         //todo проверять ip-адрес
+
+        print Yii::$app->getRequest()->getUserIP();
+
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
         $ip = Yii::$app->getRequest()->getUserIP();
         file_put_contents($file, $ip);
