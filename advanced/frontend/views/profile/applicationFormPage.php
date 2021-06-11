@@ -140,7 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php ActiveForm::end() ?>
 
-                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+<!--                --><?//= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
 
 
