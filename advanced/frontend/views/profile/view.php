@@ -338,32 +338,28 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="toggle__boxes">
 
 
+                            <?php $form = ActiveForm::begin([
+                                'id' => 'edit-profile-form',
+                                'action' => '/profile/edit',
+                                'enableAjaxValidation'   => false,
+                                'enableClientValidation' => true,
+                                'validateOnBlur'         => false,
+                                'validateOnType'         => false,
+                                'validateOnChange'       => false,
+                                'validateOnSubmit'       => true,
+                            ]);
 
+                            $edit_profile_form->birthdate = date("d.m.Y", strtotime($edit_profile_form->birthdate));
+                            $edit_profile_form->passport_date = date("d.m.Y", strtotime($edit_profile_form->passport_date));
+
+                            //                            echo '<pre>';
+                            //                            print_r($edit_profile_form);
+                            //                            echo '</pre>';
+
+                            ?>
 
 
                             <div class="toggle__box">
-
-
-                                <?php $form = ActiveForm::begin([
-                                    'id' => 'edit-profile-form',
-                                    'action' => '/profile/edit',
-                                    'enableAjaxValidation'   => false,
-                                    'enableClientValidation' => true,
-                                    'validateOnBlur'         => false,
-                                    'validateOnType'         => false,
-                                    'validateOnChange'       => false,
-                                    'validateOnSubmit'       => true,
-                                ]);
-
-                                $edit_profile_form->birthdate = date("d.m.Y", strtotime($edit_profile_form->birthdate));
-                                $edit_profile_form->passport_date = date("d.m.Y", strtotime($edit_profile_form->passport_date));
-
-                                //                            echo '<pre>';
-                                //                            print_r($edit_profile_form);
-                                //                            echo '</pre>';
-
-                                ?>
-
 
                                 <div class="toggle__box-header">
                                     <div class="toggle__box-title">
@@ -761,11 +757,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                     </div>
                                 </div>
-
-                                <?php ActiveForm::end(); ?>
-
+                                
                             </div>
 
+                            <?php ActiveForm::end(); ?>
 
                             <div style="padding-top: 20px">
                                 <a href="/site/request-password-reset">Сброс пароля</a>

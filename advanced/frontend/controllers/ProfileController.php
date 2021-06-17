@@ -92,7 +92,7 @@ class ProfileController extends Controller
                 }
                 else {
 
-                    print_r($model);
+//                    print_r($model);
 
                     //сохранение профиля
                     if ($model->updateProfile()) Yii::$app->session->setFlash('success', 'Изменения успешно сохранены.');
@@ -124,7 +124,43 @@ class ProfileController extends Controller
 
     public function actionUploadFile()
     {
-//        $this->layout = false;
+        $this->layout = false;
+
+        $model = new FileForm();
+
+        if (Yii::$app->request->isPost)
+        {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->doctype = Yii::$app->request->post()['FileForm']['doctype'];
+
+            if ($model->upload())
+            {
+                $f = $model->uploadedFile;
+                $file = new Files();
+                $file->uid = Yii::$app->user->id;
+                $file->path = $f['name'];
+                $file->name = $f['name'];
+                $file->sizex = key_exists('width', $f) ? $f['width'] : '';
+                $file->sizey = key_exists('height', $f) ? $f['height'] : '';
+                $file->mime = $f['mime'];
+                $file->weight = $f['weight'];
+                $file->created = time();
+                $file->doctype = $model->doctype;
+                $file->save();
+
+                return "<div class=\"img-uploaded\" style=\"background-image: url('/uploads/" . $model->uploadedFile['name'] . "')\" >&nbsp;</div>";            }
+            else {
+                Yii::$app->response->setStatusCode(415);
+                return false;
+            }
+        }
+        return false;
+    }
+
+
+    public function actionUploadFile__________________________()
+    {
+        $this->layout = false;
 
         $model = new FileForm();
 

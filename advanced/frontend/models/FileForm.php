@@ -35,6 +35,30 @@ class FileForm extends Model
     {
         if ($this->validate())
         {
+            $uid = Yii::$app->user->id;
+            $name = 'user' . $uid . '_' . $this->randomize();
+            $upload_dir = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR;
+
+            $uploaded_file = $upload_dir . $name . '.' . $this->imageFile->extension;
+            if ($this->imageFile->saveAs($uploaded_file))
+            {
+                $this->uploadedFile['name'] = $name . '.' . $this->imageFile->extension;
+                $this->uploadedFile['mime'] = $this->imageFile->extension;
+                $this->uploadedFile['weight'] = filesize($uploaded_file);
+                list($this->uploadedFile['width'], $this->uploadedFile['height']) = getimagesize($uploaded_file);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    public function upload_______________________()
+    {
+        if ($this->validate())
+        {
             $standard_names = []; //['1'=>'passport', '2'=>'education'];
             foreach (Files::TYPES as $key => $value) $standard_names[$value[0]] = $key;
 
