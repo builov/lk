@@ -230,11 +230,11 @@ $(document).ready(function(){
         e.preventDefault();
     });
 
-    $('form.form-reg').submit(function () {
-        $('.reg-state').removeClass('active');
-        $('.reg__result').addClass('active');
-       return false;
-    });
+    // $('form.form-reg').submit(function () {
+    //     $('.reg-state').removeClass('active');
+    //     $('.reg__result').addClass('active');
+    //    return false;
+    // });
 
     $('form.form-recovery').submit(function () {
         $('#recovery-modal .fade-state').removeClass('active');
