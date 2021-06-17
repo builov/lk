@@ -104,7 +104,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="form__field req-field" data-name="d-surname">
                                                     <?= $form->field($model['reg_form'], 'lastname', ['options' => ['tag' => false, 'template' => "{input}"]])
                                                         ->textInput(['class' => 'input'])->label(false) ?>
-<!--                                                    ->textInput(['autofocus' => true])-->
                                                     <div class="error__message fadeIn animated"></div>
                                                 </div>
                                             </div>
@@ -250,12 +249,34 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="form__item-label">
                                                     Серия и номер документа об&nbsp;образовании
                                                 </div>
-                                                <div class="form__field form__field-small req-field" data-name="d-inst-doc">
-                                                    <?= $form->field($model['reg_form'], 'certificate_series', ['options' => ['tag' => false, 'template' => "{input}"]])
-                                                        ->textInput(['class' => 'input'])->label(false) ?>
-                                                    <?= $form->field($model['reg_form'], 'certificate_number', ['options' => ['tag' => false, 'template' => "{input}"]])
-                                                        ->textInput(['class' => 'input'])->label(false) ?>
-                                                    <div class="error__message fadeIn animated"></div>
+
+<!--                                                <div class="form__field form__field-small req-field" data-name="d-inst-doc">-->
+<!--                                                    --><?//= $form->field($model['reg_form'], 'certificate_series', ['options' => ['tag' => false, 'template' => "{input}"]])
+//                                                        ->textInput(['class' => 'input'])->label(false) ?>
+<!--                                                    --><?//= $form->field($model['reg_form'], 'certificate_number', ['options' => ['tag' => false, 'template' => "{input}"]])
+//                                                        ->textInput(['class' => 'input'])->label(false) ?>
+<!--                                                    <div class="error__message fadeIn animated"></div>-->
+<!--                                                </div>-->
+
+                                                <div class="form__fields">
+                                                    <div class="row">
+                                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 form__field-col">
+                                                            <div class="form__field" data-name="d-inst-serial">
+<!--                                                                <input type="text" class="input" placeholder="Серия">-->
+                                                                <?= $form->field($model['reg_form'], 'certificate_series', ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input', 'placeholder' => 'Серия'])->label(false) ?>
+                                                                <div class="error__message fadeIn animated"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 form__field-col">
+                                                            <div class="form__field req-field" data-name="d-inst-numb">
+<!--                                                                <input type="text" class="input" placeholder="Номер">-->
+                                                                <?= $form->field($model['reg_form'], 'certificate_number', ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input', 'placeholder' => 'Номер'])->label(false) ?>
+                                                                <div class="error__message fadeIn animated"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -275,7 +296,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <div class="row">
                                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 form__field-col">
                                                             <div class="form__field req-field numb-only-field" data-numb-length="4" data-name="d-passport-serial">
-<!--                                                                <input type="text" class="input" placeholder="Серия">-->
                                                                 <?= $form->field($model['reg_form'], 'passport_series',
                                                                     ['options' => ['tag' => false, 'template' => "{input}"]])
                                                                     ->textInput(['class' => 'input', 'placeholder' => 'Серия'])->label(false) ?>
@@ -284,7 +304,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         </div>
                                                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-8 form__field-col">
                                                             <div class="form__field req-field numb-only-field" data-numb-length="6" data-name="d-passport-numb">
-<!--                                                                <input type="text" class="input" placeholder="Номер">-->
                                                                 <?= $form->field($model['reg_form'], 'passport_number',
                                                                     ['options' => ['tag' => false, 'template' => "{input}"]])
                                                                     ->textInput(['class' => 'input', 'placeholder' => 'Номер'])->label(false) ?>
@@ -353,19 +372,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="form__item-label">
                                                     Укажите регион
                                                 </div>
-                                                <div class="form__field select-wrap req-field" data-name="d-region">
-<!--                                                    <select data-placeholder="Выберите" class="input">-->
-<!--                                                        <option label="-"></option>-->
-<!--                                                        <option value="1">г. Москва</option>-->
-<!--                                                        <option value="2">Московская область</option>-->
-<!--                                                        <option value="3">Другой субъект РФ</option>-->
-<!--                                                    </select>-->
-                                                    <?php $region_list = Profile::_REGION;
-                                                            array_unshift($region_list, " "); ?>
-                                                    <?= $form->field($model['reg_form'], 'region', ['options' => ['tag' => false, 'template' => "{input}"],
+                                                <div class="form__field select-wrap req-field" data-name="d-region-1">
+                                                    <?php   $region_list = Profile::_REGION;
+                                                            array_unshift($region_list, "");
+                                                            $params = ['options' => ['0' => ['label' => '-',]]];
+                                                    ?>
+                                                    <?= $form->field($model['reg_form'], 'address_passport_region', ['options' => ['tag' => false, 'template' => "{input}"],
                                                         'inputOptions' => ['class' => 'input', 'data-placeholder' => 'Выберите'],
                                                         'labelOptions' => []])
-                                                        ->dropDownList($region_list)->label(false) ?>
+                                                        ->dropDownList($region_list, $params)->label(false) ?>
                                                 </div>
                                             </div>
                                             <div class="form__item form__item-horizontal form__item-disabled">
@@ -376,7 +391,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <div class="row">
                                                         <div class="col-12 form__field-col">
                                                             <div class="form__field req-field fias-field" data-name="d-address-1">
-<!--                                                                <input type="text" class="input">-->
                                                                 <?= $form->field($model['reg_form'], 'address_passport_street',
                                                                     ['options' => ['tag' => false, 'template' => "{input}"]])
                                                                     ->textInput(['class' => 'input'])->label(false) ?>
@@ -391,12 +405,26 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <div class="error__message fadeIn animated"></div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-12 form__field-col">
+                                                            <div class="form__item-label">
+                                                                Индекс
+                                                            </div>
+                                                            <div class="form__field form__field-small req-field numb-only-field zip-field" data-name="d-index-1" data-numb-length="6">
+<!--                                                                <input value="" type="text" class="input">-->
+                                                                <?= $form->field($model['reg_form'], 'address_passport_zip',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input'])->label(false) ?>
+                                                                <div class="error__message fadeIn animated"></div>
+                                                            </div>
+                                                        </div>
+
+
                                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 form__field-col">
                                                             <div class="form__item-label">
                                                                 Дом
                                                             </div>
                                                             <div class="form__field req-field" data-name="d-house-1">
-<!--                                                                <input type="text" class="input">-->
                                                                 <?= $form->field($model['reg_form'], 'address_passport_building',
                                                                     ['options' => ['tag' => false, 'template' => "{input}"]])
                                                                     ->textInput(['class' => 'input'])->label(false) ?>
@@ -466,7 +494,31 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <div class="form__group-title">
                                                 Адрес по месту пребывания в г. Москве или Московской области
                                             </div>
+
+
                                             <div class="form__item form__item-horizontal">
+                                                <div class="form__item-label">
+                                                    Укажите регион
+                                                </div>
+                                                <div class="form__field select-wrap req-field" data-name="d-region-2">
+
+<!--                                                    <select data-placeholder="Выберите" class="input">-->
+<!--                                                        <option label="-"></option>-->
+<!--                                                        <option value="1">г. Москва</option>-->
+<!--                                                        <option value="2">Московская область</option>-->
+<!--                                                    </select>-->
+
+                                                    <?php array_pop($region_list); ?>
+                                                    <?= $form->field($model['reg_form'], 'address_current_region', ['options' => ['tag' => false, 'template' => "{input}"],
+                                                        'inputOptions' => ['class' => 'input', 'data-placeholder' => 'Выберите'],
+                                                        'labelOptions' => []])
+                                                        ->dropDownList($region_list, $params)->label(false) ?>
+
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form__item form__item-horizontal form__item-disabled">
                                                 <div class="form__item-label">
                                                     Регион, город, улица
                                                 </div>
@@ -489,6 +541,20 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                 <div class="error__message fadeIn animated"></div>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-12 form__field-col">
+                                                            <div class="form__item-label">
+                                                                Индекс
+                                                            </div>
+                                                            <div class="form__field form__field-small numb-only-field zip-field" data-name="d-index-2" data-numb-length="6">
+<!--                                                                <input value="" type="text" class="input">-->
+                                                                <?= $form->field($model['reg_form'], 'address_current_zip',
+                                                                    ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                                    ->textInput(['class' => 'input'])->label(false) ?>
+                                                                <div class="error__message fadeIn animated"></div>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4 form__field-col">
                                                             <div class="form__item-label">
                                                                 Дом
@@ -646,21 +712,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </form>
                         <div class="reg__result reg-state fadeIn animated">
-                            <div class="reg__result-content text-center">
-                                <div class="reg__result-icon">
-                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M22 39C31.3888 39 39 31.3888 39 22C39 12.6112 31.3888 5 22 5C12.6112 5 5 12.6112 5 22C5 31.3888 12.6112 39 22 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M14.7071 22.2929L15.2929 21.7071C15.6834 21.3166 16.3166 21.3166 16.7071 21.7071L19.2547 24.2547C19.6598 24.6598 20.3218 24.6424 20.7051 24.2166L28.2949 15.7834C28.6782 15.3576 29.3402 15.3402 29.7453 15.7453L30.323 16.323C30.7015 16.7015 30.7148 17.3111 30.353 17.7058L20.7057 28.2301C20.321 28.6498 19.6641 28.6641 19.2615 28.2615L14.7071 23.7071C14.3166 23.3166 14.3166 22.6834 14.7071 22.2929Z" fill="#B4E3F9" stroke="#145797" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <div class="reg__result-title">
-                                    Мы сохранили ваши данные, осталось совсем немного
-                                </div>
-                                <div class="reg__result-text">
-                                    Что бы продолжить заполнять заявку на обучение, проверьте вашу почту<br>
-                                    <b>mail@box.ru</b> куда мы выслали пароль и войдите в личный кабинет
-                                </div>
-                            </div>
+<!--                            <div class="reg__result-content text-center">-->
+<!--                                <div class="reg__result-icon">-->
+<!--                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M22 39C31.3888 39 39 31.3888 39 22C39 12.6112 31.3888 5 22 5C12.6112 5 5 12.6112 5 22C5 31.3888 12.6112 39 22 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                        <path d="M14.7071 22.2929L15.2929 21.7071C15.6834 21.3166 16.3166 21.3166 16.7071 21.7071L19.2547 24.2547C19.6598 24.6598 20.3218 24.6424 20.7051 24.2166L28.2949 15.7834C28.6782 15.3576 29.3402 15.3402 29.7453 15.7453L30.323 16.323C30.7015 16.7015 30.7148 17.3111 30.353 17.7058L20.7057 28.2301C20.321 28.6498 19.6641 28.6641 19.2615 28.2615L14.7071 23.7071C14.3166 23.3166 14.3166 22.6834 14.7071 22.2929Z" fill="#B4E3F9" stroke="#145797" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+<!--                                </div>-->
+<!--                                <div class="reg__result-title">-->
+<!--                                    Мы сохранили ваши данные, осталось совсем немного-->
+<!--                                </div>-->
+<!--                                <div class="reg__result-text">-->
+<!--                                    Что бы продолжить заполнять заявку на обучение, проверьте вашу почту<br>-->
+<!--                                    <b>mail@box.ru</b> куда мы выслали пароль и войдите в личный кабинет-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -711,7 +777,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     [
                                         'class' => 'btn__custom btn__custom-full d-flex align-items-center justify-content-center',
                                         'name' => 'login-button',
-                                        'disabled' => 'disabled'
+//                                        'disabled' => 'disabled'
                                     ]) ?>
                             </div>
                             <div class="form__item">

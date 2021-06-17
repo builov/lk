@@ -156,8 +156,8 @@ class ApplicationController extends Controller
 //        /www/applicant_area/advanced/frontend/web/uploads/log.txt
 
         $file = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR . 'log.txt';
-        $request = Yii::$app->getRequest(); //->getUserIP();
-        $ip = $request->getUserIP();
+        $request = Yii::$app->getRequest();
+        $ip = $request->getUserIP(); //94.79.4.40
         $agent = $request->getUserAgent(); //'1C+Enterprise/8.3'
 
 //        file_put_contents($file, $agent);
@@ -237,11 +237,18 @@ class ApplicationController extends Controller
             $apps[$key]['user_phone'] = $application->user->profile->phone;
 //            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
 //            foreach ($application->user->files as $file) if ($file->mime == 'pdf') $files[] = 'https://lks.medcollege7.ru/uploads/' . $file->name;
-            $apps[$key]['user_files'] = [
-                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_passport.pdf',
-                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_education.pdf',
-                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_achievements.pdf'
-            ];
+
+//            //вариант с конвертацией в pdf
+//            $apps[$key]['user_files'] = [
+//                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_passport.pdf',
+//                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_education.pdf',
+//                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_achievements.pdf'
+//            ];
+
+            //вариант с отдачей всех медиафайлов
+            $apps[$key]['user_files'] = [];
+            foreach ($application->user->files as $file)
+                $apps[$key]['user_files'][] = 'https://lks.medcollege7.ru/uploads/' . $file->name;
         }
 
 //        print_r($apps);

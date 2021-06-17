@@ -56,27 +56,25 @@ class ApplicationForm extends Model
 
     public function docsCheck()
     {
-        $uid = Yii::$app->user->id;
-        $files = Files::find()->where(['uid' => $uid])->asArray()->all();
-        $passport = 0;
-        $education = 0;
-        foreach ($files as $file)
-        {
-            if ($file['doctype'] == 1) $passport++;
-            elseif ($file['doctype'] == 2) $education++;
-//            echo '$passport ' . $passport . "\n";
-//            echo '$education' . $education . "\n\n";
-        }
-
-        if ($passport < 2 || $education < 2)
-        {
-            Yii::$app->session->setFlash('error', 'Загрузите необходимые сканы документов:
-            <ul>
-                <li>паспорт: страница с фото, страница с пропиской (минимум 2 файла)</li>
-                <li>документы об образовании, включая приложение с оценками с двух сторон (минимум 2 файла)</li>
-            </ul>');
-            return false;
-        }
+//        $uid = Yii::$app->user->id;
+//        $files = Files::find()->where(['uid' => $uid])->asArray()->all();
+//        $passport = 0;
+//        $education = 0;
+//        foreach ($files as $file)
+//        {
+//            if ($file['doctype'] == 1) $passport++;
+//            elseif ($file['doctype'] == 2) $education++;
+//        }
+//
+//        if ($passport < 2 || $education < 2)
+//        {
+//            Yii::$app->session->setFlash('error', 'Загрузите необходимые сканы документов:
+//            <ul>
+//                <li>паспорт: страница с фото, страница с пропиской (минимум 2 файла)</li>
+//                <li>документы об образовании, включая приложение с оценками с двух сторон (минимум 2 файла)</li>
+//            </ul>');
+//            return false;
+//        }
         return true;
     }
 

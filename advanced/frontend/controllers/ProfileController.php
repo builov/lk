@@ -67,7 +67,7 @@ class ProfileController extends Controller
 
     public function actionEdit()
     {
-        $this->layout = 'main';
+//        $this->layout = 'new2';
 
 
 //        $uid = Yii::$app->user->id;
@@ -91,6 +91,9 @@ class ProfileController extends Controller
                     Yii::$app->session->setFlash('error', 'Ошибка...');
                 }
                 else {
+
+                    print_r($model);
+
                     //сохранение профиля
                     if ($model->updateProfile()) Yii::$app->session->setFlash('success', 'Изменения успешно сохранены.');
                     return $this->redirect(['/profile']);
@@ -221,7 +224,7 @@ class ProfileController extends Controller
 //            throw new ForbiddenHttpException('Access denied');
 //        }
 
-        $this->layout = 'main';
+        $this->layout = 'new2';
 
 
         $uid = Yii::$app->user->id;
@@ -242,6 +245,8 @@ class ProfileController extends Controller
         $form = new ApplicationForm();
 
         $file_form = new FileForm();
+
+        $edit_profile_form = new EditProfileForm(); //заполняется данными текущего пользователя в init()
 
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
@@ -328,6 +333,7 @@ class ProfileController extends Controller
             'available_programs' => $available_programs,
             'messages' => $messages,
             'editable' => $editable,
+            'edit_profile_form' => $edit_profile_form,
         ]);
     }
 }

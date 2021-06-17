@@ -35,17 +35,14 @@ class RegisterForm extends Model
     public $passport_date;
     public $citizenship;
     public $region;
-//    public $address_passport_region;
 //    public $address_passport_city;
     public $address_passport_street;
     public $address_passport_building;
     public $address_passport_apartment;
-//    public $address_current_region;
 //    public $address_current_city;
     public $address_current_street;
     public $address_current_building;
     public $address_current_apartment;
-//    public $zip;
     public $phone;
     public $email;
     public $agree;
@@ -55,6 +52,11 @@ class RegisterForm extends Model
     public $address_passport_stroenie;
     public $address_current_korpus;
     public $address_current_stroenie;
+
+    public $address_passport_region;
+    public $address_passport_zip;
+    public $address_current_region;
+    public $address_current_zip;
 
     /**
      * {@inheritdoc}
@@ -71,6 +73,7 @@ class RegisterForm extends Model
                 'phone',
                 'email',
                 'passport_issued',
+                'address_passport_region',
                 'address_passport_street',
                 'address_passport_building',
                 'gender',
@@ -96,7 +99,10 @@ class RegisterForm extends Model
                 'education_level',
                 'passport_number',
                 'agree',
-                'region',
+                'address_passport_region',
+                'address_current_region',
+                'address_passport_zip',
+                'address_current_zip',
                 'citizenship'], 'integer'],
             [['graduate_year'], 'number', 'min' => 1950, 'max' => $current_year],
             ['agree', 'compare', 'compareValue' => 1, 'operator' => '==', 'message' => 'Необходимо подтвердить согласие на обработку персональных данных.'],
@@ -157,7 +163,7 @@ class RegisterForm extends Model
             'passport_code' => 'Код подразделения',
             'passport_date' => 'Дата выдачи',
             'citizenship' => 'Гражданство',
-            'region' => 'Регион РФ',
+//            'region' => 'Регион РФ',
 //            'address_passport' => 'Адрес (как в паспорте)',
 //            'address_current' => 'Фактический адрес проживания',
 //            'address_passport_region' => 'Регион (Субъект РФ для граждан РФ)',
@@ -178,6 +184,10 @@ class RegisterForm extends Model
             'address_passport_stroenie' => 'Строение',
             'address_current_korpus' => 'Корпус',
             'address_current_stroenie' => 'Строение',
+            'address_passport_region' => 'Регион РФ',
+            'address_passport_zip' => 'Почтовый индекс',
+            'address_current_region' => 'Регион РФ',
+            'address_current_zip' => 'Почтовый индекс',
         ];
     }
 
@@ -231,6 +241,8 @@ class RegisterForm extends Model
         else return false;
     }
 
+    //todo рассмотреть ситуацию, когда user сохранен, а профиль нет
+
     public function setProfile($uid)
     {
         $profile = new Profile();
@@ -246,7 +258,11 @@ class RegisterForm extends Model
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
 
-        $profile->region = ($this->citizenship==1) ? $this->region : 4;
+//        if ($this->address_current_region != 0) $profile->region = ($this->citizenship==1) ? $this->address_current_region : 4;
+//        else $profile->region = ($this->citizenship==1) ? $this->address_passport_region : 4;
+
+        $profile->region = ($this->citizenship==1) ? ($this->address_current_region != 0) ? $this->address_current_region : $this->address_passport_region : 4;
+
 
         $profile->education_level = (int) $this->education_level;
         $profile->institution = $this->institution;
@@ -261,11 +277,11 @@ class RegisterForm extends Model
         $profile->passport_code = $this->passport_code;
         $profile->passport_date = implode("-", array_reverse(explode( Profile::_DATE_DIVIDER, $this->passport_date)));
 
-        $profile->address_passport = $this->address_passport_street . ', дом ' . $this->address_passport_building;
+        $profile->address_passport = $this->address_passport_zip . ', ' . $this->address_passport_street . ', дом ' . $this->address_passport_building;
         if (trim($this->address_passport_korpus) != '') $profile->address_passport .= ', корпус ' . $this->address_passport_korpus;
         if (trim($this->address_passport_stroenie) != '') $profile->address_passport .= ', строение ' . $this->address_passport_stroenie;
         if (trim($this->address_passport_apartment) != '') $profile->address_passport .= ', квартира ' . $this->address_passport_apartment;
-        $profile->address_current = $this->address_current_street . ', дом ' . $this->address_current_building;
+        $profile->address_current = $this->address_current_zip . ', ' . $this->address_current_street . ', дом ' . $this->address_current_building;
         if (trim($this->address_current_korpus) != '') $profile->address_current .= ', корпус ' . $this->address_current_korpus;
         if (trim($this->address_current_stroenie) != '') $profile->address_current .= ', строение ' . $this->address_current_stroenie;
         if (trim($this->address_current_apartment) != '') $profile->address_current .= ', квартира ' . $this->address_current_apartment;

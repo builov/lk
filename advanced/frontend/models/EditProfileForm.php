@@ -176,7 +176,7 @@ class EditProfileForm extends Model
         $profile->certificate_series = $this->certificate_series;
         $profile->certificate_number = $this->certificate_number;
 
-//        print_r($profile);
+//        print_r($this);
 
         return $profile->save();
     }

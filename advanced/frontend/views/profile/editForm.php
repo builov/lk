@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h2><?= Html::encode($this->title) ?></h2>
 
             <?php $form = ActiveForm::begin([
-                'id' => 'register-form',
+                'id' => 'edit-profile-form',
                 'enableAjaxValidation'   => false,
                 'enableClientValidation' => true,
                 'validateOnBlur'         => false,

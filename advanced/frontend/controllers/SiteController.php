@@ -86,6 +86,21 @@ class SiteController extends Controller
 
     public function actionTest()
     {
+        $citizenship = 1;
+        $address_passport_region = 2;
+        $address_current_region = 0;
+
+//        if ($address_current_region != 0)
+//        {
+//            $region = ($citizenship==1) ? $address_current_region : 4;
+//        }
+//        else {
+//            $region = ($citizenship==1) ? $address_passport_region : 4;
+//        }
+
+        $region = ($citizenship==1) ? ($address_current_region != 0) ? $address_current_region : $address_passport_region : 4;
+
+        echo $region;
 
 
 
