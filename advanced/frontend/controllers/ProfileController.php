@@ -76,7 +76,11 @@ class ProfileController extends Controller
 
         $condition = [2,3]; //заявка в статусе "на рассмотрении" или "одобрена"
         if (Application::find()->where(['uid' => Yii::$app->user->id])->andWhere(['in','status',$condition])->count())
+        {
+            Yii::$app->session->setFlash('error', 'Не допускается редактирование профиля при наличии заявки, находящейся на рассмотрении или одобренной.');
             return $this->redirect(['/profile']); //редактирование постфактум запрещено
+        }
+
 
         $model = new EditProfileForm(); //заполняется данными текущего пользователя в init()
 

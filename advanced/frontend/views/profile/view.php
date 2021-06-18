@@ -19,6 +19,14 @@ $this->params['breadcrumbs'][] = $this->title;
     p.help-block.help-block-error {
         display: none;
     }
+    .img-uploaded {
+        width: 100px;
+        height: 80px;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        display: inline-block;
+    }
 </style>
 
 <div class="section sc__lk sc__lk-profile sides">
@@ -64,177 +72,104 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="order__list">
 
 
-
                             <?php if (!count($sent_applications[0])): ?>
 
 
+                                <div class="orders__item orders__item-start">
 
-                            <div class="orders__item orders__item-start">
-                                <div class="form__group">
-                                    <div class="form__flex-group d-flex align-items-start">
-                                        <div class="form__item form__flex-fixed">
-                                            <div class="form__item-label">
-                                                Программа обучения
-                                            </div>
-                                            <div class="select-wrap field-prog">
-                                                <select data-placeholder="Выберите программу">
-                                                    <option value="1">
-                                                        Сестринское дело очно, после 9 класса
-                                                    </option>
-                                                    <option value="2">
-                                                        Лечебное дело очно, после 11 класса
-                                                    </option>
-                                                    <option value="3">
-                                                        Сестринское дело очно-заочно, после 11 класса
-                                                    </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div id="st-type-fields" class="form__item form__flex-float">
-                                            <div class="form__item-label">
-                                                Форма обучения
-                                            </div>
-                                            <div class="btn__group btn__group-radio d-flex field-st-form">
-                                                <div class="btn__group-item">
-                                                    <label>
-                                                        <input type="radio" name="st-form" value="1">
-                                                        <div class="btn__radio d-flex align-items-center">
-                                                            Договор
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                                <div class="btn__group-item">
-                                                    <label>
-                                                        <input type="radio" name="st-form" value="2">
-                                                        <div class="btn__radio d-flex align-items-center">
-                                                            Бюджет
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form__group form__group-disabled form__group-text">
-                                    <div class="custom-text">
-                                        <p>
-                                            <b>
-                                                Список документов:
-                                            </b>
-                                        </p>
-                                        <ul>
-                                            <li>
-                                                паспорт (страница с фото, страница с пропиской)
-                                            </li>
-                                            <li>
-                                                временная регистрации (при наличии)
-                                            </li>
-                                            <li>
-                                                документы об образовании (приложение с оценками с двух сторон)
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="form__group form__group-files">
-                                    <div class="form__group-header d-flex align-items-start justify-content-between">
-                                        <div class="form__group-title">
-                                            Паспорт и cвидетельство о регистрации по месту пребывания
-                                        </div>
-                                        <a href="#" class="clear__files">Очистить</a>
-                                    </div>
-                                    <div id="drop-box-1" class="form__group form__group-disabled form__group-dz dz-field dz-field-passport">
-                                        <div class="dz__default-wrap d-flex justify-content-center">
-                                            <div class="dz__default d-flex align-items-center">
-                                                <div class="icon__dz">
-                                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M12 39H32C33.1 39 34 38.1 34 37V13H29C27.9 13 27 12.1 27 11V5H12C10.9 5 10 5.9 10 7V37C10 38.1 10.9 39 12 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M34 13L27 5" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M21 9H14V14H21V9Z" fill="#B4E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 19H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 23H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 27H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 31H22" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="dz__default-title">
-                                                    Перетащите файлы в в формате .jpg сюда или <a>выберите на компьютере</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn__border d-flex align-items-center justify-content-center">
-                                            Загрузить документы
-                                        </div>
-                                    </div>
-                                    <div class="form__group-header d-flex align-items-start justify-content-between">
-                                        <div class="form__group-title">
-                                            Документы об образовании
-                                        </div>
-                                        <a href="#" class="clear__files">Очистить</a>
-                                    </div>
-                                    <div id="drop-box-2" class="form__group form__group-disabled form__group-dz dz-field dz-field-educ">
-                                        <div class="dz__default-wrap d-flex justify-content-center">
-                                            <div class="dz__default d-flex align-items-center">
-                                                <div class="icon__dz">
-                                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M12 39H32C33.1 39 34 38.1 34 37V13H29C27.9 13 27 12.1 27 11V5H12C10.9 5 10 5.9 10 7V37C10 38.1 10.9 39 12 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M34 13L27 5" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M21 9H14V14H21V9Z" fill="#B4E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 19H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 23H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 27H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 31H22" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="dz__default-title">
-                                                    Перетащите файлы в в формате .jpg сюда или <a>выберите на компьютере</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn__border d-flex align-items-center justify-content-center">
-                                            Загрузить документы
-                                        </div>
-                                    </div>
-                                    <div class="form__group-header d-flex align-items-start justify-content-between">
-                                        <div class="form__group-title">
-                                            Личные достижения
-                                        </div>
-                                        <a href="#" class="clear__files">Очистить</a>
-                                    </div>
-                                    <div id="drop-box-3" class="form__group form__group-disabled form__group-dz dz-field dz-field-ach">
-                                        <div class="dz__default-wrap d-flex justify-content-center">
-                                            <div class="dz__default d-flex align-items-center">
-                                                <div class="icon__dz">
-                                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M12 39H32C33.1 39 34 38.1 34 37V13H29C27.9 13 27 12.1 27 11V5H12C10.9 5 10 5.9 10 7V37C10 38.1 10.9 39 12 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M34 13L27 5" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M21 9H14V14H21V9Z" fill="#B4E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 19H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 23H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 27H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                        <path d="M14 31H22" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                                    </svg>
-                                                </div>
-                                                <div class="dz__default-title">
-                                                    Перетащите файлы в в формате .jpg сюда или <a>выберите на компьютере</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn__border d-flex align-items-center justify-content-center">
-                                            Загрузить документы
-                                        </div>
-                                    </div>
-                                </div>
+                                    <?php
+                                    $options = $available_programs;
+                                    foreach ($available_programs as $program_id => $program_name) {
+                                        if (array_key_exists($program_id, $sent_applications[0])
+                                            && $sent_applications[0][$program_id][1] != Application::STATUS_DECLINED)
+                                            unset($options[$program_id]);
+                                    }
+                                    //            if (count($options)):
+                                    ?>
 
-                                <div class="form__group form__group-actions d-flex align-items-center">
-                                    <button disabled type="submit" class="btn__custom d-flex align-items-center justify-content-center">
-                                        Отправить
-                                    </button>
-                                    <div class="form__group-hint">
-                                        Перед отправкой убедитесь, что все документы прикреплены
+                                    <?php $form = ActiveForm::begin([
+                                        'id' => 'application-form',
+                                        'options' => ['enctype' => 'multipart/form-data'],
+//                                  'action' => '/profile',
+                                    ]) ?>
+
+
+                                    <div class="form__group">
+                                        <div class="form__flex-group d-flex align-items-start">
+                                            <div class="form__item form__flex-fixed">
+                                                <div class="form__item-label">
+                                                    Программа обучения
+                                                </div>
+                                                <div class="select-wrap field-prog">
+                                                    <?= $form->field($appform, 'program_id', ['options' => ['tag' => false, 'template' => "{input}"],
+                                                        'inputOptions' => ['class' => 'select'],
+                                                        'labelOptions' => []])
+                                                        ->dropDownList($options)->label(false) ?>
+                                                </div>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+
+                                    <?php ActiveForm::end() ?>
+
+
+                                    <div class="form__group form__group-disabled form__group-text">
+                                        <div class="custom-text">
+                                            <p><b>Список документов:</b></p>
+                                            <ul>
+                                                <li>паспорт (страница с фото, страница с пропиской)</li>
+                                                <li>временная регистрации (при наличии)</li>
+                                                <li>документы об образовании (включая приложение с оценками с двух сторон)</li>
+                                                <li>документы, подтверждающие личные достижения (при наличии)</li>
+                                                <p>Перед отправкой убедитесь, что все необходимые документы загружены.</p>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form__group form__group-files">
+
+                                        <?php Pjax::begin(); ?>
+                                        <?php $form2 = ActiveForm::begin([
+                                            'id' => 'upload-form-passport',
+                                            'action' => '/profile/upload-file',
+                                            'options' => ['enctype' => 'multipart/form-data','class' => 'upload-form'],
+                                            'enableClientValidation' => false,
+                                        ]) ?>
+
+                                        <?= $form2->field($file_form, 'doctype')->hiddenInput(['value'=>'1'])->label(false) ?>
+
+                                        <div class="image-container">
+                                            <?php if (is_array($model->passport_files)): ?>
+                                                <?php foreach ($model->passport_files as $file): ?>
+                                                    <a target="_blank" href="/uploads/<?= $file['name'] ?>">
+                                                        <div class="img-uploaded"
+                                                             style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                                                    </a>
+                                                <?php endforeach;?>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
+                                            ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+
+                                        <div class="xhr-message"></div>
+                                        <?php ActiveForm::end() ?>
+                                        <?php Pjax::end(); ?>
+
+                                    </div>
+
+                                    <div class="form__group form__group-actions d-flex align-items-center">
+                                        <button name="signup-button" type="submit" class="btn__custom d-flex align-items-center justify-content-center">
+                                            Отправить
+                                        </button>
+                                        <div class="form__group-hint">
+                                            Перед отправкой убедитесь, что все документы прикреплены
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
 
 
                             <?php else: ?>
@@ -313,13 +248,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--                                    </div>-->
 <!--                                </div>-->
 
-                            <div class="orders__item orders__item-new">
-                                <div class="actions__wrap d-flex">
-                                    <a href="/profile/application/form" class="btn__custom btn__custom-grey d-flex align-items-center justify-content-center">
-                                        Новая заявка
-                                    </a>
-                                </div>
-                            </div>
+                                <?php if ((bool)(count($available_programs) - count($sent_applications[0]))): ?>
+                                    <div class="orders__item orders__item-new">
+                                        <div class="actions__wrap d-flex">
+                                            <a href="/profile/application/form" class="btn__custom btn__custom-grey d-flex align-items-center justify-content-center">
+                                                Новая заявка
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
 
                             <?php endif; ?>
 
@@ -757,7 +694,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                             <?php ActiveForm::end(); ?>
@@ -831,29 +768,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                     <div id="education" class="ct__box ct__box-card mb-content">
 
-                        <?php
-                        $accepted = [];
-                        if (count($sent_applications[0])) foreach($sent_applications[0] as $prog_id => $program) if ($program[1]==3) $accepted[] = $program[0];
-                        ?>
+                        <?php $accepted = [];
+                        if (count($sent_applications[0]))
+                            foreach($sent_applications[0] as $prog_id => $program)
+                                if ($program[1]==3)
+                                    $accepted[] = $program[0]; ?>
 
                         <?php if (count($accepted)): ?>
-
-<!--                            <p>Вы зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7» по программе:</p>-->
-<!--                            <ul>-->
-<!--                                --><?php //foreach($accepted as $program): ?>
-<!--                                    <li>--><?//= $program ?><!--</li>-->
-<!--                                --><?php //endforeach; ?>
-<!--                            </ul>-->
 
                             <div class="ct__box-bl">
                                 <div class="profile__header d-flex align-items-center">
                                     <div class="profile__header-icon">
-                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M22 7L5 14L22 21L39 14L22 7Z" fill="#B5E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M34 17V24H33.9C26.5 28.3 17.3 28.3 10 24V17" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M37 15V30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M37 29C38.1 29 39 29.9 39 31C39 32.1 38.1 33 37 33C35.9 33 35 32.1 35 31C35 29.9 35.9 29 37 29Z" fill="#145797"/>
-                                            <path d="M36.9996 37.0001C35.4996 37.0001 34.3996 35.6001 34.8996 34.2001L35.7996 31.1001H38.1996L39.0996 34.2001C39.5996 35.6001 38.4996 37.0001 36.9996 37.0001Z" fill="#145797"/>
+                                        <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M22 20C18.7 20 16 17.3 16 14V11C16 7.7 18.7 5 22 5C25.3 5 28 7.7 28 11V14C28 17.3 25.3 20 22 20Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M32 39H12C10.9 39 10 38.1 10 37V34C10 28.5 14.5 24 20 24H24C29.5 24 34 28.5 34 34V37C34 38.1 33.1 39 32 39Z" fill="#B4E3F9" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                                         </svg>
                                     </div>
                                     <div class="profile__name">
@@ -862,20 +790,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </div>
                                 <div class="ct__message ct__message-ok">
-                                    Поздравляем вы зарегистрированы на обучение по программе:
+                                    Одобрена ваша заявка на обучение по программе:
                                         <?php foreach($accepted as $program): ?>
                                             <div><?= $program ?></div>
                                         <?php endforeach; ?>
                                 </div>
-<!--                                <div class="text">-->
-<!--                                    Не пришло письмо? <a href="#">Выслать еще раз</a>-->
-<!--                                </div>-->
                             </div>
 
 
                         <?php else: ?>
-
-<!--                            <p>В настоящее время Вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7»</p>-->
 
                             <div class="ct__box-bl">
                                 <div class="profile__header d-flex align-items-center">
@@ -891,7 +814,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </div>
                                 </div>
                                 <div class="text">
-                                    В настоящий момент вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК № 7»
+                                    В настоящее время Вы не зарегистрированы на обучение в ГБПОУ ДЗМ «МК №7»
                                 </div>
                             </div>
                         <?php endif; ?>
@@ -918,28 +841,40 @@ $this->params['breadcrumbs'][] = $this->title;
                                     Список документов для поступления
                                 </a>
                             </div>
+
                             <div class="link__item">
-                                <a href="#">
-                                    Перечень медицинских противопоказаний для поступления на обучение
-                                </a>
-                            </div>
-                            <div class="link__item">
-                                <a href="#">
+                                <a target="_blank" href="https://medcollege7.ru/pk2021/med-osmotr.pdf">
                                     Информация о необходимости прохождения предварительных медицинских осмотров (обследований)
                                 </a>
                             </div>
+
+
                             <div class="link__item">
-                                <a href="#">
-                                    Условия приема на обучение по договорам
+                                <a href="#doc-modal-perevod" data-fancybox="">
+                                    Порядок перевода в колледж из другой образовательной организации
                                 </a>
                             </div>
+
                             <div class="link__item">
-                                <a href="#">
+                                <a target="_blank" href="https://medcollege7.ru/pk2021/poryadok-podachi.pdf">
+                                    Порядок подачи заявлений
+                                </a>
+                            </div>
+
+                            <div class="link__item">
+                                <a href="#doc-modal-budget" data-fancybox="">
                                     Условия приема на обучение за счет ассигнований бюджета города Москвы
                                 </a>
                             </div>
+
                             <div class="link__item">
-                                <a href="#">
+                                <a href="#doc-modal-dogovor" data-fancybox="">
+                                    Условия приема на обучение по договорам
+                                </a>
+                            </div>
+
+                            <div class="link__item">
+                                <a href="#doc-modal-exam" data-fancybox="">
                                     Перечень вступительных испытаний для поступления на обучение
                                 </a>
                             </div>
@@ -976,11 +911,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="text">
                                 По работе в Личном кабинете слушателя с использованием Системы электронной регистрации на обучение по ДПО, ПО, ЕМИАС в Государственном бюджетном профессиональном образовательном учреждении Департамента здравоохранения города Москвы «Медицинский колледж No 7»
                             </div>
-                            <div class="actions__wrap fadeIn animated active d-flex">
-                                <a href="#" class="btn__border d-flex align-items-center toggle__instr-js">
-                                    Показать все
-                                </a>
-                            </div>
+<!--                            <div class="actions__wrap fadeIn animated active d-flex">-->
+<!--                                <a href="#" class="btn__border d-flex align-items-center toggle__instr-js">-->
+<!--                                    Показать все-->
+<!--                                </a>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
