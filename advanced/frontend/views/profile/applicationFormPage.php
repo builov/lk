@@ -20,14 +20,16 @@ $this->title = 'Заявка на обучение';
         cursor: auto;
     }
     .img-uploaded {
-        width: 100px;
-        height: 80px;
+        width: 170px;
+        height: 130px;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         display: inline-block;
         margin-bottom: 1em;
         margin-right: 1em;
+        border: 1px solid rgba(31, 31, 31, 0.2);
+        border-radius: 5px;
     }
     .field-fileform-imagefile .help-block {
         font-size: 14px;
