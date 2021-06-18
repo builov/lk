@@ -154,7 +154,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <?php foreach ($model->passport_files as $file): ?>
                                                     <a target="_blank" href="/uploads/<?= $file['name'] ?>">
                                                         <div class="img-uploaded"
-                                                             style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
+                                                             style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;
+                                                        </div>
+<!--                                                        <div>удалить</div>-->
                                                     </a>
                                                 <?php endforeach;?>
                                             <?php endif; ?>
