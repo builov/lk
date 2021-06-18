@@ -323,6 +323,11 @@ $(document).ready(function(){
                         box.find('.ac__list').html('');
                         $.each(results, function (key, val){
                             switch(mode){
+                                case 2:
+                                    var res_name = val.fullName;
+                                    res_name = res_name.replace("Московская Область, ", "");
+                                    box.find('.ac__list').append('<div class="ac__item" data-value="' + res_name + '" data-zip="' + val.zip + '" data-id="' + val.id + '">' + res_name + '</div>');
+                                    break;
                                 case 3:
                                     var res_name = '';
                                     $.each(val.parents, function (par_ind, par_item){
@@ -360,7 +365,7 @@ $(document).ready(function(){
         var box = $(this).closest('.form__field').find('.ac__box');
         input.val($(this).attr('data-value'));
         field.find('.field-fias-id input').val($(this).attr('data-id'));
-        var group = $(this).closest('.form__group');
+        var group = $(this).closest('.form__item');
         group.find('.zip-field input').val($(this).attr('data-zip'));
         box.removeClass('active');
         e.preventDefault();
@@ -418,7 +423,7 @@ $(document).ready(function(){
     //     $('.dz-field').each(function (){
     //        let _this = $(this);
     //        new Dropzone('#' + _this.attr('id'), {
-    //             url: '/profile/upload-file',
+    //             url: '/action',
     //             maxFiles: 10,
     //             uploadMultiple: true,
     //             thumbnailWidth: 170,
@@ -578,7 +583,7 @@ function validateField(field){
     var form = input.closest('form');
     var error = input.closest('.form__field').find('.error__message');
 
-    if(input.closest('.ct__box-profile')){
+    if(item.parent('.ct__box-profile').length > 0){
         form = input.closest('.toggle__box');
     }
 
@@ -613,14 +618,20 @@ function validateField(field){
             case 'd-birthday':
                 var date_parts = val.match(/(\d{2}).(\d{2}).(\d{4})/);
                 var year_max = new Date().getFullYear();
-                if(calculateAge(new Date(date_parts[2] + '/' + date_parts[1] + '/' + date_parts[3])) <= 14){
-                    item.addClass('has-error');
-                    error.text('Ваш возраст должен быть мин. 14 лет');
-                }
-                if(year_max < parseInt(date_parts[3])){
+                if(date_parts !== null){
+                    if(calculateAge(new Date(date_parts[2] + '/' + date_parts[1] + '/' + date_parts[3])) <= 14){
+                        item.addClass('has-error');
+                        error.text('Ваш возраст должен быть мин. 14 лет');
+                    }
+                    if(year_max < parseInt(date_parts[3])){
+                        item.addClass('has-error');
+                        error.text('Введите корректную дату рождения');
+                    }
+                }else{
                     item.addClass('has-error');
                     error.text('Введите корректную дату рождения');
                 }
+
                 break;
             case 'd-snils':
                 var snils = val.replace(/-/g, '');
@@ -695,10 +706,16 @@ function validateField(field){
                 var date_parts = val.match(/(\d{2}).(\d{2}).(\d{4})/);
                 var year_max = new Date().getFullYear();
                 var year_min = 1930;
-                if(year_max < parseInt(date_parts[3]) || parseInt(date_parts[3]) < year_min){
+                if(date_parts !== null){
+                    if(year_max < parseInt(date_parts[3]) || parseInt(date_parts[3]) < year_min){
+                        item.addClass('has-error');
+                        error.text('Введите корректную дату');
+                    }
+                }else{
                     item.addClass('has-error');
                     error.text('Введите корректную дату');
                 }
+
                 break;
             case 'd-phone':
                 var phone = val.replace('(', '');
