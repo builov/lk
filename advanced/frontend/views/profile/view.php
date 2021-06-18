@@ -20,14 +20,16 @@ $this->params['breadcrumbs'][] = $this->title;
         margin-bottom:0;
     }
     .img-uploaded {
-        width: 100px;
-        height: 80px;
+        width: 170px;
+        height: 130px;
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
         display: inline-block;
         margin-bottom: 1em;
         margin-right: 1em;
+        border: 1px solid rgba(31, 31, 31, 0.2);
+        border-radius: 5px;
     }
     .field-fileform-imagefile .help-block {
         font-size: 14px;
@@ -901,190 +903,196 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </div>
 </div>
-<div class="section sc__instruction">
-    <div class="container">
-        <a href="#" class="close__box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.29289 4.29289C4.68342 3.90237 5.31658 3.90237 5.70711 4.29289L12 10.5858L18.2929 4.29289C18.6834 3.90237 19.3166 3.90237 19.7071 4.29289C20.0976 4.68342 20.0976 5.31658 19.7071 5.70711L13.4142 12L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L12 13.4142L5.70711 19.7071C5.31658 20.0976 4.68342 20.0976 4.29289 19.7071C3.90237 19.3166 3.90237 18.6834 4.29289 18.2929L10.5858 12L4.29289 5.70711C3.90237 5.31658 3.90237 4.68342 4.29289 4.29289Z" fill="#1F1F1F"/>
-            </svg>
-        </a>
-        <div data-parent="instruction" class="sc__box-header toggle__mb-content">
-            <div class="sc__box-title seo__item">
-                Инструкция
-            </div>
-        </div>
-        <div id="instruction" class="mb-content">
-            <div class="mb-content-box">
-                <div class="sc__box-bl">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                            <div class="text">
-                                По работе в Личном кабинете слушателя с использованием Системы электронной регистрации на обучение по ДПО, ПО, ЕМИАС в Государственном бюджетном профессиональном образовательном учреждении Департамента здравоохранения города Москвы «Медицинский колледж No 7»
-                            </div>
+
+
+
+
+
+
+<!--<div class="section sc__instruction">-->
+<!--    <div class="container">-->
+<!--        <a href="#" class="close__box">-->
+<!--            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                <path fill-rule="evenodd" clip-rule="evenodd" d="M4.29289 4.29289C4.68342 3.90237 5.31658 3.90237 5.70711 4.29289L12 10.5858L18.2929 4.29289C18.6834 3.90237 19.3166 3.90237 19.7071 4.29289C20.0976 4.68342 20.0976 5.31658 19.7071 5.70711L13.4142 12L19.7071 18.2929C20.0976 18.6834 20.0976 19.3166 19.7071 19.7071C19.3166 20.0976 18.6834 20.0976 18.2929 19.7071L12 13.4142L5.70711 19.7071C5.31658 20.0976 4.68342 20.0976 4.29289 19.7071C3.90237 19.3166 3.90237 18.6834 4.29289 18.2929L10.5858 12L4.29289 5.70711C3.90237 5.31658 3.90237 4.68342 4.29289 4.29289Z" fill="#1F1F1F"/>-->
+<!--            </svg>-->
+<!--        </a>-->
+<!--        <div data-parent="instruction" class="sc__box-header toggle__mb-content">-->
+<!--            <div class="sc__box-title seo__item">-->
+<!--                Инструкция-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div id="instruction" class="mb-content">-->
+<!--            <div class="mb-content-box">-->
+<!--                <div class="sc__box-bl">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">-->
+<!--                            <div class="text">-->
+<!--                                По работе в Личном кабинете слушателя с использованием Системы электронной регистрации на обучение по ДПО, ПО, ЕМИАС в Государственном бюджетном профессиональном образовательном учреждении Департамента здравоохранения города Москвы «Медицинский колледж No 7»-->
+<!--                            </div>-->
 <!--                            <div class="actions__wrap fadeIn animated active d-flex">-->
 <!--                                <a href="#" class="btn__border d-flex align-items-center toggle__instr-js">-->
 <!--                                    Показать все-->
 <!--                                </a>-->
 <!--                            </div>-->
-                        </div>
-                    </div>
-                </div>
-                <div class="sc__box-bl fadeIn animated">
-                    <div class="sc__box-header">
-                        <div class="custom-text">
-                            <h3>Блоки в личном кабинете</h3>
-                        </div>
-                    </div>
-                    <div class="icon__ct-list">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 icon__ct-item">
-                                <div class="icon__ct-item-bl d-flex">
-                                    <div class="icon__ct-item-img d-flex align-items-center justify-content-center">
-                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M22 20C18.7 20 16 17.3 16 14V11C16 7.7 18.7 5 22 5C25.3 5 28 7.7 28 11V14C28 17.3 25.3 20 22 20Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M32 39H12C10.9 39 10 38.1 10 37V34C10 28.5 14.5 24 20 24H24C29.5 24 34 28.5 34 34V37C34 38.1 33.1 39 32 39Z" fill="#B4E3F9" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    <div class="icon__ct-item-content">
-                                        <div class="icon__ct-item-title">
-                                            Профиль
-                                        </div>
-                                        <div class="icon__ct-item-text">
-                                            заполнение и редактирование профиля
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 icon__ct-item">
-                                <div class="icon__ct-item-bl d-flex">
-                                    <div class="icon__ct-item-img d-flex align-items-center justify-content-center">
-                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 39H32C33.1 39 34 38.1 34 37V13H29C27.9 13 27 12.1 27 11V5H12C10.9 5 10 5.9 10 7V37C10 38.1 10.9 39 12 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M34 13L27 5" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M21 9H14V14H21V9Z" fill="#B4E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M14 19H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M14 23H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M14 27H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M14 31H22" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </div>
-                                    <div class="icon__ct-item-content">
-                                        <div class="icon__ct-item-title">
-                                            Заявки
-                                        </div>
-                                        <div class="icon__ct-item-text">
-                                            добавление новой или просмотр поданной заявки на обучение
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 icon__ct-item">
-                                <div class="icon__ct-item-bl d-flex">
-                                    <div class="icon__ct-item-img d-flex align-items-center justify-content-center">
-                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M22 7L5 14L22 21L39 14L22 7Z" fill="#B5E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M34 17V24H33.9C26.5 28.3 17.3 28.3 10 24V17" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M37 15V30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
-                                            <path d="M37 29C38.1 29 39 29.9 39 31C39 32.1 38.1 33 37 33C35.9 33 35 32.1 35 31C35 29.9 35.9 29 37 29Z" fill="#145797"/>
-                                            <path d="M37.0001 37C35.5001 37 34.4001 35.6 34.9001 34.2L35.8001 31.1H38.2001L39.1001 34.2C39.6001 35.6 38.5001 37 37.0001 37Z" fill="#145797"/>
-                                        </svg>
-                                    </div>
-                                    <div class="icon__ct-item-content">
-                                        <div class="icon__ct-item-title">
-                                            Обучение
-                                        </div>
-                                        <div class="icon__ct-item-text">
-                                            Доступ на Образовательный портал
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="sc__box-bl fadeIn animated">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                            <div class="custom-text">
-                                <h3>Возможности слушателя</h3>
-                                <small>
-                                    При работе в Системе электронной регистрации на обучение по ДПО, ПО, ЕМИАС в Государственном бюджетном профессиональном образовательном учреждении Департамента здравоохранения города Москвы «Медицинский колледж № 7» (далее – Система ЭР):
-                                </small>
-                                <ul>
-                                    <li>
-                                        Регистрация на платное обучение или обучение за счет бюджетных средств Правительства Москвы (по путевкам);
-                                    </li>
-                                    <li>
-                                        Однократное создание личного кабинета с возможностью повторного прохождения регистрации в другие группы обучения;
-                                    </li>
-                                    <li>
-                                        Электронный документооборот с сектором комплектования групп;
-                                    </li>
-                                    <li>
-                                        Получение сведений (логин и пароль) для доступа на Образовательный портал ГБПОУ ДЗМ «МК № 7»;
-                                    </li>
-                                    <li>
-                                        Просмотр сведений о расписании начала занятий, информации о готовности документов и иной информации отдела обеспечения образовательного процесса ДПО, ДО и ПО.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="sc__box-bl fadeIn animated">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-                            <div class="custom-content-section">
-                                <div class="custom-text">
-                                    <h3>Алгоритм работы в Системе ЭР</h3>
-                                    <ul>
-                                        <li>
-                                            Заполнить или проверить правильность данных, указанных в профиле (фамилия, имя, отчество, иные данные) в разделе «Профиль».
-                                        </li>
-                                        <li>
-                                            Изучить требования к предоставлению информации в Системе ЭР.
-                                        </li>
-                                        <li>
-                                            В блоке «Заявки» - ввести номер группы и дату начала обучения, на которое производится регистрация.
-                                        </li>
-                                        <li>
-                                            Добавить фотографии документов, нажать на кнопку «Отправить». Статус должен измениться на «Заявка отправлена». Если статус «Заявка формируется» - проверить соответствие документов требованиям Системы, подгрузить требуемые документы в отдельных файлах в формате JPEG (объём файла не более 5 МБ).
-                                        </li>
-                                        <li>
-                                            Если специалист в настоящее время проверяет ваши документы, то ваша заявка будет иметь статус «Заявка у оператора».
-                                        </li>
-                                        <li>
-                                            Когда специалист отдела проверит документы, может отправить вам информацию о добавлении дополнительных документов. Информация придет на вашу электронную почту и отобразится в личном кабинете (статус – «Дополнить документы»). После добавления нужного документа нажмите «Отправить», статус заявки измениться на «Заявка отправлена».
-                                        </li>
-                                        <li>
-                                            Если документация соответствует требованиям, специалист вас зарегистрирует в Системе и отправит вам для подписи в электронном виде карточку слушателя. Вам придет на почту сообщение, а в Личном кабинете статус заявки изменится на «Требуется подписать карточку», ее необходимо «подписать» в окне Личного кабинета.
-                                        </li>
-                                        <li>
-                                            После подписания карточки в разделе «Обучение» вам придет логин и пароль для входа на Образовательный портал, а сама заявка на обучение станет неактивным полем в окне «Заявки» и будет иметь статус «Зарегистрирован», что говорит об успешной регистрации на обучение.
-                                        </li>
-                                        <li>
-                                            В случае отказа в зачислении вам придет уведомление на почту, а в Личном кабинете статус заявки изменится на «Отказано в регистрации».
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="custom-content-section">
-                                <div class="custom-text">
-                                    <p>
-                                        Информационная поддержка слушателей: <br>
-                                        qdpo@medcollege7.ru <br>
-                                        +7 (495) 339-47-88
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="sc__box-bl fadeIn animated">-->
+<!--                    <div class="sc__box-header">-->
+<!--                        <div class="custom-text">-->
+<!--                            <h3>Блоки в личном кабинете</h3>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="icon__ct-list">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 icon__ct-item">-->
+<!--                                <div class="icon__ct-item-bl d-flex">-->
+<!--                                    <div class="icon__ct-item-img d-flex align-items-center justify-content-center">-->
+<!--                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                            <path d="M22 20C18.7 20 16 17.3 16 14V11C16 7.7 18.7 5 22 5C25.3 5 28 7.7 28 11V14C28 17.3 25.3 20 22 20Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M32 39H12C10.9 39 10 38.1 10 37V34C10 28.5 14.5 24 20 24H24C29.5 24 34 28.5 34 34V37C34 38.1 33.1 39 32 39Z" fill="#B4E3F9" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <div class="icon__ct-item-content">-->
+<!--                                        <div class="icon__ct-item-title">-->
+<!--                                            Профиль-->
+<!--                                        </div>-->
+<!--                                        <div class="icon__ct-item-text">-->
+<!--                                            заполнение и редактирование профиля-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 icon__ct-item">-->
+<!--                                <div class="icon__ct-item-bl d-flex">-->
+<!--                                    <div class="icon__ct-item-img d-flex align-items-center justify-content-center">-->
+<!--                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                            <path d="M12 39H32C33.1 39 34 38.1 34 37V13H29C27.9 13 27 12.1 27 11V5H12C10.9 5 10 5.9 10 7V37C10 38.1 10.9 39 12 39Z" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M34 13L27 5" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M21 9H14V14H21V9Z" fill="#B4E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M14 19H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M14 23H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M14 27H30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M14 31H22" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <div class="icon__ct-item-content">-->
+<!--                                        <div class="icon__ct-item-title">-->
+<!--                                            Заявки-->
+<!--                                        </div>-->
+<!--                                        <div class="icon__ct-item-text">-->
+<!--                                            добавление новой или просмотр поданной заявки на обучение-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 icon__ct-item">-->
+<!--                                <div class="icon__ct-item-bl d-flex">-->
+<!--                                    <div class="icon__ct-item-img d-flex align-items-center justify-content-center">-->
+<!--                                        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                            <path d="M22 7L5 14L22 21L39 14L22 7Z" fill="#B5E3FA" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M34 17V24H33.9C26.5 28.3 17.3 28.3 10 24V17" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M37 15V30" stroke="#145797" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>-->
+<!--                                            <path d="M37 29C38.1 29 39 29.9 39 31C39 32.1 38.1 33 37 33C35.9 33 35 32.1 35 31C35 29.9 35.9 29 37 29Z" fill="#145797"/>-->
+<!--                                            <path d="M37.0001 37C35.5001 37 34.4001 35.6 34.9001 34.2L35.8001 31.1H38.2001L39.1001 34.2C39.6001 35.6 38.5001 37 37.0001 37Z" fill="#145797"/>-->
+<!--                                        </svg>-->
+<!--                                    </div>-->
+<!--                                    <div class="icon__ct-item-content">-->
+<!--                                        <div class="icon__ct-item-title">-->
+<!--                                            Обучение-->
+<!--                                        </div>-->
+<!--                                        <div class="icon__ct-item-text">-->
+<!--                                            Доступ на Образовательный портал-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="sc__box-bl fadeIn animated">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">-->
+<!--                            <div class="custom-text">-->
+<!--                                <h3>Возможности слушателя</h3>-->
+<!--                                <small>-->
+<!--                                    При работе в Системе электронной регистрации на обучение по ДПО, ПО, ЕМИАС в Государственном бюджетном профессиональном образовательном учреждении Департамента здравоохранения города Москвы «Медицинский колледж № 7» (далее – Система ЭР):-->
+<!--                                </small>-->
+<!--                                <ul>-->
+<!--                                    <li>-->
+<!--                                        Регистрация на платное обучение или обучение за счет бюджетных средств Правительства Москвы (по путевкам);-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        Однократное создание личного кабинета с возможностью повторного прохождения регистрации в другие группы обучения;-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        Электронный документооборот с сектором комплектования групп;-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        Получение сведений (логин и пароль) для доступа на Образовательный портал ГБПОУ ДЗМ «МК № 7»;-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        Просмотр сведений о расписании начала занятий, информации о готовности документов и иной информации отдела обеспечения образовательного процесса ДПО, ДО и ПО.-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!---->
+<!--                </div>-->
+<!--                <div class="sc__box-bl fadeIn animated">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">-->
+<!--                            <div class="custom-content-section">-->
+<!--                                <div class="custom-text">-->
+<!--                                    <h3>Алгоритм работы в Системе ЭР</h3>-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            Заполнить или проверить правильность данных, указанных в профиле (фамилия, имя, отчество, иные данные) в разделе «Профиль».-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            Изучить требования к предоставлению информации в Системе ЭР.-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            В блоке «Заявки» - ввести номер группы и дату начала обучения, на которое производится регистрация.-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            Добавить фотографии документов, нажать на кнопку «Отправить». Статус должен измениться на «Заявка отправлена». Если статус «Заявка формируется» - проверить соответствие документов требованиям Системы, подгрузить требуемые документы в отдельных файлах в формате JPEG (объём файла не более 5 МБ).-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            Если специалист в настоящее время проверяет ваши документы, то ваша заявка будет иметь статус «Заявка у оператора».-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            Когда специалист отдела проверит документы, может отправить вам информацию о добавлении дополнительных документов. Информация придет на вашу электронную почту и отобразится в личном кабинете (статус – «Дополнить документы»). После добавления нужного документа нажмите «Отправить», статус заявки измениться на «Заявка отправлена».-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            Если документация соответствует требованиям, специалист вас зарегистрирует в Системе и отправит вам для подписи в электронном виде карточку слушателя. Вам придет на почту сообщение, а в Личном кабинете статус заявки изменится на «Требуется подписать карточку», ее необходимо «подписать» в окне Личного кабинета.-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            После подписания карточки в разделе «Обучение» вам придет логин и пароль для входа на Образовательный портал, а сама заявка на обучение станет неактивным полем в окне «Заявки» и будет иметь статус «Зарегистрирован», что говорит об успешной регистрации на обучение.-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            В случае отказа в зачислении вам придет уведомление на почту, а в Личном кабинете статус заявки изменится на «Отказано в регистрации».-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="custom-content-section">-->
+<!--                                <div class="custom-text">-->
+<!--                                    <p>-->
+<!--                                        Информационная поддержка слушателей: <br>-->
+<!--                                        qdpo@medcollege7.ru <br>-->
+<!--                                        +7 (495) 339-47-88-->
+<!--                                    </p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 
