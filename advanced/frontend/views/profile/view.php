@@ -13,11 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <style>
-    .message-area + .sc__box-header {
-        margin-top: 50px;
-    }
-    p.help-block.help-block-error {
-        display: none;
+    /*.message-area + .sc__box-header {*/
+    /*    margin-top: 50px;*/
+    /*}*/
+    #profile p.help-block.help-block-error {
+        margin-bottom:0;
     }
     .img-uploaded {
         width: 100px;
@@ -26,6 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         background-position: center center;
         background-repeat: no-repeat;
         display: inline-block;
+        margin-bottom: 1em;
+        margin-right: 1em;
+    }
+    .field-fileform-imagefile .help-block {
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(31, 31, 31, 0.6);
+        margin-top: 1em;
     }
 </style>
 
@@ -45,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     Сообщения
                                 </div>
                             </div>
-                            <div class="ct__box">
+                            <div class="ct__box" style="margin-bottom: 2.5em;">
                                 <ul>
                                     <?php foreach ($messages as $message): ?>
                                         <li>

@@ -52,11 +52,24 @@ class ProfileController extends Controller
     }
 
     /**
-     * Удаление сканов документов текущего пользователя
+     * Удаление сканов документов текущего пользователя (.pdf)
      * @param $type: 'passport', 'education', 'achievements'
      * @return \yii\web\Response
      */
     public function actionDeleteScan($type)
+    {
+        $scan = new DocumentScan(['doctype' => $type, 'uid' => Yii::$app->user->id]);
+//        print_r($scan->doctype);
+        $scan->delete();
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+
+    /**
+     * Удаление файлов текущего пользователя (img)
+     * @return \yii\web\Response
+     */
+    public function actionDeleteFile($type)
     {
         $scan = new DocumentScan(['doctype' => $type, 'uid' => Yii::$app->user->id]);
 //        print_r($scan->doctype);
