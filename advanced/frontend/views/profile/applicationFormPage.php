@@ -26,6 +26,14 @@ $this->title = 'Заявка на обучение';
         background-position: center center;
         background-repeat: no-repeat;
         display: inline-block;
+        margin-bottom: 1em;
+        margin-right: 1em;
+    }
+    .field-fileform-imagefile .help-block {
+        font-size: 14px;
+        line-height: 20px;
+        color: rgba(31, 31, 31, 0.6);
+        margin-top: 1em;
     }
     ._breadcrumbs {
         margin-bottom:1.5em;
