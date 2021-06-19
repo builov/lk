@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
         margin-top: 1em;
     }
     .xhr-message {
-        color:red;
+        color:#F44336;
     }
     /*.dz-remove {*/
     /*    font-size: 12px;*/
@@ -83,6 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </div>
                             </div>
                             <div class="ct__box" style="margin-bottom: 2.5em;">
+                                <div class="custom-text text">
                                 <ul>
                                     <?php foreach ($messages as $message): ?>
                                         <li>
@@ -93,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
+                                </div>
                             </div>
                         <?php endif; ?>
                         <?php Pjax::end(); ?>
@@ -168,7 +170,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                     <div class="form__group form__group-files">
 
-<!--                                        --><?php //Pjax::begin(); ?>
+                                        <?php Pjax::begin(); ?>
                                         <?php $form2 = ActiveForm::begin([
                                             'id' => 'upload-form-passport',
                                             'action' => '/profile/upload-file',
@@ -193,11 +195,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </div>
 
                                         <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
-                                            ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+                                            ->hint('Принимаются файлы в формате .jpg и .png размером не более 6000x6000 px.') ?>
 
                                         <div class="xhr-message"></div>
                                         <?php ActiveForm::end() ?>
-<!--                                        --><?php //Pjax::end(); ?>
+                                        <?php Pjax::end(); ?>
 
                                     </div>
 
@@ -221,7 +223,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?= $application->program->name ?>
                                         </div>
                                         <div class="status__wrap d-flex">
-                                            <div class="status status-color-<?= $application->status ?>">
+                                            <div class="status status-color-<?= Application::COLORS[$application->status] ?>">
                                                 <?= Application::STATUSES[$application->status] ?>
                                             </div>
                                         </div>
@@ -233,11 +235,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="orders__item-info-title">
                                                     Комментарий:
                                                 </div>
-                                                <div class="orders__item-info-text">
+                                                <div class="custom-text text">
                                                     <ul>
                                                         <?php foreach($application->getDeclineMessages() as $message): ?>
-                                                            <li><?= $message->template->summary ?> (<?= date('d.m.Y', $message->created) ?>)</li>
+                                                            <li style="margin-bottom:.5em;"><?= $message->template->summary ?> (<?= date('d.m.Y', $message->created) ?>)</li>
                                                         <?php endforeach; ?>
+                                                        <div>&nbsp;</div>
                                                     </ul>
                                                 </div>
                                                 <div class="orders__item-link">

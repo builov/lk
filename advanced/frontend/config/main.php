@@ -48,7 +48,7 @@ return [
                 'user/<id:\d+>/messages' => 'transmit/user-messages',
                 'message/<id:\d+>/dont-show' => 'profile/dont-show-message',
                 'application/<id:\d+>' => 'application/index',
-                'delete-scan/<type>' => 'profile/delete-scan',
+//                'delete-scan/<type>' => 'profile/delete-scan',
                 'site/request-password-reset/<mode>' => 'site/request-password-reset',
                 'delete-file/<id:\d+>' => 'profile/delete-file'
             ],

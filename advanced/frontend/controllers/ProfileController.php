@@ -121,9 +121,11 @@ class ProfileController extends Controller
             }
         }
 
-        return $this->render('editForm', [
-            'model' => $model,
-        ]);
+        return $this->redirect(['/profile']);
+
+//        return $this->render('editForm', [
+//            'model' => $model,
+//        ]);
 
     }
 

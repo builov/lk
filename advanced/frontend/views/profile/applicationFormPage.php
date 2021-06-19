@@ -19,6 +19,9 @@ $this->title = 'Заявка на обучение';
     .form__group-dz { /* reset */
         cursor: auto;
     }
+    .image-container {
+        padding-bottom: 1em;
+    }
     .img-uploaded {
         width: 170px;
         height: 130px;
@@ -30,6 +33,19 @@ $this->title = 'Заявка на обучение';
         margin-right: 1em;
         border: 1px solid rgba(31, 31, 31, 0.2);
         border-radius: 5px;
+        position:relative;
+    }
+    .img-uploaded a.delete-file {
+        position:absolute;
+        right:0;
+        bottom:-1.5em;
+        /*font-size:80%;*/
+
+        font-size: 12px;
+        line-height: 16px;
+        cursor: pointer;
+        text-align: right;
+        color: #F44336;
     }
     .field-fileform-imagefile .help-block {
         font-size: 14px;
@@ -37,9 +53,18 @@ $this->title = 'Заявка на обучение';
         color: rgba(31, 31, 31, 0.6);
         margin-top: 1em;
     }
+    .xhr-message {
+        color:#F44336;
+    }
     ._breadcrumbs {
         margin-bottom:1.5em;
     }
+    /*#education ul {*/
+    /*    list-style-type:none;*/
+    /*}*/
+    /*#education ul li {*/
+    /*    margin-bottom:.8em;*/
+    /*}*/
 </style>
 
 
@@ -163,16 +188,19 @@ $this->title = 'Заявка на обучение';
                                                         <div class="image-container">
                                                             <?php if (is_array($model->passport_files)): ?>
                                                                 <?php foreach ($model->passport_files as $file): ?>
-                                                                    <a target="_blank" href="/uploads/<?= $file['name'] ?>">
-                                                                        <div class="img-uploaded"
-                                                                             style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;</div>
-                                                                    </a>
+<!--                                                            <a target="_blank" href="/uploads/--><?//= $file['name'] ?><!--">-->
+                                                                    <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;
+                                                                        <a class="delete-file" href="/delete-file/<?= $file['id'] ?>">
+                                                                            удалить
+                                                                        </a>
+                                                                    </div>
+<!--                                                            </a>-->
                                                                 <?php endforeach;?>
                                                             <?php endif; ?>
                                                         </div>
 
                                                         <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
-                                                            ->hint('Только файлы в формате .jpg размером не более 5000x5000 px.') ?>
+                                                            ->hint('Принимаются файлы в формате .jpg и .png размером не более 6000x6000 px.') ?>
 
                                                         <div class="xhr-message"></div>
                                                     <?php ActiveForm::end() ?>
@@ -216,20 +244,22 @@ $this->title = 'Заявка на обучение';
                             </div>
                         </div>
                         <div id="education" class="ct__box ct__box-card mb-content">
-                            <div class="text">
+                            <div class="custom-text text">
 
                                 <ul>
                                     <?php foreach($sent_applications[0] as $prog_id => $program): ?>
-                                        <li><?= $program[0] ?> (<span class="status<?= $program[1] ?>"><?= \common\models\Application::STATUSES[$program[1]] ?></span>)</li>
+                                        <li>
+                                            <?= $program[0] ?>
+                                            <div style="display: inline;" class="status status-color-<?= Application::COLORS[$program[1]] ?>">
+                                                <?= \common\models\Application::STATUSES[$program[1]] ?>
+                                            </div>
+                                        </li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
                         </div>
 
                     <?php endif; ?>
-
-
-
 
 
 
