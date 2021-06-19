@@ -472,12 +472,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                 </div>
                                             </div>
-                                            <div class="form__item form__item-horizontal">
-                                                <div class="form__item-label hidden-sm-down"></div>
-                                                <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
-                                                    Сохранить
-                                                </button>
-                                            </div>
+                                            <?php if ($editable): ?>
+                                                <div class="form__item form__item-horizontal">
+                                                    <div class="form__item-label hidden-sm-down"></div>
+                                                    <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
+                                                        Сохранить
+                                                    </button>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -560,12 +562,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form__item form__item-horizontal">
-                                                <div class="form__item-label hidden-sm-down"></div>
-                                                <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
-                                                    Сохранить
-                                                </button>
-                                            </div>
+                                            <?php if ($editable): ?>
+                                                <div class="form__item form__item-horizontal">
+                                                    <div class="form__item-label hidden-sm-down"></div>
+                                                    <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
+                                                        Сохранить
+                                                    </button>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -652,12 +656,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <div class="error__message fadeIn animated"></div>
                                                 </div>
                                             </div>
-                                            <div class="form__item form__item-horizontal">
-                                                <div class="form__item-label hidden-sm-down"></div>
-                                                <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
-                                                    Сохранить
-                                                </button>
-                                            </div>
+                                            <?php if ($editable): ?>
+                                                <div class="form__item form__item-horizontal">
+                                                    <div class="form__item-label hidden-sm-down"></div>
+                                                    <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
+                                                        Сохранить
+                                                    </button>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -727,12 +733,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
                                             </div>
 
-                                            <div class="form__item form__item-horizontal">
-                                                <div class="form__item-label hidden-sm-down"></div>
-                                                <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
-                                                    Сохранить
-                                                </button>
-                                            </div>
+                                            <?php if ($editable): ?>
+                                                <div class="form__item form__item-horizontal">
+                                                    <div class="form__item-label hidden-sm-down"></div>
+                                                    <button type="submit" class="btn__custom d-flex align-items-center justify-content-center">
+                                                        Сохранить
+                                                    </button>
+                                                </div>
+                                            <?php endif; ?>
+
                                         </div>
 
                                     </div>

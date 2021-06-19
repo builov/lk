@@ -190,9 +190,11 @@ $this->title = 'Заявка на обучение';
                                                                 <?php foreach ($model->passport_files as $file): ?>
 <!--                                                            <a target="_blank" href="/uploads/--><?//= $file['name'] ?><!--">-->
                                                                     <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;
-                                                                        <a class="delete-file" href="/delete-file/<?= $file['id'] ?>">
-                                                                            удалить
-                                                                        </a>
+                                                                        <?php if ($editable): ?>
+                                                                            <a class="delete-file" href="/delete-file/<?= $file['id'] ?>">
+                                                                                удалить
+                                                                            </a>
+                                                                        <?php endif; ?>
                                                                     </div>
 <!--                                                            </a>-->
                                                                 <?php endforeach;?>

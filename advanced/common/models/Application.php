@@ -33,7 +33,7 @@ class Application extends \yii\db\ActiveRecord
     ];
     const COLORS = [
         '1' => '1',
-        '2' => '2',
+        '2' => '3',
         '3' => '4',
         '4' => '6',
         '5' => '7'
