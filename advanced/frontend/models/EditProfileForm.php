@@ -154,9 +154,9 @@ class EditProfileForm extends Model
         $profile = Profile::find()->where(['uid' => Yii::$app->user->id])->one();
 
 
-        $profile->lastname = $this->lastname;
-        $profile->firstname = $this->firstname;
-        $profile->patronim = $this->patronim;
+        $profile->lastname = mb_convert_case($this->lastname, MB_CASE_TITLE, "UTF-8");
+        $profile->firstname = mb_convert_case($this->firstname, MB_CASE_TITLE, "UTF-8");
+        $profile->patronim = mb_convert_case($this->patronim, MB_CASE_TITLE, "UTF-8");
         $profile->birthdate = implode("-", array_reverse(explode( Profile::_DATE_DIVIDER, $this->birthdate)));
         $profile->snils = $this->snils;
         $profile->gender = (int) $this->gender;
