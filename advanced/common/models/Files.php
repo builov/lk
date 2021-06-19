@@ -76,4 +76,28 @@ class Files extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'uid']);
     }
+
+    public function deleteFile()
+    {
+        $upload_dir = Yii::$app->params['uploadDir'] . DIRECTORY_SEPARATOR;
+        $deleted_dir = $upload_dir . 'deleted' . DIRECTORY_SEPARATOR;
+
+//        echo $upload_dir;
+//        echo $deleted_dir;
+//        exit;
+
+        if ($this->delete())
+        {
+            try {
+                rename($upload_dir . $this->name, $deleted_dir . $this->name);
+            }
+            catch (\ErrorException $e) {
+                Yii::$app->session->setFlash('error', 'Ошибка выполнения rename()');
+                return false;
+            }
+
+            return true;
+        }
+        return false;
+    }
 }

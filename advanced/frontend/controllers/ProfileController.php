@@ -69,11 +69,12 @@ class ProfileController extends Controller
      * Удаление файлов текущего пользователя (img)
      * @return \yii\web\Response
      */
-    public function actionDeleteFile($type)
+    public function actionDeleteFile($id)
     {
-        $scan = new DocumentScan(['doctype' => $type, 'uid' => Yii::$app->user->id]);
-//        print_r($scan->doctype);
-        $scan->delete();
+        //todo проверка разрешения на редактирование профиля
+
+        $user = User::find()->where(['id' => Yii::$app->user->id])->one();
+        $user->deleteFile((int) $id);
         return $this->redirect(Yii::$app->request->referrer);
     }
 
@@ -81,7 +82,6 @@ class ProfileController extends Controller
     public function actionEdit()
     {
 //        $this->layout = 'new2';
-
 
 //        $uid = Yii::$app->user->id;
 //        $user = User::find($uid)->one();
@@ -148,7 +148,7 @@ class ProfileController extends Controller
         if (Yii::$app->request->isPost)
         {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            $model->doctype = Yii::$app->request->post()['FileForm']['doctype'];
+            $model->doctype = Yii::$app->request->post()['FileForm']['doctype']; //doctype был нужен, были отдельно сканы паспорта, док. об образовании и т.д., сейчас не используется
 
             if ($model->upload())
             {
@@ -165,7 +165,12 @@ class ProfileController extends Controller
                 $file->doctype = $model->doctype;
                 $file->save();
 
-                return "<div class=\"img-uploaded\" style=\"background-image: url('/uploads/" . $model->uploadedFile['name'] . "')\" >&nbsp;</div>";            }
+//                return "<div class=\"img-uploaded\" style=\"background-image: url('/uploads/" . $model->uploadedFile['name'] . "')\" >&nbsp;</div>";
+
+                return "<div class=\"img-uploaded\" style=\"background-image: url('/uploads/" . $file->name . "')\" >&nbsp;
+                            <a class=\"delete-file\" href=\"/delete-file/" . $file->id . "\">удалить</a>
+                        </div>";
+            }
             else {
                 Yii::$app->response->setStatusCode(415);
                 return false;

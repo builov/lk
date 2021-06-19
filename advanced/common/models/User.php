@@ -231,6 +231,19 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Application::className(), ['uid' => 'id']);
     }
 
+    public function deleteFile($id)
+    {
+//        print_r($this->files);
+
+        foreach ($this->files as $file)
+        {
+            if ($file->id == $id) $file->deleteFile();
+        }
+//        $file->delete();
+    }
+
+
+
 //    /**
 //     * @return array of id => name
 //     */

@@ -19,6 +19,9 @@ $this->params['breadcrumbs'][] = $this->title;
     #profile p.help-block.help-block-error {
         margin-bottom:0;
     }
+    .image-container {
+        padding-bottom: 1em;
+    }
     .img-uploaded {
         width: 170px;
         height: 130px;
@@ -30,6 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
         margin-right: 1em;
         border: 1px solid rgba(31, 31, 31, 0.2);
         border-radius: 5px;
+        position:relative;
+    }
+    .img-uploaded a.delete-file {
+        position:absolute;
+        right:0;
+        bottom:-1.5em;
+        /*font-size:80%;*/
+
+        font-size: 12px;
+        line-height: 16px;
+        cursor: pointer;
+        text-align: right;
+        color: #F44336;
     }
     .field-fileform-imagefile .help-block {
         font-size: 14px;
@@ -37,6 +53,17 @@ $this->params['breadcrumbs'][] = $this->title;
         color: rgba(31, 31, 31, 0.6);
         margin-top: 1em;
     }
+    .xhr-message {
+        color:red;
+    }
+    /*.dz-remove {*/
+    /*    font-size: 12px;*/
+    /*    line-height: 16px;*/
+    /*    cursor: pointer;*/
+    /*    text-align: right;*/
+    /*    color: #F44336;*/
+    /*    opacity: 0;*/
+    /*}*/
 </style>
 
 <div class="section sc__lk sc__lk-profile sides">
@@ -141,7 +168,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                     <div class="form__group form__group-files">
 
-                                        <?php Pjax::begin(); ?>
+<!--                                        --><?php //Pjax::begin(); ?>
                                         <?php $form2 = ActiveForm::begin([
                                             'id' => 'upload-form-passport',
                                             'action' => '/profile/upload-file',
@@ -154,12 +181,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="image-container">
                                             <?php if (is_array($model->passport_files)): ?>
                                                 <?php foreach ($model->passport_files as $file): ?>
-                                                    <a target="_blank" href="/uploads/<?= $file['name'] ?>">
-                                                        <div class="img-uploaded"
-                                                             style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;
+<!--                                                    <a target="_blank" href="/uploads/--><?//= $file['name'] ?><!--">-->
+                                                        <div class="img-uploaded" style="background-image: url('/uploads/<?= $file['name'] . '?' . time() ?>')" >&nbsp;
+                                                            <a class="delete-file" href="/delete-file/<?= $file['id'] ?>">
+                                                                удалить
+                                                            </a>
                                                         </div>
-<!--                                                        <div>удалить</div>-->
-                                                    </a>
+<!--                                                    </a>-->
                                                 <?php endforeach;?>
                                             <?php endif; ?>
                                         </div>
@@ -169,7 +197,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <div class="xhr-message"></div>
                                         <?php ActiveForm::end() ?>
-                                        <?php Pjax::end(); ?>
+<!--                                        --><?php //Pjax::end(); ?>
 
                                     </div>
 
