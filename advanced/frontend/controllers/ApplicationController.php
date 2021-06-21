@@ -238,6 +238,8 @@ class ApplicationController extends Controller
 //            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
 //            foreach ($application->user->files as $file) if ($file->mime == 'pdf') $files[] = 'https://lks.medcollege7.ru/uploads/' . $file->name;
 
+            $apps[$key]['user_oms'] = $application->user->profile->oms;
+
 //            //вариант с конвертацией в pdf
 //            $apps[$key]['user_files'] = [
 //                'https://lks.medcollege7.ru/uploads/user'. $application->user->id . '_passport.pdf',
