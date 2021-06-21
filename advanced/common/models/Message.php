@@ -34,6 +34,7 @@ class Message extends \yii\db\ActiveRecord
         '1030' => 'notice_1030',
         '1080.91С' => 'notice_1080_91',
         '1080.4' => 'notice_1080_4',
+        '1080.5' => 'notice_1080_5',
         '1090' => 'notice_1090',
         '1046.1' => 'notice_1046_1',
         '1146.2' => 'notice_1146_2',
