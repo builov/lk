@@ -33,6 +33,7 @@ use Yii;
  * @property int|null $status
  * @property string|null $certificate_series
  * @property string|null $certificate_number
+ * @property string|null $oms
  */
 class Profile extends \yii\db\ActiveRecord
 {
@@ -65,7 +66,7 @@ class Profile extends \yii\db\ActiveRecord
             [['birthdate', 'passport_date'], 'safe'],
             [['gender', 'education_level', 'graduate_year', 'region', 'zip', 'agree', 'created', 'updated', 'status'], 'integer'],
             [['passport_issued', 'address_passport', 'address_current'], 'string'],
-            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_number', 'passport_code', 'phone', 'certificate_series', 'certificate_number'], 'string', 'max' => 255],
+            [['lastname', 'firstname', 'patronim', 'snils', 'institution', 'passport_series', 'passport_number', 'passport_code', 'phone', 'certificate_series', 'certificate_number', 'oms'], 'string', 'max' => 255],
         ];
     }
 
@@ -101,6 +102,7 @@ class Profile extends \yii\db\ActiveRecord
             'status' => 'Status',
             'certificate_series' => 'Certificate Series',
             'certificate_number' => 'Certificate Number',
+            'oms' => 'Полис ОМС',
         ];
     }
 }

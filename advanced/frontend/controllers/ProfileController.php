@@ -354,22 +354,26 @@ class ProfileController extends Controller
 //            }
 //        }
 
-//        print_r($sent_applications[0]);
+//        echo count($sent_applications[1]);
 
 
         $editable = false;
-        $applications_statuses = [];
-        foreach ($sent_applications[0] as $application)
-        {
-            $applications_statuses[] = $application[1];
-        }
-        if (count($applications_statuses)
-            && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
-            && !in_array(Application::STATUS_ACCEPTED, $applications_statuses))
-        {
-            $editable = true;
+        if (!count($sent_applications[1])) $editable = true;
+        else {
+            $applications_statuses = [];
+            foreach ($sent_applications[0] as $application)
+            {
+                $applications_statuses[] = $application[1];
+            }
+            if (count($applications_statuses)
+                && !in_array(Application::STATUS_IN_PROCESS, $applications_statuses)
+                && !in_array(Application::STATUS_ACCEPTED, $applications_statuses))
+            {
+                $editable = true;
+            }
         }
 
+//        echo var_dump($editable);
 
         if ($mode=='form' && 1) //todo добавить условие, что есть программы, на которые еще можно отправить заявку (неотправленные + отклоненные)
         {

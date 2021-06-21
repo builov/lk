@@ -36,6 +36,7 @@ class EditProfileForm extends Model
     public $zip;
     public $phone;
     public $agree;
+    public $oms;
 
     /**
      * {@inheritdoc}
@@ -58,7 +59,8 @@ class EditProfileForm extends Model
                 'birthdate',
                 'passport_date',
                 'citizenship',
-                'agree'], 'required', 'message' => 'Обязательное поле'],
+                'agree',
+                'oms'], 'required', 'message' => 'Обязательное поле'],
             [['birthdate', 'passport_date'], 'date', 'format' => $date_format],
             [['gender',
                 'education_level',
@@ -92,6 +94,7 @@ class EditProfileForm extends Model
                 'phone',
                 'certificate_series',
                 'certificate_number'], 'string', 'max' => 255],
+            [['oms'], 'string', 'max' => 20],
         ];
     }
 
@@ -121,6 +124,7 @@ class EditProfileForm extends Model
             'zip' => 'Почтовый индекс',
             'phone' => 'Телефон',
             'agree' => 'Я подтверждаю истинность указанных данных',
+            'oms' => 'Полис ОМС'
         ];
     }
 
@@ -175,6 +179,8 @@ class EditProfileForm extends Model
         $profile->updated = time();
         $profile->certificate_series = $this->certificate_series;
         $profile->certificate_number = $this->certificate_number;
+
+        $profile->oms = $this->oms;
 
 //        print_r($this);
 

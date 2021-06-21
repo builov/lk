@@ -58,6 +58,8 @@ class RegisterForm extends Model
     public $address_current_region;
     public $address_current_zip;
 
+    public $oms;
+
     /**
      * {@inheritdoc}
      */
@@ -81,7 +83,8 @@ class RegisterForm extends Model
                 'graduate_year',
                 'agree',
                 'birthdate',
-                'passport_date'],
+                'passport_date',
+                'oms'],
                 'required',
                 'message' => 'Обязательное поле'],
 //            [['passport_series', 'passport_number', 'passport_code', 'region', 'snils', 'certificate_series', 'certificate_number'],
@@ -128,6 +131,7 @@ class RegisterForm extends Model
                 'email',
                 'certificate_series',
                 'certificate_number'], 'string', 'max' => 255],
+            [['oms'], 'string', 'max' => 20],
         ];
     }
 
@@ -188,6 +192,7 @@ class RegisterForm extends Model
             'address_passport_zip' => 'Почтовый индекс',
             'address_current_region' => 'Регион РФ',
             'address_current_zip' => 'Почтовый индекс',
+            'oms' => 'Полис ОМС',
         ];
     }
 
@@ -289,6 +294,9 @@ class RegisterForm extends Model
         $profile->phone = $this->phone;
         $profile->agree = (int) $this->agree;
         $profile->created = time();
+
+        $profile->oms = $this->oms;
+
 //        $profile->updated
 //        $profile->status
 

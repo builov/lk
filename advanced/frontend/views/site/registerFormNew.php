@@ -15,6 +15,12 @@ $this->title = 'Регистрация';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
+<style>
+    .help-block-error {
+        margin: 0;
+    }
+</style>
+
 
     <div class="section sc__lk sides">
     <div class="container">
@@ -161,10 +167,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <div class="form__item-label">
                                                     СНИЛС
                                                 </div>
-                                                <div class="form__field form__field-small snils-field req-field" data-name="d-snils">
+                                                <div class="form__field form__field-small snils-field" data-name="d-snils">
                                                     <?= $form->field($model['reg_form'], 'snils', ['options' => ['tag' => false, 'template' => "{input}"]])
                                                         ->textInput(['class' => 'input'])->label(false) ?>
                                                     <div class="error__message fadeIn animated"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form__item form__item-horizontal">
+                                                <div class="form__item-label">
+                                                    Полис ОМС
+                                                </div>
+                                                <div class="form__field form__field-small oms-field req-field" data-name="d-oms">
+                                                    <?= $form->field($model['reg_form'], 'oms', ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                        ->textInput(['class' => 'input'])->label(false) ?>
+                                                    <div class="error__message fadeIn animated"></div>
+                                                    <div class="form__item-hint">
+                                                        Серия (если есть) и номер
+                                                    </div>
                                                 </div>
                                             </div>
 

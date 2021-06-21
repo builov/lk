@@ -413,6 +413,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <div class="error__message fadeIn animated"></div>
                                                 </div>
                                             </div>
+
                                             <div class="form__item form__item-horizontal">
                                                 <div class="form__item-label">
                                                     СНИЛС
@@ -423,6 +424,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <div class="error__message fadeIn animated"></div>
                                                 </div>
                                             </div>
+
+                                            <div class="form__item form__item-horizontal">
+                                                <div class="form__item-label">
+                                                    Полис ОМС
+                                                </div>
+                                                <div class="form__field form__field-small oms-field req-field" data-name="d-oms">
+                                                    <?= $form->field($edit_profile_form, 'oms', ['options' => ['tag' => false, 'template' => "{input}"]])
+                                                        ->textInput(['class' => 'input'])->label(false) ?>
+                                                    <div class="error__message fadeIn animated"></div>
+                                                    <div class="form__item-hint">
+                                                        Серия (если есть) и номер
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
                                             <div class="form__item form__item-horizontal gender-field">
                                                 <div class="form__item-label">
                                                     Пол
