@@ -131,7 +131,7 @@ class Message extends \yii\db\ActiveRecord
         $text = $this->template->body;
         $course = (isset($this->application)) ? '<strong>«' . $this->application->program->name . '»</strong>' : '';
 //        $course = '';
-        $datetime = $this->date;
+        $datetime = date('d.m.Y H:i', $this->date);
         $search = array(
             '[name]',
             '[course]',
