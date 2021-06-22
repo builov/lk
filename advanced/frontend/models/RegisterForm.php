@@ -59,6 +59,8 @@ class RegisterForm extends Model
     public $address_current_zip;
 
     public $oms;
+    public $the_same;
+
 
     /**
      * {@inheritdoc}
@@ -106,7 +108,8 @@ class RegisterForm extends Model
                 'address_current_region',
                 'address_passport_zip',
                 'address_current_zip',
-                'citizenship'], 'integer'],
+                'citizenship',
+                'the_same'], 'integer'],
             [['graduate_year'], 'number', 'min' => 1950, 'max' => $current_year],
             ['agree', 'compare', 'compareValue' => 1, 'operator' => '==', 'message' => 'Необходимо подтвердить согласие на обработку персональных данных.'],
             [['passport_issued',
@@ -193,6 +196,7 @@ class RegisterForm extends Model
             'address_current_region' => 'Регион РФ',
             'address_current_zip' => 'Почтовый индекс',
             'oms' => 'Полис ОМС',
+            'the_same' => 'Совпадает с адресом фактического проживания',
         ];
     }
 
@@ -286,10 +290,18 @@ class RegisterForm extends Model
         if (trim($this->address_passport_korpus) != '') $profile->address_passport .= ', корпус ' . $this->address_passport_korpus;
         if (trim($this->address_passport_stroenie) != '') $profile->address_passport .= ', строение ' . $this->address_passport_stroenie;
         if (trim($this->address_passport_apartment) != '') $profile->address_passport .= ', квартира ' . $this->address_passport_apartment;
-        $profile->address_current = $this->address_current_zip . ', ' . $this->address_current_street . ', дом ' . $this->address_current_building;
-        if (trim($this->address_current_korpus) != '') $profile->address_current .= ', корпус ' . $this->address_current_korpus;
-        if (trim($this->address_current_stroenie) != '') $profile->address_current .= ', строение ' . $this->address_current_stroenie;
-        if (trim($this->address_current_apartment) != '') $profile->address_current .= ', квартира ' . $this->address_current_apartment;
+
+        if ($this->the_same)
+        {
+            $profile->address_current = $profile->address_passport;
+        }
+        else {
+            $profile->address_current = $this->address_current_zip . ', ' . $this->address_current_street . ', дом ' . $this->address_current_building;
+            if (trim($this->address_current_korpus) != '') $profile->address_current .= ', корпус ' . $this->address_current_korpus;
+            if (trim($this->address_current_stroenie) != '') $profile->address_current .= ', строение ' . $this->address_current_stroenie;
+            if (trim($this->address_current_apartment) != '') $profile->address_current .= ', квартира ' . $this->address_current_apartment;
+        }
+
         $profile->zip = 0; //(int) $this->zip;
         $profile->phone = $this->phone;
         $profile->agree = (int) $this->agree;

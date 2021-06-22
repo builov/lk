@@ -146,6 +146,9 @@ class SiteController extends Controller
 
         if ($reg_form->load(Yii::$app->request->post())) //обработка формы
         {
+
+//            print_r($reg_form);
+
             if ($result = $reg_form->registerUser())
             {
                 //todo обработать другие ошибки: substr('error')

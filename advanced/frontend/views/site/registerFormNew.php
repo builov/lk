@@ -487,9 +487,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                                         <div class="col-12 form__field-col">
                                                             <div class="form__field">
                                                                 <div class="checkbox__list">
+
+
+
                                                                     <div class="checkbox__item" data-name="same">
                                                                         <label>
-                                                                            <input type="checkbox" checked name="the-same">
+
+<!--                                                                            <input type="checkbox" checked name="the-same">-->
+
+                                                                            <?php $model['reg_form']->the_same = 1; ?>
+                                                                            <?= $form->field(
+                                                                                $model['reg_form'],
+                                                                                'the_same',
+                                                                                ['options' => ['tag' => false, 'template' => "{input}"]]
+                                                                            )->checkbox([],false)->label(false) ?>
+
                                                                             <div class="checkbox__decor">
                                                                                 <i class="icon__checked">
                                                                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -502,6 +514,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                             </div>
                                                                         </label>
                                                                     </div>
+
+
+
                                                                 </div>
                                                             </div>
                                                         </div>
