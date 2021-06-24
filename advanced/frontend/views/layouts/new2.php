@@ -621,6 +621,9 @@ AppAssetLK::register($this);
                         imageContainer.append(data);
                         messageContainer.empty();
 
+                        //убрать кнопку загрузки
+                        if ($('.img-uploaded').length >= 10) $('#fileform-imagefile').remove();
+
                         // data = JSON.parse(data);
                         // btnSaveImage.prop('disabled', true);
                         // btnDeleteImage.fadeIn();

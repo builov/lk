@@ -171,6 +171,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="form__group form__group-files">
 
                                         <?php Pjax::begin(); ?>
+
+                                        <?php //todo загрузку файлов тоже переделать с ajax на pjax ?>
+
                                         <?php $form2 = ActiveForm::begin([
                                             'id' => 'upload-form-passport',
                                             'action' => '/profile/upload-file',
@@ -194,8 +197,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php endif; ?>
                                         </div>
 
+                                        <?php if (count($model->passport_files)<10): ?>
                                         <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
-                                            ->hint('Принимаются файлы в формате .jpg и .png размером не более 6000x6000 px.') ?>
+                                            ->hint('Принимаются файлы в формате .jpg и .png размером не более 6000x6000 px.<br>Количество файлов &mdash; не более 10.') ?>
+                                        <?php endif; ?>
 
                                         <div class="xhr-message"></div>
                                         <?php ActiveForm::end() ?>

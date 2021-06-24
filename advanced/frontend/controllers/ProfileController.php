@@ -292,6 +292,7 @@ class ProfileController extends Controller
 
 //        print_r(Files::TYPES);
 
+        //todo сейчас в шаблонах используется passport_files, переделать, оставить просто $model->files
         foreach($model->files as $file)
         {
             if ($file->mime=='jpg')
@@ -301,6 +302,8 @@ class ProfileController extends Controller
                 else if ($file->doctype==Files::TYPES['achievements'][0]) $model->achievements_files[] = $file;
             }
         }
+
+//        print_r($model->files);
 
         $form = new ApplicationForm();
 
@@ -388,6 +391,8 @@ class ProfileController extends Controller
         }
 
         $messages = Message::find()->where(['uid' => $uid, 'status' => 1])->all();
+
+//        print_r($messages);
 
         return $this->render('view', [
             'model' => $model,
