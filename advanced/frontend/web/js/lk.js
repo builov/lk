@@ -619,7 +619,7 @@ function validateField(field){
                 var date_parts = val.match(/(\d{2}).(\d{2}).(\d{4})/);
                 var year_max = new Date().getFullYear();
                 if(date_parts !== null){
-                    if(calculateAge(new Date(date_parts[2] + '/' + date_parts[1] + '/' + date_parts[3])) <= 14){
+                    if(calculateAge(new Date(date_parts[2] + '/' + date_parts[1] + '/' + date_parts[3])) <= 13){
                         item.addClass('has-error');
                         error.text('Ваш возраст должен быть мин. 14 лет');
                     }
