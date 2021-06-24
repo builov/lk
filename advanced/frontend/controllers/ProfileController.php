@@ -303,7 +303,7 @@ class ProfileController extends Controller
             }
         }
 
-//        print_r($model->files);
+//        print_r(count($model->files));
 
         $form = new ApplicationForm();
 
@@ -314,7 +314,7 @@ class ProfileController extends Controller
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
         {
-            if ($form->duplicationCheck() && $form->docsCheck())
+            if ($form->duplicationCheck() && $form->docsCheck($model->files))
             {
                 if ($form->createApplication())
                 {

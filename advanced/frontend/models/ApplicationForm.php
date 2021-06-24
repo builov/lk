@@ -54,7 +54,7 @@ class ApplicationForm extends Model
         return true;
     }
 
-    public function docsCheck()
+    public function docsCheck($files)
     {
 //          //проверка для версии с тремя типами док-тов
 //        $uid = Yii::$app->user->id;
@@ -76,6 +76,16 @@ class ApplicationForm extends Model
 //            </ul>');
 //            return false;
 //        }
+
+        if (count($files)<4)
+        {
+            Yii::$app->session->setFlash('error', 'Загрузите необходимые сканы документов:
+            <ul>
+                <li>паспорт: страница с фото, страница с пропиской (минимум 2 файла)</li>
+                <li>документы об образовании, включая приложение с оценками с двух сторон (минимум 2 файла)</li>
+            </ul>');
+            return false;
+        }
         return true;
     }
 
