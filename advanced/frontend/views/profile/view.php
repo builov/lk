@@ -199,10 +199,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                         <?php //var_dump($model->passport_files); ?>
 
-                                        <?php if (isset($model->passport_files) && count($model->passport_files)<10): ?>
+<!--                                        --><?php //if (isset($model->passport_files) && count($model->passport_files)<10): ?>
                                         <?= $form2->field($file_form, 'imageFile')->fileInput()->label(false)
                                             ->hint('Принимаются файлы в формате .jpg и .png размером не более 6000x6000 px.<br>Количество файлов &mdash; не более 10.') ?>
-                                        <?php endif; ?>
+<!--                                        --><?php //endif; ?>
 
                                         <div class="xhr-message"></div>
                                         <?php ActiveForm::end() ?>
