@@ -56,6 +56,7 @@ class ApplicationForm extends Model
 
     public function docsCheck()
     {
+//          //проверка для версии с тремя типами док-тов
 //        $uid = Yii::$app->user->id;
 //        $files = Files::find()->where(['uid' => $uid])->asArray()->all();
 //        $passport = 0;
