@@ -235,7 +235,7 @@ class ApplicationController extends Controller
             $apps[$key]['user_address_current'] = $application->user->profile->address_current;
 //            $apps[$key]['user_zip'] = $application->user->profile->zip;
             $apps[$key]['user_phone'] = $application->user->profile->phone;
-//            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
+            $apps[$key]['appl_created'] = date("Y-m-d", $application->created);
 //            foreach ($application->user->files as $file) if ($file->mime == 'pdf') $files[] = 'https://lks.medcollege7.ru/uploads/' . $file->name;
 
             $apps[$key]['user_oms'] = $application->user->profile->oms;

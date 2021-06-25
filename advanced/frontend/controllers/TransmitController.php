@@ -73,7 +73,7 @@ class TransmitController extends Controller
             $user_id = (int) $data_arr[1];
             $event_date = $data_arr[2];
             $message_code = $data_arr[3];
-            $course = (array_key_exists(4, $data_arr)) ? $data_arr[4] : false; //todo переделать, будет передаваться не название курса, а id заявки
+            $appl_id = (array_key_exists(4, $data_arr)) ? $data_arr[4] : 0; //todo переделать, будет передаваться не название курса, а id заявки
 
             //сохранение сообшения в БД
             $message = new Message();
@@ -83,9 +83,11 @@ class TransmitController extends Controller
             $message->created = time();
             $message->updated = time();
             $message->status = 1;
-//            $message->appl_id
+            $message->appl_id = $appl_id;
             $message->date = strtotime($event_date);
             $message->code = $message_code;
+
+            $course_name = ''; //todo доделать: получить название курса по $message->appl_id (id заявки)
 
             if ($message->save())
             {
@@ -93,7 +95,7 @@ class TransmitController extends Controller
                 $user = User::find()->where(['id' => $user_id])->one();
                 $subj = 'Сообщение от Приемной комиссии';
                 $data = [];
-                $data['course'] = $course;
+                $data['course'] = $course_name;
                 $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
 
                 if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
