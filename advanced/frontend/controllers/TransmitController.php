@@ -63,7 +63,7 @@ class TransmitController extends Controller
 
         $data_all_arr = explode(PHP_EOL, $data);
 
-        foreach ($data_all_arr as $data_str)
+        foreach ($data_all_arr as $data_str)  //todo посмотреть как будет работать для больших объемов данных (например, рассылка уведомлений о приеме 1046ю2
         {
             $data_arr = explode('|', $data_str);
 
@@ -73,7 +73,7 @@ class TransmitController extends Controller
             $user_id = (int) $data_arr[1];
             $event_date = $data_arr[2];
             $message_code = $data_arr[3];
-            $appl_id = (array_key_exists(4, $data_arr)) ? $data_arr[4] : 0; //todo переделать, будет передаваться не название курса, а id заявки
+            $appl_id = (array_key_exists(4, $data_arr)) ? $data_arr[4] : 0; //todo передается не название курса, а id заявки
 
             //сохранение сообшения в БД
             $message = new Message();
@@ -84,13 +84,15 @@ class TransmitController extends Controller
             $message->updated = time();
             $message->status = 1;
             $message->appl_id = $appl_id;
-            $message->date = strtotime($event_date);
+            $message->date = strtotime($event_date);  //todo работающий на данный момент вариант.
             $message->code = $message_code;
 
-            $course_name = ''; //todo доделать: получить название курса по $message->appl_id (id заявки)
+
 
             if ($message->save())
             {
+                $course_name = $message->application->program->name;
+
                 //отправка письма с сообщением
                 $user = User::find()->where(['id' => $user_id])->one();
                 $subj = 'Сообщение от Приемной комиссии';
