@@ -91,7 +91,7 @@ class TransmitController extends Controller
 
             if ($message->save())
             {
-                $course_name = (!$appl_id) ? $message->application->program->name : '';
+                $course_name = ($appl_id > 0) ? $message->application->program->name : '';
 
                 //отправка письма с сообщением
                 $user = User::find()->where(['id' => $user_id])->one();
