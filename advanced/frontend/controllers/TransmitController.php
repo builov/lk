@@ -45,6 +45,10 @@ class TransmitController extends Controller
 
     /**
      * интерфейс обмена данными с 1С
+     *
+     * запросы отправляются автоматически раз в 2 часа
+     * тип 2  - может быть много. Уточнить у ПК
+     *
      * создает сообщение для пользователя в ЛК
      * принимает строку формата "тип сообщения|uid|дата|код сообщения по АИС" или "тип сообщения|uid|дата|код сообщения по АИС|id заявки"
      * тип сообщения:
@@ -63,7 +67,7 @@ class TransmitController extends Controller
 
         $data_all_arr = explode(PHP_EOL, $data);
 
-        foreach ($data_all_arr as $data_str)  //todo посмотреть как будет работать для больших объемов данных (например, рассылка уведомлений о приеме 1046ю2
+        foreach ($data_all_arr as $data_str)  //todo посмотреть как будет работать для больших объемов данных (например, рассылка уведомлений о приеме 1046.2
         {
             $data_arr = explode('|', $data_str);
 
@@ -86,8 +90,6 @@ class TransmitController extends Controller
             $message->appl_id = $appl_id;
             $message->date = strtotime($event_date);  //todo работающий на данный момент вариант.
             $message->code = $message_code;
-
-
 
             if ($message->save())
             {
