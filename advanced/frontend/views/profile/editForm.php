@@ -41,9 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
             $model->birthdate = date("d.m.Y", strtotime($model->birthdate));
             $model->passport_date = date("d.m.Y", strtotime($model->passport_date));
 
-            echo '<pre>';
-            print_r($model);
-            echo '</pre>';
+//            echo '<pre>';
+//            print_r($model);
+//            echo '</pre>';
 
             ?>
 

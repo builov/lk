@@ -149,4 +149,9 @@ class Message extends \yii\db\ActiveRecord
         );
         return str_replace($search, $replace, $text);
     }
+
+//    public function email()
+//    {
+//
+//    }
 }

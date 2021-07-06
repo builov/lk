@@ -1,6 +1,9 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\SendEmailForm;
+use common\models\Message;
+use common\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -26,7 +29,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'email'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -51,6 +54,46 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
+    }
+
+    public function actionEmail()
+    {
+//        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+//            return $this->goBack();
+//        }
+
+        if (Yii::$app->request->post())
+        {
+            $data = new SendEmailForm();
+            $data->load(Yii::$app->request->post());
+
+            $user = User::findOne($data->uid);
+            $message = Message::findOne($data->message_id);
+            $mid = $message->id;
+
+//            print_r($message);
+
+            $subj = 'Сообщение от Приемной комиссии';
+            $data = [];
+//            $data['course'] = $course_name;
+            $data['datetime'] = date('d-m-Y H:i', $message->date);
+
+            if ($user->sendEmail($message, $subj, $data))
+            {
+                //$message = Message::findOne($mid);
+                $message->sent = 1;
+                if ($message->save()) Yii::$app->session->setFlash('success', 'Сообщение успешно отправлено.');
+            }
+//            var_dump($result);
+        }
+
+        $form = new SendEmailForm();
+        $messages = Message::find()->select('id,uid,code')->where(['code' => '1046.1', 'sent' => 0])->asArray()->all();
+
+        return $this->render('email', [
+            'messages' => $messages,
+            'form_model' => $form
+        ]);
     }
 
     /**
