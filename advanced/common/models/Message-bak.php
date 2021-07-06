@@ -17,7 +17,6 @@ use Yii;
  * @property int|null $appl_id
  * @property int|null $date
  * @property string|null $code
- * @property int|null $sent
  *
  * @property User $u
  */
@@ -46,7 +45,7 @@ class Message extends \yii\db\ActiveRecord
         '1080.2' => 'notice_1080_2',
         '1046.2' => 'notice_1046_2',
         '1080.3' => 'notice_1080_3'
-        ];
+    ];
 //    const _CODES = [
 //        '1040' => '[name]! Вы направили заявление на поступление в ГБПОУ ДЗМ МЕДИЦИНСКИЙ КОЛЛЕДЖ №7 по профессии/специальности [Специальность]. В случае положительного результата проверки заявление будет зарегистрировано, о чём Вам будет направлено уведомление.',
 //        '1050' => '[name]! Вы направили заявление на поступление в ГБПОУ ДЗМ МЕДИЦИНСКИЙ КОЛЛЕДЖ №7 по профессии/специальности [Специальность]. Ваше заявление принято и зарегистрировано.',
@@ -83,7 +82,7 @@ class Message extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'type', 'created', 'updated', 'status', 'appl_id', 'date', 'sent'], 'integer'],
+            [['uid', 'type', 'created', 'updated', 'status', 'appl_id', 'date'], 'integer'],
             [['body'], 'string'],
             [['code'], 'string', 'max' => 255],
             [['uid'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['uid' => 'id']],
@@ -106,7 +105,6 @@ class Message extends \yii\db\ActiveRecord
             'appl_id' => 'Appl ID',
             'date' => 'Date',
             'code' => 'Code',
-            'sent' => 'Sent',
         ];
     }
 

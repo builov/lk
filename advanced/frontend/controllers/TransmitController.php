@@ -71,6 +71,8 @@ class TransmitController extends Controller
         {
             $data_arr = explode('|', $data_str);
 
+            //print_r($data_arr);
+
             if (count($data_arr) < 3) continue;
 
             $message_type = (int) $data_arr[0];
@@ -91,23 +93,24 @@ class TransmitController extends Controller
             $message->date = strtotime($event_date);  //todo работающий на данный момент вариант.
             $message->code = $message_code;
 
-            if ($message->save())
-            {
-                $course_name = ($appl_id > 0) ? $message->application->program->name : '';
+            $message->save();
 
-                //отправка письма с сообщением
-                $user = User::find()->where(['id' => $user_id])->one();
-                $subj = 'Сообщение от Приемной комиссии';
-                $data = [];
-                $data['course'] = $course_name;
-                $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
-
-                if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
-            }
-
-//            print_r($message->template);
-//            if ($model->save() && $user->sendEmail($message, $subj)) Yii::$app->response->statusCode = 201;
-//            $m = Message::findOne($model->id);
+//            if ($message->save()) Yii::$app->response->statusCode = 201;
+//            {
+//                $course_name = ($appl_id > 0) ? $message->application->program->name : '';
+//
+//                //отправка письма с сообщением
+//                $user = User::find()->where(['id' => $user_id])->one();
+//                $subj = 'Сообщение от Приемной комиссии';
+//                $data = [];
+//                $data['course'] = $course_name;
+//                $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
+//
+//                if ($user->sendEmail($message, $subj, $data))
+//                    Yii::$app->response->statusCode = 201;
+//            }
         }
+
+        Yii::$app->response->statusCode = 201;
     }
 }
