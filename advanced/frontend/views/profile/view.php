@@ -298,7 +298,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <!--                                    </div>-->
 <!--                                </div>-->
 
-<!--                                --><?php //if ((bool)(count($available_programs) - count($sent_applications[0]))): ?>
+                                <?php if ((bool)(count($available_programs) - count($sent_applications[0]))): ?>
                                     <div class="orders__item orders__item-new">
                                         <div class="actions__wrap d-flex">
                                             <a href="/profile/application/form" class="btn__custom btn__custom-grey d-flex align-items-center justify-content-center">
@@ -306,7 +306,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </a>
                                         </div>
                                     </div>
-<!--                                --><?php //endif; ?>
+                                <?php endif; ?>
 
                             <?php endif; ?>
 

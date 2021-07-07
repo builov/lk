@@ -105,11 +105,11 @@ $this->title = 'Заявка на обучение';
                                 $options = $available_programs;
 
                                 //исключение из списка программ с уже отправленными заявками
-//                                foreach ($available_programs as $program_id => $program_name) {
-//                                    if (array_key_exists($program_id, $sent_applications[0])
-//                                        && $sent_applications[0][$program_id][1] != Application::STATUS_DECLINED)
-//                                        unset($options[$program_id]);
-//                                }
+                                foreach ($available_programs as $program_id => $program_name) {
+                                    if (array_key_exists($program_id, $sent_applications[0])
+                                        && $sent_applications[0][$program_id][1] != Application::STATUS_DECLINED)
+                                        unset($options[$program_id]);
+                                }
 
                                 ?>
 
