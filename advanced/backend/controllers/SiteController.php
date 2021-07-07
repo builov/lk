@@ -56,7 +56,7 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionEmail()
+    public function actionEmail($code)
     {
 //        if ($model->load(Yii::$app->request->post()) && $model->login()) {
 //            return $this->goBack();
@@ -88,7 +88,7 @@ class SiteController extends Controller
         }
 
         $form = new SendEmailForm();
-        $messages = Message::find()->select('id,uid,code')->where(['code' => '1046.1', 'sent' => 0])->asArray()->all();
+        $messages = Message::find()->select('id,uid,code')->where(['code' => $code, 'sent' => 0])->asArray()->all();
 
         return $this->render('email', [
             'messages' => $messages,

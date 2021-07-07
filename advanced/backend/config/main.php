@@ -37,14 +37,15 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'site/email/<code:(1040|1030|1046.1|1080.2|1050|1080.3|1046.2|1146.2|1080.91С|1090|1080.5|1080.4|1146.1|1046.1)>' => 'site/email'
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

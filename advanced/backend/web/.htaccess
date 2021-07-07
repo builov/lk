@@ -1,0 +1,10 @@
+Options +FollowSymlinks
+IndexIgnore */*
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule . index.php
+#или так: RewriteRule ^(.*)$ /index.php?/$1 [L]
