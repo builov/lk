@@ -84,16 +84,16 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="ct__box" style="margin-bottom: 2.5em;">
                                 <div class="custom-text text">
-<!--                                <ul>-->
-<!--                                    --><?php //foreach ($messages as $message): ?>
-<!--                                        <li>-->
-<!--                                            --><?//= $message->getText() ?>
-<!--                                            --><?////= $message->appl_id ?>
-<!--                                            --><?php //$url = '/message/' . $message->id . '/dont-show'; ?>
-<!--                                            --><?//= Html::a('Больше не показывать', [$url], ['class' => 'dont-show-message-button']) ?>
-<!--                                        </li>-->
-<!--                                    --><?php //endforeach; ?>
-<!--                                </ul>-->
+                                <ul>
+                                    <?php foreach ($messages as $message): ?>
+                                        <li>
+                                            <?= $message->getText() ?>
+                                            <?//= $message->appl_id ?>
+                                            <?php $url = '/message/' . $message->id . '/dont-show'; ?>
+                                            <?= Html::a('Больше не показывать', [$url], ['class' => 'dont-show-message-button']) ?>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
                                 </div>
                             </div>
                         <?php endif; ?>
