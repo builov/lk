@@ -126,6 +126,8 @@ class ApplicationController extends Controller
 
                         if ($message->save())
                         {
+                            Yii::$app->response->statusCode = 201;
+
 //                            print_r($application->program->name);
 
                             //отправка письма с сообщением
@@ -134,7 +136,8 @@ class ApplicationController extends Controller
                             $data = [];
                             $data['course'] = $application->program->name;
 
-                            if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;
+                            if ($user->sendEmail($message, $subj, $data)) Yii::$app->response->statusCode = 201;  //установка http-статуса дублируетсЯ выше - для успокоения операторов 1С
+                            //todo сделать здесь установку статуса sent
                         }
 //                        Yii::$app->response->statusCode = 201;
                     }
