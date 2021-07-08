@@ -93,9 +93,11 @@ class TransmitController extends Controller
             $message->date = strtotime($event_date);  //todo работающий на данный момент вариант.
             $message->code = $message_code;
 
-            $message->save();
+//            $message->save();
 
-//            if ($message->save()) Yii::$app->response->statusCode = 201;
+            if ($message->save()) Yii::$app->response->statusCode = 201;
+
+
 //            {
 //                $course_name = ($appl_id > 0) ? $message->application->program->name : '';
 //
@@ -111,6 +113,6 @@ class TransmitController extends Controller
 //            }
         }
 
-        Yii::$app->response->statusCode = 201;
+//        Yii::$app->response->statusCode = 201;
     }
 }

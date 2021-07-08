@@ -88,7 +88,7 @@ class SiteController extends Controller
         }
 
         $form = new SendEmailForm();
-        $messages = Message::find()->select('id,uid,code')->where(['code' => $code, 'sent' => 0])->asArray()->all();
+        $messages = Message::find()->select('id,uid,code,created,date')->where(['code' => $code, 'sent' => 0])->asArray()->all();
 
         return $this->render('email', [
             'messages' => $messages,
