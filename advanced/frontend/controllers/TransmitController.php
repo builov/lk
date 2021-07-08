@@ -95,7 +95,7 @@ class TransmitController extends Controller
             $message->status = 1;
             $message->appl_id = $appl_id;
             $message->date = strtotime($event_date);  //todo работающий на данный момент вариант.
-            $message->code = $message_code;
+            $message->code = trim($message_code);
 
 //            $message->save();
 
