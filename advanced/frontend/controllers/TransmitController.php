@@ -65,9 +65,9 @@ class TransmitController extends Controller
         $request = Yii::$app->request;
         $data = $request->post('data');
 
-//        $file = '/var/www/u0411460/data/www/applicant_area/advanced/frontend/web/log.php';
-//        $logdata = $data . "\n\n\n";
-//        file_put_contents($file, $logdata, FILE_APPEND | LOCK_EX);
+        $file = '/var/www/u0411460/data/www/applicant_area/advanced/frontend/log.txt';
+        $logdata = $data . "\n\n\n";
+        file_put_contents($file, $logdata, FILE_APPEND | LOCK_EX);
 
         $data_all_arr = explode(PHP_EOL, $data);
 
