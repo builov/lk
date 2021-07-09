@@ -83,7 +83,7 @@ class TransmitController extends Controller
             $user_id = (int) str_replace(' ', '', $data_arr[1]);
             $event_date = $data_arr[2];
             $message_code = $data_arr[3];
-            $appl_id = (array_key_exists(4, $data_arr)) ? $data_arr[4] : 0; //todo передается не название курса, а id заявки
+            $appl_id = (array_key_exists(4, $data_arr)) ? str_replace(' ', '', $data_arr[4]) : 0; //todo передается не название курса, а id заявки
 
             //сохранение сообшения в БД
             $message = new Message();
