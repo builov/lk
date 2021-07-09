@@ -99,22 +99,20 @@ class TransmitController extends Controller
 
 //            $message->save();
 
-            if ($message->save()) Yii::$app->response->statusCode = 201;
+            if ($message->save()) //Yii::$app->response->statusCode = 201;
+            {
+                $course_name = ($appl_id > 0) ? $message->application->program->name : '';
 
+                //отправка письма с сообщением
+                $user = User::find()->where(['id' => $user_id])->one();
+                $subj = 'Сообщение от Приемной комиссии';
+                $data = [];
+                $data['course'] = $course_name;
+                $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
 
-//            {
-//                $course_name = ($appl_id > 0) ? $message->application->program->name : '';
-//
-//                //отправка письма с сообщением
-//                $user = User::find()->where(['id' => $user_id])->one();
-//                $subj = 'Сообщение от Приемной комиссии';
-//                $data = [];
-//                $data['course'] = $course_name;
-//                $data['datetime'] = date('d-m-Y H:i', strtotime($event_date));
-//
-//                if ($user->sendEmail($message, $subj, $data))
-//                    Yii::$app->response->statusCode = 201;
-//            }
+                if ($user->sendEmail($message, $subj, $data))
+                    Yii::$app->response->statusCode = 201;
+            }
         }
 
 //        Yii::$app->response->statusCode = 201;
