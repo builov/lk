@@ -117,6 +117,20 @@ class SiteController extends Controller
 //        }
     }
 
+    public function actionTest2()
+    {
+        $query =  new \yii\db\Query();
+
+        $task = $query->select(['profile.uid', 'profile.lastname', 'profile.firstname', 'profile.patronim', 'message.code'])
+            ->from('profile')
+            ->join('LEFT JOIN', 'message', 'profile.uid = message.uid')
+            ->where(['profile.lastname' => 'Шукай'])
+//            ->groupBy('profile.uid')
+            ->all();
+
+        print_r($task);
+    }
+
 
 
     public function actionRegisterMessage()
