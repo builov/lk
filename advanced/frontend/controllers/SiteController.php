@@ -102,8 +102,6 @@ class SiteController extends Controller
 
         echo $region;
 
-
-
 //        echo '1080.91С' == '1080.91С';
 
 
@@ -119,16 +117,46 @@ class SiteController extends Controller
 
     public function actionTest2()
     {
-        $query =  new \yii\db\Query();
+//        $query =  new \yii\db\Query();
+//        $task = $query->select(['profile.uid', 'profile.lastname', 'profile.firstname', 'profile.patronim', 'message.code'])
+//            ->from('profile')
+//            ->join('LEFT JOIN', 'message', 'profile.uid = message.uid')
+//            ->where(['profile.lastname' => 'Шукай'])
+//            ->all();
 
-        $task = $query->select(['profile.uid', 'profile.lastname', 'profile.firstname', 'profile.patronim', 'message.code'])
-            ->from('profile')
-            ->join('LEFT JOIN', 'message', 'profile.uid = message.uid')
-            ->where(['profile.lastname' => 'Шукай'])
-//            ->groupBy('profile.uid')
-            ->all();
 
-        print_r($task);
+        $file = __DIR__ . '/str.txt';
+        $str = file_get_contents($file);
+
+        $data_all_arr = explode(PHP_EOL, $str);
+
+        $messages = [];
+
+        foreach ($data_all_arr as $data_str)
+        {
+            if ($data_str == '') continue;
+
+            $data_arr = explode('|', $data_str);
+
+            //print_r($data_arr);
+
+            $message_type = (int)$data_arr[0];
+//            $user_id = (int) str_replace(' ', '', $data_arr[1]);
+            $user_id = preg_replace('/[\s]+/mu', '', $data_arr[1]);
+            $event_date = $data_arr[2];
+            $message_code = $data_arr[3];
+            $appl_id = (array_key_exists(4, $data_arr)) ? str_replace(' ', '', $data_arr[4]) : 0;
+
+//            echo $user_id . "<br>\n";
+
+            $messages[$user_id] = $data_arr[0] . '|' . $user_id . '|' . $event_date . '|' . $message_code;
+        }
+
+        foreach ($messages as $message)
+        {
+            //echo $message . "<br>\n";
+        }
+
     }
 
 

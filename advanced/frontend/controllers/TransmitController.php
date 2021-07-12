@@ -67,7 +67,8 @@ class TransmitController extends Controller
 
         $file = '/var/www/u0411460/data/www/applicant_area/advanced/frontend/log.txt';
         $logdata = $data . "\n\n\n";
-        if (file_put_contents($file, $logdata, FILE_APPEND | LOCK_EX)) Yii::$app->response->statusCode = 201;
+//        if (file_put_contents($file, $logdata, FILE_APPEND | LOCK_EX)) Yii::$app->response->statusCode = 201;
+        file_put_contents($file, $logdata, FILE_APPEND | LOCK_EX);
 
         $data_all_arr = explode(PHP_EOL, $data);
 
@@ -80,7 +81,8 @@ class TransmitController extends Controller
             if (count($data_arr) < 3) continue;
 
             $message_type = (int) $data_arr[0];
-            $user_id = (int) str_replace(' ', '', $data_arr[1]);
+//            $user_id = (int) str_replace(' ', '', $data_arr[1]);
+            $user_id = preg_replace('/[\s]+/mu', '', $data_arr[1]);
             $event_date = $data_arr[2];
             $message_code = $data_arr[3];
             $appl_id = (array_key_exists(4, $data_arr)) ? str_replace(' ', '', $data_arr[4]) : 0; //todo передается не название курса, а id заявки
