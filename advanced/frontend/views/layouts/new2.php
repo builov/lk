@@ -581,6 +581,39 @@ AppAssetLK::register($this);
 
     $(function() {
 
+        var show_alert = 1;
+        $('#registerform-email').on('click', function(e)
+        {
+            e.preventDefault();
+
+            if (show_alert==1)
+            {
+                $.fancybox.open({
+                    src  : '<div class="message">' +
+                        '<h2>Внимание!</h2>' +
+                        '<p>Наблюдается проблема с доставкой электронных писем на почтовые ящики сервиса mail.ru (mail.ru, inbox.ru, list.ru, bk.ru, internet.ru). ' +
+                        'Пожалуйста, используйте, адреса других сервисов: yandex.ru, gmail.com и др.</p>' +
+                        '<button type="button" class="btn btn-primary">Закрыть</button>' +
+                        '</div>',
+                    type : 'inline',
+                    opts : {
+                        afterShow : function( instance, current ) {
+                            // console.info( 'done!' );
+                            $('.message button').on('click', function(e) { instance.close(); });
+                        }
+                    }
+                });
+            }
+
+            // alert('Внимание! Наблюдается проблема с доставкой электронных писем на почтовые ящики сервиса mail.ru (mail.ru, inbox.ru, list.ru, bk.ru, internet.ru).
+            // Пожалуйста, используйте, адреса других сервисов: yandex.ru, gmail.com и др.');
+
+            show_alert = 0;
+        });
+
+
+
+
         // console.log('sdfsdfsdf');
 
         //форма заявки на обучение
