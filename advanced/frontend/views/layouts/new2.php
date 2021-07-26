@@ -581,7 +581,7 @@ AppAssetLK::register($this);
 
     $(function() {
 
-        var show_alert = 1;
+        var show_alert = 0; //1;
         $('#registerform-email').on('click', function(e)
         {
             e.preventDefault();
