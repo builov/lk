@@ -237,28 +237,7 @@ class ProfileController extends Controller
         return false;
     }
 
-//    public function actionApplicationForm()
-//    {
-//        $uid = Yii::$app->user->id;
-//        $model = User::findOne($uid);
-//        foreach($model->files as $file)
-//        {
-//            if ($file->mime=='jpg')
-//            {
-//                if ($file->doctype==1) $model->passport_files[] = $file;
-//                else if ($file->doctype==2) $model->education_files[] = $file;
-//            }
-//        }
-//        $form = new ApplicationForm();
-//        $file_form = new FileForm();
-//        $sent_applications = $model->getSentApplications();
-//        return $this->render('applicationFormPage', [
-//            'model' => $model,
-//            'appform' => $form,
-//            'file_form' => $file_form,
-//            'sent_applications' => $sent_applications,
-//        ]);
-//    }
+
 
     public function actionTest()
     {
@@ -314,30 +293,20 @@ class ProfileController extends Controller
         //обработка формы  $model->load(Yii::$app->request->post())
         if (Yii::$app->request->isPost && $form->load(Yii::$app->request->post()))
         {
-            if ($form->duplicationCheck() && $form->docsCheck($model->files))
-            {
-                if ($form->createApplication())
-                {
-                    Yii::$app->session->setFlash('success', 'Заявка успешно отправлена.');
-                    return $this->redirect(['/profile']);
-                }
-                else {
-                    Yii::$app->session->setFlash('error', 'Ошибка. Попробуйте еще раз.');
-                }
-            }
-//            else return $this->redirect(Yii::$app->request->referrer);
-
-//            print_r($form);
-
-//            //загрузка файлов
-//            $form->imageFiles = UploadedFile::getInstances($form, 'imageFiles');
-//            if ($form->upload())
+//            обработка заявки на обучение
+//            if ($form->duplicationCheck() && $form->docsCheck($model->files))
 //            {
-//                Yii::$app->session->setFlash('success', 'Документы успешно загружены.');
+//                if ($form->createApplication())
+//                {
+//                    Yii::$app->session->setFlash('success', 'Заявка успешно отправлена.');
+//                    return $this->redirect(['/profile']);
+//                }
+//                else {
+//                    Yii::$app->session->setFlash('error', 'Ошибка. Попробуйте еще раз.');
+//                }
 //            }
-//            else {
-//                Yii::$app->session->setFlash('error', 'Ошибка загрузки документов.');
-//            }
+
+            Yii::$app->session->setFlash('error', 'Прием документов прекращен.');
         }
 
         //отправленные заявки ($applied_programs)
@@ -346,18 +315,7 @@ class ProfileController extends Controller
 
         $sent_applications = $model->getSentApplications(); //для вывода отправленных заявок со статусами и комментариями
         $available_programs = $model->getAvailablePrograms(); //доступные для абитуриента программы
-//        $applied_programs = []; //отправленные заявки (program->id => program->name)
-//        $accepted_programs = []; //одобренные заявки (program->id => program->name)
-//        foreach ($model->applications as $application)
-//        {
-//            $applied_programs[] = $application->program->name;
-//            if ($application->status < Application::STATUS_DECLINED)
-//            {
-//                $accepted_programs[] = $application->program->name; //если статус 1,2,3
-//            }
-//        }
 
-//        echo count($sent_applications[1]);
 
 
         $editable = false;
@@ -380,7 +338,8 @@ class ProfileController extends Controller
 
         if ($mode=='form' && 1) //todo добавить условие, что есть программы, на которые еще можно отправить заявку (неотправленные + отклоненные)
         {
-            return $this->render('applicationFormPage', [
+//            return $this->render('applicationFormPage', [
+            return $this->render('terminated', [
                 'model' => $model,
                 'appform' => $form,
                 'file_form' => $file_form,
@@ -394,7 +353,8 @@ class ProfileController extends Controller
 
 //        print_r($messages);
 
-        return $this->render('view', [
+//        return $this->render('view', [
+        return $this->render('terminated2', [
             'model' => $model,
             'appform' => $form,
             'file_form' => $file_form,

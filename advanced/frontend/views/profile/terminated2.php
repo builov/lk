@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <div class="orders__item orders__item-start">
 
-                                    Извините, прием заявок прекращен.
+                                    Прием заявок прекращен.
 
                                 </div>
 
