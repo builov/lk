@@ -353,8 +353,8 @@ class ProfileController extends Controller
 
 //        print_r($messages);
 
-//        return $this->render('view', [
-        return $this->render('terminated2', [
+        return $this->render('view', [
+//        return $this->render('terminated2', [
             'model' => $model,
             'appform' => $form,
             'file_form' => $file_form,
